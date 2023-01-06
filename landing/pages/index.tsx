@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { Button, styled } from '../styles/theme'
-// import styled from 'styled-components'
-import Description from './components/Description'
 import Schedule from './components/Schedule'
 
 import { Inter } from '@next/font/google'
@@ -32,7 +30,6 @@ export default function Home() {
                         <Span>No Waiver Wires.</Span> <Span>No Trades.</Span> <Span>No Bench.</Span>{' '}
                         <SpanGreen>Only Drafts.</SpanGreen>
                     </SubSubTitle>
-                    {/* <Subtitle>No Waiver Wires. No Bench. Draft at Intervals throughout the season.</Subtitle> */}
                 </Title>
                 <Schedule />
             </Container>
@@ -46,11 +43,12 @@ const SpanGreen = styled.span`
 `
 const Span = styled.span`
     margin-right: 0.3rem;
+    color: ${({ theme }) => theme.colors.light2};
 `
 
 const SubSubTitle = styled.div`
-    font-size: 0.32em;
-    font-weight: 600;
+    font-size: 1.3rem;
+    font-weight: 400;
 `
 
 const Container = styled.div`
