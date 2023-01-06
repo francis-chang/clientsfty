@@ -34,6 +34,7 @@ export default function Home() {
                 </Title>
                 <Schedule />
                 <NumGames />
+                <div>NO TRADES, NO BENCH ETC / GAME MODES / DRAFTING AI VS USERS</div>
             </Container>
         </>
     )

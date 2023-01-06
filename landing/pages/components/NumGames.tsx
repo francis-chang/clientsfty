@@ -7,11 +7,11 @@ const NumGames: React.FC = () => {
         <Container>
             <Text>
                 <UpperText>
-                    Configure each <SpanBlue>draft interval</SpanBlue> to how many <SpanBlue>week(s)</SpanBlue> or{' '}
+                    Configure each <SpanBlueOne>draft interval</SpanBlueOne> to how many <SpanBlue>week(s)</SpanBlue> or{' '}
                     <SpanBlue>games</SpanBlue> to your liking.
                 </UpperText>
                 <BottomText>
-                    Scavenging for players because they play an extra game for the week is old news.
+                    Scavenging for players on the waiver wire because they play an extra game for the week is old news.
                 </BottomText>
                 <BottomText>
                     Configure a number of games, and we'll programatically figure out which games are scored and dates
@@ -48,6 +48,10 @@ const NumGames: React.FC = () => {
 }
 
 export default NumGames
+
+const SpanBlueOne = styled.span`
+    color: ${({ theme }) => theme.colors.lightblue0};
+`
 
 const SpanBlue = styled.span`
     color: ${({ theme }) => theme.colors.lightblue2};
@@ -119,7 +123,7 @@ const Jersey = styled.div<JerseyProps>`
     border-radius: 4px;
     font-size: 1.2rem;
     font-weight: 700;
-    margin-right: 0.5rem;
+    margin-right: 0.6rem;
     width: 2.5rem;
     display: flex;
     justify-content: center;
