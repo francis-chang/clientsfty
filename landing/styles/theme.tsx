@@ -26,6 +26,8 @@ export const colors = {
     orange2: '#f47c0b',
 
     green1: '#aef99f',
+
+    red1: '#f75252',
 }
 
 export const sizes = {

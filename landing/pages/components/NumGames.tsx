@@ -152,6 +152,7 @@ const UpperText = styled.div`
 
 const Container = styled.div`
     display: flex;
+    margin-bottom: 5rem;
 `
 
 const SideContainer = styled.div`

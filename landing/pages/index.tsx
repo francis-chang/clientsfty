@@ -5,6 +5,7 @@ import Schedule from './components/Schedule'
 import NumGames from './components/NumGames'
 
 import { Inter } from '@next/font/google'
+import No from './components/No'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -34,6 +35,7 @@ export default function Home() {
                 </Title>
                 <Schedule />
                 <NumGames />
+                <No />
                 <div>NO TRADES, NO BENCH ETC / GAME MODES / DRAFTING AI VS USERS</div>
             </Container>
         </>
