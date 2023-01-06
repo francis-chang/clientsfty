@@ -118,7 +118,7 @@ export const weekEightData = {
 }
 
 export const weekTwelveData = {
-    title: 'Week 8',
+    title: 'Week 12',
     players: [
         {
             name: 'Jalen Hurts',

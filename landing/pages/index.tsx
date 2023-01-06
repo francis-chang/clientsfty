@@ -38,17 +38,21 @@ export default function Home() {
 }
 
 const SpanGreen = styled.span`
-    color: ${({ theme }) => theme.colors.orange1};
+    /* color: white; */
+    font-weight: 800;
+    color: ${({ theme }) => theme.colors.orange2};
     /* text-decoration: underline; */
 `
 const Span = styled.span`
     margin-right: 0.3rem;
-    color: ${({ theme }) => theme.colors.light2};
+    color: ${({ theme }) => theme.colors.light3};
+    font-weight: 600;
 `
 
 const SubSubTitle = styled.div`
-    font-size: 1.3rem;
-    font-weight: 400;
+    font-size: 1.2rem;
+
+    text-transform: uppercase;
 `
 
 const Container = styled.div`
