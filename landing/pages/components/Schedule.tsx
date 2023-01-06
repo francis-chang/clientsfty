@@ -160,6 +160,7 @@ const Circle = styled(motion.circle)`
 const Container = styled.div`
     position: relative;
     width: 100%;
+    margin-bottom: 20rem;
 `
 
 type RosterContainerProps = {

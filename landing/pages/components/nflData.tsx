@@ -63,8 +63,8 @@ export const weekFourData = {
         {
             name: 'Breece Hall',
             team: 'New York Jets',
-            outer_color: 'white',
-            inner_color: '#125740',
+            outer_color: '#125740',
+            inner_color: 'white',
             number: 20,
             key: 7,
         },

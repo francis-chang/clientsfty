@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Button, styled } from '../styles/theme'
 import Schedule from './components/Schedule'
+import NumGames from './components/NumGames'
 
 import { Inter } from '@next/font/google'
 const inter = Inter({ subsets: ['latin'] })
@@ -32,25 +33,26 @@ export default function Home() {
                     </SubSubTitle>
                 </Title>
                 <Schedule />
+                <NumGames />
             </Container>
         </>
     )
 }
 
 const SpanGreen = styled.span`
-    /* color: white; */
-    font-weight: 800;
-    color: ${({ theme }) => theme.colors.orange2};
+    color: white;
+    font-weight: 700;
+    /* color: ${({ theme }) => theme.colors.orange2}; */
     /* text-decoration: underline; */
 `
 const Span = styled.span`
     margin-right: 0.3rem;
     color: ${({ theme }) => theme.colors.light3};
-    font-weight: 600;
+    font-weight: 500;
 `
 
 const SubSubTitle = styled.div`
-    font-size: 1.2rem;
+    font-size: 1.1rem;
 
     text-transform: uppercase;
 `
@@ -59,7 +61,7 @@ const Container = styled.div`
     width: 100%;
     margin: 0 auto;
     max-width: 800px;
-
+    margin-bottom: 20rem;
     //left right padding media query when smaller screen
 `
 

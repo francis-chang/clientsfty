@@ -1,0 +1,63 @@
+export default [
+    {
+        name: 'Stephen Curry',
+        team: 'Golden State Warriors',
+        number: 30,
+        inner_color: '#FFC72C',
+        outer_color: '#1D428A',
+        key: 2,
+        teamsAgainst: [
+            { img: 'ATL', date: 'JAN 24' },
+            { img: 'BKN', date: 'JAN 26' },
+            { img: 'DAL', date: 'JAN 29' },
+            { img: 'DET', date: 'FEB 1' },
+            { img: 'LAL', date: 'FEB 2' },
+        ],
+    },
+    {
+        name: 'Julius Randle',
+        team: 'New York Knicks',
+        number: 30,
+        inner_color: '#F58426',
+        outer_color: '#006BB6',
+        key: 3,
+        teamsAgainst: [
+            { img: 'MIA', date: 'JAN 25' },
+            { img: 'LAC', date: 'JAN 26' },
+            { img: 'HOU', date: 'JAN 28' },
+            { img: 'NOP', date: 'JAN 30' },
+            { img: 'PHI', date: 'FEB 2' },
+        ],
+    },
+    {
+        name: 'Lauri Markannen',
+        team: 'Utah Jazz',
+        number: 23,
+        inner_color: '#dbf516',
+        outer_color: '#000',
+        key: 4,
+        teamsAgainst: [
+            { img: 'PHX', date: 'JAN 24' },
+            { img: 'POR', date: 'JAN 26' },
+            { img: 'TOR', date: 'JAN 27' },
+            { img: 'SAS', date: 'JAN 30' },
+            { img: 'WAS', date: 'FEB 2' },
+        ],
+    },
+
+    {
+        name: 'Austin Reaves',
+        team: 'Los Angeles Lakers',
+        number: 15,
+        inner_color: '#FDB927',
+        outer_color: '#552583',
+        key: 6,
+        teamsAgainst: [
+            { img: 'NYK', date: 'JAN 25' },
+            { img: 'MIN', date: 'JAN 27' },
+            { img: 'MIL', date: 'JAN 30' },
+            { img: 'MEM', date: 'FEB 1' },
+            { img: 'IND', date: 'FEB 3' },
+        ],
+    },
+]
