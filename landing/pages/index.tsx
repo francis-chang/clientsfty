@@ -60,7 +60,7 @@ const SubSubTitle = styled.div`
 const Container = styled.div`
     width: 100%;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 850px;
     margin-bottom: 20rem;
     //left right padding media query when smaller screen
 `

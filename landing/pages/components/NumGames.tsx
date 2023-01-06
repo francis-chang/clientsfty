@@ -7,13 +7,17 @@ const NumGames: React.FC = () => {
         <Container>
             <Text>
                 <UpperText>
-                    Configure each <SpanBlue>draft interval</SpanBlue> to how many <SpanBlue>weeks</SpanBlue> or how
-                    many <SpanBlue>games</SpanBlue> to your liking.
+                    Configure each <SpanBlue>draft interval</SpanBlue> to how many <SpanBlue>week(s)</SpanBlue> or{' '}
+                    <SpanBlue>games</SpanBlue> to your liking.
                 </UpperText>
                 <BottomText>
-                    Scavenging for players just because they get that extra game of the week is old news. Configure a
-                    set number of games, and we'll programatically figure out which dates you need to draft.
+                    Scavenging for players because they play an extra game for the week is old news.
                 </BottomText>
+                <BottomText>
+                    Configure a number of games, and we'll programatically figure out which games are scored and dates
+                    you need to draft.
+                </BottomText>
+                <BottomText>This way you and your opponent(s) get an evenly distributed number of games.</BottomText>
             </Text>
             <SideContainer>
                 {nbaData.map((player) => (
@@ -123,17 +127,17 @@ const Jersey = styled.div<JerseyProps>`
 `
 
 const Text = styled.div`
-    margin-top: 1rem;
     display: flex;
     flex-direction: column;
     margin-right: 1.5rem;
 `
 
 const BottomText = styled.div`
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: 1.18rem;
+    font-weight: 400;
     color: ${({ theme }) => theme.colors.light3};
     line-height: 1.6rem;
+    margin-bottom: 1rem;
 `
 
 const UpperText = styled.div`
