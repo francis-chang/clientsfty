@@ -14,8 +14,8 @@ const NumGames: React.FC = () => {
                     Scavenging for players on the waiver wire because they play an extra game for the week is old news.
                 </BottomText>
                 <BottomText>
-                    Configure a number of games, and we'll programatically figure out which games are scored and dates
-                    you need to draft.
+                    Configure a draft interval duration, and we'll programatically figure out which games are scored and
+                    dates you need to draft.
                 </BottomText>
                 <BottomText>This way you and your opponent(s) get an evenly distributed number of games.</BottomText>
             </Text>

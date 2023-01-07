@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Button, styled } from '../styles/theme'
 import Schedule from './components/Schedule'
 import NumGames from './components/NumGames'
-
 import { Inter } from '@next/font/google'
 import No from './components/No'
+import Draft from './components/Draft'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -18,7 +17,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Container style={inter.style}>
-                <Header>
+                {/* <Header>
                     <Logo>fty.gg</Logo>
                     <ButtonContainer>
                         <AuthButton style={inter.style}>Log In</AuthButton>
@@ -35,8 +34,8 @@ export default function Home() {
                 </Title>
                 <Schedule />
                 <NumGames />
-                <No />
-                <div>NO TRADES, NO BENCH ETC / GAME MODES / DRAFTING AI VS USERS</div>
+                <No /> */}
+                <Draft />
             </Container>
         </>
     )
