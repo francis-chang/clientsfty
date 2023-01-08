@@ -16,7 +16,7 @@ const No: React.FC = () => {
                     effort and energy with minimal enjoyment in return.
                 </Div>
                 <Div>Some teams forget to set their lineups; Other teams stop playing altogether.</Div>
-                <Div>So due to this problem, all drafted players will play.</Div>
+                <Div>So instead, all drafted players will play.</Div>
                 <Div>
                     We want our teams to focus only on one thing. <BoldSpan>Drafts.</BoldSpan>{' '}
                 </Div>

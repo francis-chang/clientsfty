@@ -17,7 +17,7 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Container style={inter.style}>
-                {/* <Header>
+                <Header>
                     <Logo>fty.gg</Logo>
                     <ButtonContainer>
                         <AuthButton style={inter.style}>Log In</AuthButton>
@@ -34,7 +34,7 @@ export default function Home() {
                 </Title>
                 <Schedule />
                 <NumGames />
-                <No /> */}
+                <No />
                 <Draft />
             </Container>
         </>

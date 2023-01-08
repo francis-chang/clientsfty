@@ -21,7 +21,7 @@ const NumGames: React.FC = () => {
             </Text>
             <SideContainer>
                 {nbaData.map((player) => (
-                    <PlayerElement>
+                    <PlayerElement key={player.name}>
                         <NameAndJersey>
                             <Jersey inner_color={player.inner_color} outer_color={player.outer_color}>
                                 {player.number}
@@ -33,7 +33,7 @@ const NumGames: React.FC = () => {
                         </NameAndJersey>
                         <Icons>
                             {player.teamsAgainst.map((team) => (
-                                <IconAndDate>
+                                <IconAndDate key={team.img}>
                                     <TeamIcon src={`./images/${team.img}.png`} />
 
                                     <Date>{team.date}</Date>
@@ -68,10 +68,6 @@ const Date = styled.div`
     color: ${({ theme }) => theme.colors.light2};
 `
 
-const Name = styled.div`
-    font-weight: 700;
-`
-
 const Icons = styled.div`
     display: flex;
     /* justify-content: ; */
@@ -85,6 +81,9 @@ const IconAndDate = styled.div`
     align-items: center;
 `
 
+const Name = styled.div`
+    font-weight: 700;
+`
 const Team = styled.div`
     font-weight: 500;
     font-size: 0.8rem;
