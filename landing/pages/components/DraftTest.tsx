@@ -38,7 +38,7 @@ const SpanGreen = styled.span`
 `
 
 const SpanBlue = styled.span`
-    color: ${({ theme }) => theme.colors.testgreen2};
+    color: ${({ theme }) => theme.colors.testgreen1};
 `
 
 const Text = styled.div`

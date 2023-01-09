@@ -150,7 +150,7 @@ type TimerProps = {
 
 const ActualTimer = styled(motion.div)<TimerProps>`
     height: 4px;
-    background-color: ${({ theme, color }) => (color === 'blue' ? theme.colors.light3 : theme.colors.testgreen2)};
+    background-color: ${({ theme, color }) => (color === 'blue' ? theme.colors.light3 : theme.colors.testgreen1)};
     border-radius: 10px;
 `
 

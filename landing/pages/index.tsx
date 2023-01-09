@@ -5,6 +5,7 @@ import NumGames from './components/NumGames'
 import { Inter } from '@next/font/google'
 import No from './components/No'
 import Draft from './components/Draft'
+import Try from './components/Try'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -36,6 +37,7 @@ export default function Home() {
                 <NumGames />
                 <No />
                 <Draft />
+                <Try />
             </Container>
         </>
     )
