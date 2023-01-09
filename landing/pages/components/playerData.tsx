@@ -185,7 +185,7 @@ export default [
         Number: 26,
         AverageDraftPosition: 18.8,
         FantasyPoints: 195.45,
-        inner_color: '#A71930',
+        inner_color: '#fff',
         outer_color: '#0B2265',
         team_name: 'New York Giants',
     },

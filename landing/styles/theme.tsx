@@ -25,8 +25,11 @@ export const colors = {
     orange1: '#f7a354',
     orange2: '#f47c0b',
 
-    green1: '#aef99f',
-    green2: '#66fa64',
+    green1: '#5cd65c',
+    green2: '#42f540',
+
+    testgreen1: '#47d147',
+    testgreen2: '#00cc99',
 
     red1: '#f75252',
 }
