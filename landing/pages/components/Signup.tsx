@@ -1,29 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { styled, Button } from '../../styles/theme'
 
-const Try: React.FC = () => {
+const Signup: React.FC = () => {
     return (
         <>
             <Container>
                 <Title>
-                    Try an <Span>NBA mock draft</Span>.
+                    Or start drafting<Span> for real</Span>.
                 </Title>
-                <ButtonExtended>Start</ButtonExtended>
-                <Subtitle>NFL fantasy expected for 2023 season</Subtitle>
+                <ButtonExtended>register</ButtonExtended>
             </Container>
         </>
     )
 }
 
-export default Try
+export default Signup
 
 const ButtonExtended = styled(Button)`
-    background-color: ${({ theme }) => theme.colors.orange1};
+    background-color: ${({ theme }) => theme.colors.lightblue2};
     color: ${({ theme }) => theme.colors.dark4};
     font-weight: 900;
     font-size: 1.3rem;
     &:hover {
-        background-color: ${({ theme }) => theme.colors.orange2};
+        background-color: ${({ theme }) => theme.colors.lightblue3};
     }
     margin-bottom: 1rem;
     @media (max-width: 750px) {
@@ -43,7 +42,7 @@ const Container = styled.div`
 `
 
 const Span = styled.span`
-    color: ${({ theme }) => theme.colors.orange1};
+    color: ${({ theme }) => theme.colors.lightblue2};
 `
 
 const Title = styled.div`

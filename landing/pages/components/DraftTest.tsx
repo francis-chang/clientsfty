@@ -45,6 +45,9 @@ const Text = styled.div`
     display: flex;
     flex-direction: column;
     margin-right: 1.5rem;
+    @media (max-width: 675px) {
+        margin-right: 0rem;
+    }
 `
 
 const BottomText = styled.div`
@@ -53,12 +56,27 @@ const BottomText = styled.div`
     color: ${({ theme }) => theme.colors.light3};
     line-height: 1.6rem;
     margin-bottom: 1rem;
+    @media (max-width: 750px) {
+        font-size: 1.1rem;
+    }
+    @media (max-width: 675px) {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+    }
 `
 
 const UpperText = styled.div`
     font-size: 2.6rem;
     font-weight: 900;
     margin-bottom: 1rem;
+
+    @media (max-width: 750px) {
+        font-size: 2.3rem;
+    }
+    @media (max-width: 675px) {
+        text-align: center;
+    }
 `
 
 const Container = styled.div`

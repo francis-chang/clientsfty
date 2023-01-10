@@ -17,19 +17,22 @@ export const colors = {
     lightblue0: '#6bbcf2',
     lightblue1: '#6394e9',
     lightblue2: '#4c8ffc',
+    lightblue3: '#3675e2',
 
     blue1: '#1d5cc9',
     blue2: '#154494',
     blue3: '#133d86',
 
     orange1: '#f7a354',
-    orange2: '#f47c0b',
+    orange2: '#f58924',
 
     green1: '#5cd65c',
     green2: '#42f540',
 
     testgreen1: '#47d147',
     testgreen2: '#00cc99',
+
+    peach: '#f5b16e',
 
     red1: '#f75252',
 }

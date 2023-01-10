@@ -233,6 +233,10 @@ const DraftContainer = styled.div`
     align-items: center;
     margin-right: 1.5rem;
     user-select: none;
+    @media (max-width: 675px) {
+        margin-bottom: 6rem;
+        margin-right: 0rem;
+    }
 `
 
 const Timer = styled.div`
@@ -286,6 +290,10 @@ const ADP = styled.div`
 
 const Container = styled.div`
     display: flex;
+    @media (max-width: 675px) {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
 `
 
 const InnerContainer = styled.div`

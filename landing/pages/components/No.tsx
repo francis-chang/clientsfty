@@ -44,6 +44,9 @@ const Title = styled.div`
     font-size: 2.6rem;
     font-weight: 900;
     margin-bottom: 1rem;
+    @media (max-width: 750px) {
+        font-size: 2.3rem;
+    }
 `
 
 const Span = styled.span`
@@ -60,6 +63,13 @@ const Subtitle = styled.div`
     align-items: flex-start;
     width: 70%;
     min-width: 400px;
+    @media (max-width: 750px) {
+        font-size: 1.1rem;
+    }
+    @media (max-width: 675px) {
+        width: 100%;
+        min-width: 10px;
+    }
 `
 const Div = styled.div`
     margin-bottom: 0.7rem;

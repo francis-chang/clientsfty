@@ -6,6 +6,8 @@ import { Inter } from '@next/font/google'
 import No from './components/No'
 import Draft from './components/Draft'
 import Try from './components/Try'
+import Signup from './components/Signup'
+import Footer from './components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
@@ -29,7 +31,9 @@ export default function Home() {
                     <TitleTop>A better way to play</TitleTop>
                     <TitleBottom>fantasy sports</TitleBottom>
                     <SubSubTitle>
-                        <Span>No Waiver Wires.</Span> <Span>No Trades.</Span> <Span>No Bench.</Span>{' '}
+                        <SubtitleDivider>
+                            <Span>No Waiver Wires.</Span> <Span>No Trades.</Span> <Span>No Bench.</Span>{' '}
+                        </SubtitleDivider>
                         <SpanGreen>Only Drafts.</SpanGreen>
                     </SubSubTitle>
                 </Title>
@@ -38,7 +42,9 @@ export default function Home() {
                 <No />
                 <Draft />
                 <Try />
+                <Signup />
             </Container>
+            <Footer />
         </>
     )
 }
@@ -57,16 +63,30 @@ const Span = styled.span`
 
 const SubSubTitle = styled.div`
     font-size: 1.1rem;
-
+    display: flex;
     text-transform: uppercase;
+    @media (max-width: 675px) {
+        font-size: 1rem;
+        text-align: center;
+        flex-direction: column;
+    }
+`
+
+const SubtitleDivider = styled.div`
+    display: flex;
+    @media (max-width: 675px) {
+        margin-bottom: 0.5rem;
+    }
 `
 
 const Container = styled.div`
     width: 100%;
     margin: 0 auto;
     max-width: 850px;
-    margin-bottom: 20rem;
     //left right padding media query when smaller screen
+    @media (max-width: 910px) {
+        padding: 0rem 1rem;
+    }
 `
 
 const ButtonContainer = styled.div`
@@ -121,7 +141,7 @@ const Title = styled.div`
         font-size: 2.5rem;
     }
     @media (max-width: 450px) {
-        font-size: 2rem;
+        font-size: 2.3rem;
     }
 `
 
