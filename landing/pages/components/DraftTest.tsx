@@ -82,4 +82,8 @@ const UpperText = styled.div`
 const Container = styled.div`
     display: flex;
     margin-bottom: 5rem;
+    @media (max-width: 675px) {
+        /* flex-direction: column; */
+        margin-bottom: 1rem;
+    }
 `

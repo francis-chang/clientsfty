@@ -96,7 +96,7 @@ const Draft: React.FC = () => {
                             onAnimationComplete={onAnimationComplete}
                         >
                             {playerData.map((player: any) => (
-                                <NameAndJersey>
+                                <NameAndJersey key={player.Name}>
                                     <NameContainer>
                                         <Jersey inner_color={player.inner_color} outer_color={player.outer_color}>
                                             {player.Number}

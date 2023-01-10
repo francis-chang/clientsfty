@@ -170,10 +170,11 @@ const UpperText = styled.div`
 const Container = styled.div`
     display: flex;
     margin-bottom: 5rem;
+    align-items: flex-start;
     @media (max-width: 675px) {
         flex-direction: column;
+        align-items: center;
     }
-    align-items: center;
 `
 
 const SideContainer = styled.div`
