@@ -20,7 +20,7 @@ const InputContainer: React.FC<Props> = ({ inputvalue, onvaluechange, isPassword
                 <>
                     <Input
                         id={id}
-                        type={inputVisible ? 'text' : 'password'}
+                        type={inputVisible ? 'password' : 'text'}
                         value={inputvalue}
                         onChange={onvaluechange}
                         spellCheck={false}
@@ -47,7 +47,7 @@ const IconContainer = styled.div`
     display: flex;
     justify-content: center;
     cursor: pointer;
-    color: ${({ theme }) => theme.colors.dark25};
+    color: ${({ theme }) => theme.colors.light4};
     transition-duration: 125ms;
     transition-timing-function: ease;
     &:hover {
@@ -64,9 +64,9 @@ const InputWrapper = styled.div`
 `
 
 const Input = styled.input`
-    background-color: ${({ theme }) => theme.colors.dark4};
-    outline: ${({ theme }) => `${theme.colors.dark1} solid 1px`};
-    color: ${({ theme }) => theme.colors.light2};
+    background-color: ${({ theme }) => theme.colors.dark3};
+    outline: ${({ theme }) => `${theme.colors.light4} solid 1px`};
+    color: ${({ theme }) => theme.colors.light1};
     border: none;
     padding: 0rem 1rem;
     height: 2.8rem;

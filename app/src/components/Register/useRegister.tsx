@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-// import authAPI from 'utils/api/auth'
-// import apiAuth from 'utils/api/auth'
+import { useQuery, useQueryClient } from 'react-query'
+
+import { findUsernameAvailable, findEmailAvailable } from 'utils/api/auth'
 
 /**
  * VALIDATIONS FOR USERNAME / PASSWORD ARE SUBJECT TO CHANGE
@@ -39,8 +40,12 @@ const defaultUsernameState: UsernameCreateField = {
 const defaultPasswordState: PasswordCreateField = {
     str: '',
     hasAtLeastOneAlpha: { value: false, description: 'Must contain At Least One Letter' },
-    hasAtLeastOneNumeric: { value: false, description: 'Must cotain At Least One Number' },
+    hasAtLeastOneNumeric: { value: false, description: 'Must contain At Least One Number' },
     isBetweenLengthOf8and100: { value: false, description: 'Must be Between 8-100 Characters' },
+    hasSpecialCharacter: {
+        value: false,
+        description: `Must have a Special Character\n@ $ ! % * # ?  or &`,
+    },
 
     // TODO: find out which characters are acceptable for password, regex match against that
     // hasOnlyAllowedChars: {value: false, description: ''}
@@ -56,6 +61,7 @@ const defaultEmailState: EmailCreateField = {
 
 const useRegister = () => {
     // REGULAR EXPRESSIONS
+    const query = useQueryClient()
     const [username, setU] = useState<UsernameCreateField>(defaultUsernameState)
     const [password, setP] = useState<PasswordCreateField>(defaultPasswordState)
     const [email, setE] = useState(defaultEmailState)
@@ -86,19 +92,19 @@ const useRegister = () => {
             clearTimeout(timeout)
         }
         const t = setTimeout(async () => {
-            //response is boolean
-            // const response = await authAPI.findUsername(name)
-            // if (response) {
-            //     setU((user) =>
-            //         user.isBetweenLengthOf6and30.value
-            //             ? { ...user, usernameNotTaken: { ...user.usernameNotTaken, value: true } }
-            //             : { ...user, usernameNotTaken: { ...user.usernameNotTaken, value: false } }
-            //     )
-            //     setUsernameFetching(false)
-            // } else {
-            //     setU((user) => ({ ...user, usernameNotTaken: { ...user.usernameNotTaken, value: false } }))
-            //     setUsernameFetching(false)
-            // }
+            const response = await findUsernameAvailable(name)
+            if (response) {
+                setU((user) =>
+                    user.isBetweenLengthOf6and30.value
+                        ? { ...user, usernameNotTaken: { ...user.usernameNotTaken, value: true } }
+                        : { ...user, usernameNotTaken: { ...user.usernameNotTaken, value: false } }
+                )
+                setUsernameFetching(false)
+            } else {
+                console.log('do i get here')
+                setU((user) => ({ ...user, usernameNotTaken: { ...user.usernameNotTaken, value: false } }))
+                setUsernameFetching(false)
+            }
         }, TIMEOUT_VALUE)
         setT(t)
         return t
@@ -113,18 +119,18 @@ const useRegister = () => {
         }
         const t = setTimeout(async () => {
             //response is boolean
-            // const response = await authAPI.findEmail(email)
-            // if (response) {
-            //     setE((email) =>
-            //         email.str.length > 0
-            //             ? { ...email, isUniqueEmail: { ...email.isUniqueEmail, value: true } }
-            //             : { ...email, isUniqueEmail: { ...email.isUniqueEmail, value: false } }
-            //     )
-            //     setEmailFetching(false)
-            // } else {
-            //     setE((email) => ({ ...email, isUniqueEmail: { ...email.isUniqueEmail, value: false } }))
-            //     setEmailFetching(false)
-            // }
+            const response = await findEmailAvailable(email)
+            if (response) {
+                setE((email) =>
+                    email.str.length > 0
+                        ? { ...email, isUniqueEmail: { ...email.isUniqueEmail, value: true } }
+                        : { ...email, isUniqueEmail: { ...email.isUniqueEmail, value: false } }
+                )
+                setEmailFetching(false)
+            } else {
+                setE((email) => ({ ...email, isUniqueEmail: { ...email.isUniqueEmail, value: false } }))
+                setEmailFetching(false)
+            }
         }, TIMEOUT_VALUE)
         setT(t)
         return t
@@ -192,6 +198,17 @@ const useRegister = () => {
         }
     }
 
+    const testSpecialChar = (pass: string) => {
+        const specialChars = ['@', '$', '!', '%', '*', '#', '?', '&']
+        let hasSpecialChar = false
+        specialChars.forEach((char) => {
+            if (pass.indexOf(char) >= 0) {
+                hasSpecialChar = true
+            }
+        })
+        return hasSpecialChar
+    }
+
     const setPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         const pswd = e.target.value
         if (pswd.length === 0) {
@@ -217,6 +234,12 @@ const useRegister = () => {
             state.hasAtLeastOneNumeric = { ...password.hasAtLeastOneNumeric, value: true }
         } else {
             state.hasAtLeastOneNumeric = { ...password.hasAtLeastOneNumeric, value: false }
+        }
+
+        if (testSpecialChar(pswd)) {
+            state.hasSpecialCharacter = { ...password.hasSpecialCharacter, value: true }
+        } else {
+            state.hasSpecialCharacter = { ...password.hasSpecialCharacter, value: false }
         }
         setP(state)
     }

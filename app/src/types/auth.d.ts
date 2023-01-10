@@ -16,6 +16,7 @@ type PasswordCreateField = {
     hasAtLeastOneAlpha: ValueAndDescription
     hasAtLeastOneNumeric: ValueAndDescription
     isBetweenLengthOf8and100: ValueAndDescription
+    hasSpecialCharacter: ValueAndDescription
 }
 
 type EmailCreateField = {

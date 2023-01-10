@@ -82,8 +82,9 @@ type ContainerProps = {
 const Container = styled.div<ContainerProps>`
     width: 100%;
     border-radius: 4px;
+    /* background-color: ${({ theme }) => theme.colors.dark3}; */
     outline: ${({ theme, isValid }) =>
-        isValid ? `1px solid ${theme.colors.green2}` : `1px solid ${theme.colors.light4}`};
+        isValid ? `1px solid ${theme.colors.testgreen3}` : `1px solid ${theme.colors.light4}`};
     transition-duration: 125ms;
     transition-timing-function: ease;
     padding: 0.5rem;
@@ -97,11 +98,12 @@ type ElementProps = {
     fetching: null | boolean
 }
 const Element = styled.div<ElementProps>`
-    color: ${({ valid, theme }) => (valid ? theme.colors.green1 : theme.colors.light4)};
+    color: ${({ valid, theme }) => (valid ? theme.colors.testgreen3 : theme.colors.light3)};
     &:not(:last-child) {
         margin-bottom: 1rem;
     }
     animation: ${({ fetching }) => (fetching ? `pulsate 1.5s alternate infinite` : '')};
     transition-duration: 125ms;
     transition-timing-function: ease;
+    white-space: pre-wrap;
 `

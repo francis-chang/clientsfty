@@ -4,7 +4,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     padding-top: 5rem;
-    width: 20rem;
+    width: 21rem;
 `
 
 const AuthContainer = styled.form`
@@ -14,7 +14,7 @@ const AuthContainer = styled.form`
     flex-direction: column;
 `
 
-const Title = styled.div`
+const ContainerTitle = styled.div`
     font-weight: 700;
     font-size: 2.5rem;
     text-align: center;
@@ -52,4 +52,4 @@ const Input = styled.input`
     }
 `
 
-export { Title, AuthContainer, Container, Input, Label, LabelAndInput }
+export { ContainerTitle, AuthContainer, Container, Input, Label, LabelAndInput }

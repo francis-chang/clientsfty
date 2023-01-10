@@ -11,6 +11,7 @@ export const colors = {
 
     light1: '#e2e5e9',
     light2: '#c5cbd3',
+    light25: '#b6bec8',
     light3: '#99a5b2',
     light4: '#7c8b9c',
 
@@ -31,10 +32,17 @@ export const colors = {
 
     testgreen1: '#47d147',
     testgreen2: '#00cc99',
+    testgreen3: '#72f763',
 
     peach: '#f5b16e',
 
     red1: '#f75252',
+
+    discordcolor: '#e4e5e7',
+    discordbackground: '#4a67cf',
+    discordhover: '#304db5',
+    googlecolor: '#e7f0fe',
+    googlebackground: '#4285F4',
 }
 
 export const sizes = {
@@ -86,6 +94,8 @@ export const Button = styled.button`
     text-transform: uppercase;
     transition-timing-function: ease;
     transition-duration: 150ms;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue',
+        sans-serif;
     &:hover {
         background-color: ${({ theme }) => theme.colors.blue1};
     }
@@ -109,6 +119,18 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         letter-spacing: 0px;
         background-color: ${({ theme }) => theme.colors.dark4};
         color:${({ theme }) => theme.colors.light2};
+    }
+
+    @keyframes pulsate {
+        0% {
+            color: ${({ theme }) => theme.colors.light4};
+        }
+        50% {
+            color: ${({ theme }) => theme.colors.orange1};
+        }
+        100% {
+            color: ${({ theme }) => theme.colors.light4};
+        }
     }
 
 

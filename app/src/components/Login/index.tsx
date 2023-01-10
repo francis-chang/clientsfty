@@ -1,91 +1,62 @@
 import React from 'react'
 import { Container, AuthContainer, ContainerTitle, Input, Label, LabelAndInput } from '../styles'
 import { Link } from 'react-router-dom'
-import useRegister from './useRegister'
-import Checkbox from './Checkbox'
+
 import InputContainer from 'components/AuthInput'
 import { styled, Button } from 'utils/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons'
+import useLogin from './useLogin'
 
-const Register: React.FC = () => {
-    const [
-        username,
-        password,
-        setUsername,
-        setPassword,
-        email,
-        setEmail,
-        ableToSubmit,
-        submitCreate,
-        usernameFetching,
-        emailFetching,
-    ] = useRegister()
+const Login: React.FC = () => {
+    const [username, password, setUsername, setPassword, submitLogin] = useLogin()
+
     return (
         <Container>
             <ContainerTitle>fty.gg</ContainerTitle>
             <AuthContainer>
                 <Label htmlFor="username">username</Label>
-                <Checkbox data={username} fetching={usernameFetching} />
-                <InputContainer
-                    id="username"
-                    inputvalue={username.str}
-                    onvaluechange={setUsername}
-                    isPassword={false}
-                />
+                <InputContainer id="username" inputvalue={username} onvaluechange={setUsername} isPassword={false} />
                 <Label htmlFor="password">password</Label>
-                <Checkbox data={password} fetching={null} />
-                <InputContainer id="password" inputvalue={password.str} onvaluechange={setPassword} isPassword={true} />
-                <Label htmlFor="email">email</Label>
-                <Checkbox data={email} fetching={emailFetching} />
-                <InputContainer id="email" inputvalue={email.str} onvaluechange={setEmail} isPassword={false} />
-                <SubmitButton
-                    // title={ableToSubmit ? 'Create User' : 'Fill Inpt Requirements'}
-                    disabled={!ableToSubmit}
-                >
-                    {ableToSubmit ? 'register' : 'Fill Requirements'}
-                </SubmitButton>
+                <InputContainer id="password" inputvalue={password} onvaluechange={setPassword} isPassword={true} />
+                <SubmitButton>Log in</SubmitButton>
                 <OrContainer>
                     <Border />
                     <div>OR</div>
                     <Border />
                 </OrContainer>
                 <OauthButton isDiscord={true}>
-                    <OauthText>Sign up with Discord</OauthText>
+                    <OauthText>Log in with Discord</OauthText>
                     <IconWrapper>
                         <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
                     </IconWrapper>
                 </OauthButton>
                 <OauthButton isDiscord={false}>
-                    <OauthText>Sign up with Google</OauthText>
+                    <OauthText>Log in with Google</OauthText>
                     <IconWrapper>
                         <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
                     </IconWrapper>
                 </OauthButton>
             </AuthContainer>
-            <AlreadyContainer to="/login">
-                Already signed up? <Span>Log in here</Span>
+
+            <AlreadyContainer to="/register">
+                Not Signed Up? <Span>Register here</Span>
             </AlreadyContainer>
         </Container>
     )
 }
 
-export default Register
+export default Login
 
 const OauthText = styled.div`
     flex-grow: 1;
     text-align: center;
-`
-const Span = styled.span`
-    text-decoration: underline;
-    padding-left: 0.5rem;
 `
 
 export const BareLink = styled(Link)`
     color: ${({ theme }) => theme.colors.light2};
     text-decoration: none;
 `
-
 const AlreadyContainer = styled(BareLink)`
     font-size: 0.95rem;
     width: 100%;
@@ -97,6 +68,10 @@ const AlreadyContainer = styled(BareLink)`
     cursor: pointer;
 `
 
+const Span = styled.span`
+    text-decoration: underline;
+    padding-left: 0.5rem;
+`
 const IconWrapper = styled.div`
     display: flex;
     width: 5rem;
@@ -128,7 +103,7 @@ type OauthButtonProps = {
 
 const OauthButton = styled(Button)<OauthButtonProps>`
     font-weight: 800;
-    background-color: ${({ theme, isDiscord }) => (isDiscord ? theme.colors.discordhover : theme.colors.light25)};
+    background-color: ${({ theme, isDiscord }) => (isDiscord ? theme.colors.discordhover : theme.colors.light2)};
     color: ${({ theme, isDiscord }) => (isDiscord ? theme.colors.discordcolor : theme.colors.dark4)};
     cursor: pointer;
     border-radius: 4px;
