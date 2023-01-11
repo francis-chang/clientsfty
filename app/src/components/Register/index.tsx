@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import useAuthStore from 'utils/state/useAuthStore'
 import { shallow } from 'zustand/shallow'
-import Error from 'components/Error'
 
 const Register: React.FC = () => {
     const [
@@ -25,65 +24,52 @@ const Register: React.FC = () => {
         emailFetching,
     ] = useRegister()
 
-    const { user, error, setError } = useAuthStore(
-        (state) => ({ user: state.user, error: state.error, setError: state.setError }),
-        shallow
-    )
-
     return (
-        <>
-            <Error error={error} setError={setError} />
-            <Container>
-                <ContainerTitle>fty.gg</ContainerTitle>
-                <AuthContainer onSubmit={submitCreate}>
-                    <Label htmlFor="username">username</Label>
-                    <Checkbox data={username} fetching={usernameFetching} />
-                    <InputContainer
-                        id="username"
-                        inputvalue={username.str}
-                        onvaluechange={setUsername}
-                        isPassword={false}
-                    />
-                    <Label htmlFor="password">password</Label>
-                    <Checkbox data={password} fetching={null} />
-                    <InputContainer
-                        id="password"
-                        inputvalue={password.str}
-                        onvaluechange={setPassword}
-                        isPassword={true}
-                    />
-                    <Label htmlFor="email">email</Label>
-                    <Checkbox data={email} fetching={emailFetching} />
-                    <InputContainer id="email" inputvalue={email.str} onvaluechange={setEmail} isPassword={false} />
-                    <SubmitButton
-                        // title={ableToSubmit ? 'Create User' : 'Fill Inpt Requirements'}
-                        disabled={!ableToSubmit}
-                    >
-                        {ableToSubmit ? 'register' : 'Fill Requirements'}
-                    </SubmitButton>
-                    <OrContainer>
-                        <Border />
-                        <div>OR</div>
-                        <Border />
-                    </OrContainer>
-                    <OauthButton isDiscord={true}>
-                        <OauthText>Sign up with Discord</OauthText>
-                        <IconWrapper>
-                            <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
-                        </IconWrapper>
-                    </OauthButton>
-                    <OauthButton isDiscord={false}>
-                        <OauthText>Sign up with Google</OauthText>
-                        <IconWrapper>
-                            <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
-                        </IconWrapper>
-                    </OauthButton>
-                </AuthContainer>
-                <AlreadyContainer to="/login">
-                    Already signed up? <Span>Log in here</Span>
-                </AlreadyContainer>
-            </Container>
-        </>
+        <Container>
+            <ContainerTitle>fty.gg</ContainerTitle>
+            <AuthContainer onSubmit={submitCreate}>
+                <Label htmlFor="username">username</Label>
+                <Checkbox data={username} fetching={usernameFetching} />
+                <InputContainer
+                    id="username"
+                    inputvalue={username.str}
+                    onvaluechange={setUsername}
+                    isPassword={false}
+                />
+                <Label htmlFor="password">password</Label>
+                <Checkbox data={password} fetching={null} />
+                <InputContainer id="password" inputvalue={password.str} onvaluechange={setPassword} isPassword={true} />
+                <Label htmlFor="email">email</Label>
+                <Checkbox data={email} fetching={emailFetching} />
+                <InputContainer id="email" inputvalue={email.str} onvaluechange={setEmail} isPassword={false} />
+                <SubmitButton
+                    // title={ableToSubmit ? 'Create User' : 'Fill Inpt Requirements'}
+                    disabled={!ableToSubmit}
+                >
+                    {ableToSubmit ? 'register' : 'Fill Requirements'}
+                </SubmitButton>
+                <OrContainer>
+                    <Border />
+                    <div>OR</div>
+                    <Border />
+                </OrContainer>
+                <OauthButton isDiscord={true}>
+                    <OauthText>Sign up with Discord</OauthText>
+                    <IconWrapper>
+                        <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
+                    </IconWrapper>
+                </OauthButton>
+                <OauthButton isDiscord={false}>
+                    <OauthText>Sign up with Google</OauthText>
+                    <IconWrapper>
+                        <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
+                    </IconWrapper>
+                </OauthButton>
+            </AuthContainer>
+            <AlreadyContainer to="/login">
+                Already signed up? <Span>Log in here</Span>
+            </AlreadyContainer>
+        </Container>
     )
 }
 

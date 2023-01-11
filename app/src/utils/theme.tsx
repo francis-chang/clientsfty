@@ -36,7 +36,7 @@ export const colors = {
 
     peach: '#f5b16e',
 
-    red1: '#f75252',
+    red1: '#fa2f2f',
 
     discordcolor: '#e4e5e7',
     discordbackground: '#4a67cf',

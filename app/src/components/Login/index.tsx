@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, AuthContainer, ContainerTitle, Input, Label, LabelAndInput } from '../styles'
+import { Container, AuthContainer, ContainerTitle, Label } from '../styles'
 import { Link } from 'react-router-dom'
 
 import InputContainer from 'components/AuthInput'

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import useAuthStore from 'utils/state/useAuthStore'
+import useErrorStore from 'utils/state/useErrorStore'
 
 // const DEV_ENVIRONMENT = import.meta.env.NODE_ENV === 'development'
 
@@ -53,6 +53,7 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
     } catch (err: any) {
         console.error(`error fetching ${url}`)
         if (err.response) {
+            console.log(err.response.data)
             if (store) {
                 store.setState({ error: err.response.data.msg })
             }
@@ -98,11 +99,11 @@ type UserCreateResponse = {
 }
 
 const createUser = async (username: string, password: string, email: string) => {
-    return await apiPost<UserCreateResponse>(`/createuser`, { username, password, email }, useAuthStore)
+    return await apiPost<UserCreateResponse>(`/createuser`, { username, password, email }, useErrorStore)
 }
 
 const login = async (username: string, password: string) => {
-    return await apiPost<UserCreateResponse>(`/login`, { username, password }, useAuthStore)
+    return await apiPost<UserCreateResponse>(`/login`, { username, password }, useErrorStore)
 }
 
 export { findUsernameAvailable, findEmailAvailable, createUser, login }

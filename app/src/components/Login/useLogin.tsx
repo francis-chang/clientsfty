@@ -1,13 +1,18 @@
 import { useState } from 'react'
 import { login } from 'utils/api/auth'
+import useAuthStore from 'utils/state/useAuthStore'
 
 const useLogin = () => {
     const [username, setU] = useState('')
     const [password, setP] = useState('')
 
-    const submitLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        login(username, password)
+        const response = await login(username, password)
+        if (response) {
+            const { user_id, username } = response
+            useAuthStore.setState({ user: { user_id, username } })
+        }
     }
 
     const setUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
