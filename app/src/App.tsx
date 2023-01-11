@@ -10,6 +10,7 @@ import { shallow } from 'zustand/shallow'
 import Error from 'components/Error'
 import { useEffect } from 'react'
 import useErrorStore from 'utils/state/useErrorStore'
+import MockDraft from 'components/MockDraft'
 
 // QueryClient can be configurable, see below
 
@@ -31,21 +32,16 @@ function App() {
     const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
     const { error, setError } = useErrorStore((state) => ({ error: state.error, setError: state.setError }), shallow)
 
-    // useEffect(() => {
-    //     console.log(user)
-    // }, [user])
-
     const authLoader = () => {
         if (user) {
             return redirect('/')
         }
         return null
     }
-
     return (
         <ThemeProvider theme={theme}>
-            <Error error={error} setError={setError} />
             <GlobalStyle />
+            <Error error={error} setError={setError} />
             <QueryClientProvider client={queryClient}>
                 <RouterProvider
                     router={createBrowserRouter([
@@ -59,6 +55,7 @@ function App() {
                             element: <Login />,
                             loader: authLoader,
                         },
+                        { path: '/mockdraft', element: <MockDraft /> },
                         { path: '/', element: <Home /> },
                     ])}
                 />

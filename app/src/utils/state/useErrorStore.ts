@@ -6,7 +6,7 @@ interface UserState {
     setError: (error: string | null) => void
 }
 
-const useAuthStore = create<UserState>()(
+const useErrorStore = create<UserState>()(
     devtools(
         persist(
             (set) => ({
@@ -20,4 +20,4 @@ const useAuthStore = create<UserState>()(
     )
 )
 
-export default useAuthStore
+export default useErrorStore
