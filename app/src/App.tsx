@@ -4,10 +4,12 @@ import { ThemeProvider } from 'styled-components'
 import { theme, GlobalStyle } from 'utils/theme'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import Login from 'components/Login'
+import Home from 'components/Home'
 
 const router = createBrowserRouter([
     { path: '/register', element: <Register /> },
     { path: '/login', element: <Login /> },
+    { path: '/', element: <Home /> },
 ])
 
 function App() {

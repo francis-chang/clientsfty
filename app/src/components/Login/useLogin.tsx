@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// import authAPI from 'utils/api/auth'
+import { login } from 'utils/api/auth'
 
 const useLogin = () => {
     const [username, setU] = useState('')
@@ -7,7 +7,7 @@ const useLogin = () => {
 
     const submitLogin = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // authAPI.login(username, password)
+        login(username, password)
     }
 
     const setUsername = (e: React.ChangeEvent<HTMLInputElement>) => {

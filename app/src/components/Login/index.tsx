@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     return (
         <Container>
             <ContainerTitle>fty.gg</ContainerTitle>
-            <AuthContainer>
+            <AuthContainer onSubmit={submitLogin}>
                 <Label htmlFor="username">username</Label>
                 <InputContainer id="username" inputvalue={username} onvaluechange={setUsername} isPassword={false} />
                 <Label htmlFor="password">password</Label>

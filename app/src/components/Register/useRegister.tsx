@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
+import useAuthStore from 'utils/state/useAuthStore'
 
-import { findUsernameAvailable, findEmailAvailable } from 'utils/api/auth'
+import { findUsernameAvailable, findEmailAvailable, createUser } from 'utils/api/auth'
 
 /**
  * VALIDATIONS FOR USERNAME / PASSWORD ARE SUBJECT TO CHANGE
@@ -44,7 +44,7 @@ const defaultPasswordState: PasswordCreateField = {
     isBetweenLengthOf8and100: { value: false, description: 'Must be Between 8-100 Characters' },
     hasSpecialCharacter: {
         value: false,
-        description: `Must have a Special Character\n@ $ ! % * # ?  or &`,
+        description: `Must have a Special Character\n@ $ ! % * # ?  or & are Valid.`,
     },
 
     // TODO: find out which characters are acceptable for password, regex match against that
@@ -61,7 +61,6 @@ const defaultEmailState: EmailCreateField = {
 
 const useRegister = () => {
     // REGULAR EXPRESSIONS
-    const query = useQueryClient()
     const [username, setU] = useState<UsernameCreateField>(defaultUsernameState)
     const [password, setP] = useState<PasswordCreateField>(defaultPasswordState)
     const [email, setE] = useState(defaultEmailState)
@@ -244,9 +243,13 @@ const useRegister = () => {
         setP(state)
     }
 
-    const submitCreate = (event: React.FormEvent<HTMLFormElement>) => {
+    const submitCreate = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        // authAPI.createuser(username.str, password.str, email.str)
+        const response = await createUser(username.str, password.str, email.str)
+        if (response) {
+            const { user_id, username } = response
+            useAuthStore.setState({ user: { user_id, username } })
+        }
     }
 
     return [
