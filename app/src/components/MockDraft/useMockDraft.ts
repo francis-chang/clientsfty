@@ -41,11 +41,18 @@ const youPlacement = Math.round(Math.random() * 9 + 1)
 const teams = [...t.slice(0, youPlacement), { name: 'YOU', team: [] }, ...t.slice(youPlacement, t.length)]
 
 const initialState = {
-    draftStarted: false,
     teams,
     picked: null,
     round: 0,
-} as { draftStarted: boolean; teams: TeamElement[]; picked: null | MockDraftPlayer; round: number }
+    draftFinished: false,
+    currentPick: 1,
+} as {
+    draftFinished: boolean
+    teams: TeamElement[]
+    picked: null | number
+    round: number
+    currentPick: number
+}
 
 export default () => {
     const [state, setState] = useState(initialState)
@@ -55,13 +62,12 @@ export default () => {
     useEffect(() => {
         if (data) {
             console.log(data)
-            setState({ ...state, teams: data.teams, round: data.round })
+            setState({ ...state, ...data })
         }
     }, [data])
 
     const setPicked = (player: MockDraftPlayer) => {
-        console.log(player)
-        setState({ ...state, picked: player })
+        setState({ ...state, picked: player.PlayerID })
     }
 
     const onClick = () => {

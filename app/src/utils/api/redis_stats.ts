@@ -90,7 +90,7 @@ const getMockDraftList = async () => {
 }
 
 const draft = async (data: any) => {
-    const response = await mockDraftBase.post('draft', data)
+    const response = await mockDraftBase.post('d', data)
     if (response) {
         return response.data
     }
