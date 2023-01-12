@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query'
 import { draft, getMockDraftList } from 'utils/api/redis_stats'
 import useErrorStore from 'utils/state/useErrorStore'
 
@@ -12,13 +12,24 @@ function shuffle(array: any[]) {
     return array
 }
 
-const teams = shuffle([
+type TeamElement = {
+    name: string
+    team: FilteredDraftedPlayer[]
+}
+
+type FilteredDraftedPlayer = {
+    PlayerID: number
+    name: string
+    score: number
+    n: number
+}
+
+const t: TeamElement[] = shuffle([
     { name: 'AdamAI', team: [] },
     { name: 'BenjaminAI', team: [] },
     { name: 'CharlieAI', team: [] },
     { name: 'DavidAI', team: [] },
     { name: 'EdwardAI', team: [] },
-    { name: 'YOU', team: [] },
     { name: 'GeorgeAI', team: [] },
     { name: 'HarryAI', team: [] },
     { name: 'IsabellaAI', team: [] },
@@ -26,28 +37,43 @@ const teams = shuffle([
     { name: 'KendallAI', team: [] },
     { name: 'MariAI', team: [] },
 ])
+const youPlacement = Math.round(Math.random() * 9 + 1)
+const teams = [...t.slice(0, youPlacement), { name: 'YOU', team: [] }, ...t.slice(youPlacement, t.length)]
 
 const initialState = {
     draftStarted: false,
     teams,
-    pick: teams.indexOf('YOU') + 1,
-}
+    picked: null,
+    round: 0,
+} as { draftStarted: boolean; teams: TeamElement[]; picked: null | MockDraftPlayer; round: number }
 
 export default () => {
     const [state, setState] = useState(initialState)
-    // const { isLoading, error, data } = useQuery('mockDraftList', getMockDraftList)
-    const { isLoading, error, data } = useQuery('mockDraftList', () => draft(initialState))
+    const draftListQuery = useQuery('mockDraftList', getMockDraftList)
+    const { data, refetch } = useQuery('draftData', () => draft(state), { enabled: false, refetchOnWindowFocus: false })
 
     useEffect(() => {
-        console.log(data)
+        if (data) {
+            console.log(data)
+            setState({ ...state, teams: data.teams, round: data.round })
+        }
     }, [data])
 
-    useEffect(() => {
-        if (error) {
-            console.log(error)
-            useErrorStore.setState({ error: 'Something went wrong. Please try again later.' })
-        }
-    }, [error])
+    const setPicked = (player: MockDraftPlayer) => {
+        console.log(player)
+        setState({ ...state, picked: player })
+    }
 
-    return [data, isLoading, state] as const
+    const onClick = () => {
+        refetch()
+    }
+
+    // useEffect(() => {
+    //     if (error) {
+    //         console.log(error)
+    //         useErrorStore.setState({ error: 'Something went wrong. Please try again later.' })
+    //     }
+    // }, [error])
+
+    return [state, onClick, draftListQuery, setPicked] as const
 }
