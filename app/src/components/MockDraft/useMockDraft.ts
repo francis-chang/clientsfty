@@ -49,29 +49,50 @@ const initialState = {
 } as {
     draftFinished: boolean
     teams: TeamElement[]
-    picked: null | number
+    picked: MockDraftPlayer | null
     round: number
     currentPick: number
 }
 
 export default () => {
     const [state, setState] = useState(initialState)
-    const draftListQuery = useQuery('mockDraftList', getMockDraftList)
-    const { data, refetch } = useQuery('draftData', () => draft(state), { enabled: false, refetchOnWindowFocus: false })
+    const [draftList, setDraftList] = useState<MockDraftPlayer[]>([])
+    const draftListQuery = useQuery('mockDraftList', getMockDraftList, { refetchOnWindowFocus: false })
+    const { data, refetch } = useQuery('draftData', () => draft({ ...state, picked: state.picked?.PlayerID }), {
+        enabled: false,
+        refetchOnWindowFocus: false,
+    })
 
     useEffect(() => {
-        if (data) {
-            console.log(data)
-            setState({ ...state, ...data })
+        if (draftListQuery.data) {
         }
-    }, [data])
+    }, [draftListQuery])
+
+    useEffect(() => {
+        if (data && draftListQuery.data) {
+            setState({ ...state, ...data })
+
+            let allPickedPlayerIDs: number[] = []
+            // figure out how to get types from react query
+            data.teams.forEach(({ team }: TeamElement) => {
+                allPickedPlayerIDs = [...allPickedPlayerIDs, ...team.map(({ PlayerID }) => PlayerID)]
+            })
+
+            const newDraftList = draftListQuery.data.filter((player) => !allPickedPlayerIDs.includes(player.PlayerID))
+
+            setDraftList(newDraftList)
+        } else if (draftListQuery.data) {
+            setDraftList(draftListQuery.data)
+        }
+    }, [data, draftListQuery.data])
 
     const setPicked = (player: MockDraftPlayer) => {
-        setState({ ...state, picked: player.PlayerID })
+        setState({ ...state, picked: player })
     }
 
-    const onClick = () => {
-        refetch()
+    const onClick = async () => {
+        await refetch()
+        setState({ ...state, picked: null })
     }
 
     // useEffect(() => {
@@ -81,5 +102,5 @@ export default () => {
     //     }
     // }, [error])
 
-    return [state, onClick, draftListQuery, setPicked] as const
+    return [state, onClick, draftListQuery, setPicked, draftList] as const
 }

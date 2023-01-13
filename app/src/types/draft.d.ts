@@ -11,6 +11,7 @@ interface MockDraftPlayer {
         FirstName: string
         LastName: string
         s_name: string
+        Jersey: number
         team: {
             City: string
             Name: string
