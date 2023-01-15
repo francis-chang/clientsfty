@@ -7,8 +7,6 @@ import InputContainer from 'components/AuthInput'
 import { styled, Button } from 'utils/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons'
-import useAuthStore from 'utils/state/useAuthStore'
-import { shallow } from 'zustand/shallow'
 
 const Register: React.FC = () => {
     const [

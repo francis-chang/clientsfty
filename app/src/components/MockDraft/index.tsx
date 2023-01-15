@@ -3,9 +3,27 @@ import { Button, styled } from 'utils/theme'
 import useMockDraft from './useMockDraft'
 import { FixedSizeList as List } from 'react-window'
 
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useAnimation } from 'framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBasketball } from '@fortawesome/free-solid-svg-icons'
+
+function getOrdinal(n: number) {
+    let ordinal = ''
+    const lastDigit = n % 10
+    if (lastDigit === 1) {
+        ordinal = 'st'
+    } else if (lastDigit === 2) {
+        ordinal = 'nd'
+    } else if (lastDigit === 3) {
+        ordinal = 'rd'
+    } else {
+        ordinal = 'th'
+    }
+    return n + ordinal
+}
 
 const MockDraft: React.FC = () => {
+    const controls = useAnimation()
     const [state, onClick, draftListQuery, setPicked, draftList, pickedList, previousPickedLength, isOpen, setIsOpen] =
         useMockDraft()
 
@@ -22,7 +40,7 @@ const MockDraft: React.FC = () => {
             })
             setTranslateY({
                 isOpen: window.innerHeight,
-                isNotOpen: window.innerHeight - 40,
+                isNotOpen: window.innerHeight - 60,
             })
         }
         window.addEventListener('resize', handleResize)
@@ -37,7 +55,7 @@ const MockDraft: React.FC = () => {
             })
             setTranslateY({
                 isOpen: 0,
-                isNotOpen: window.innerHeight - 40,
+                isNotOpen: window.innerHeight - 60,
             })
         }
     }, [draftBoardRef])
@@ -194,27 +212,52 @@ const MockDraft: React.FC = () => {
                     transform: isOpen ? `translateY(${translateY.isOpen}px)` : `translateY(${translateY.isNotOpen}px)`,
                 }}
             >
-                <TopBorder onClick={() => setIsOpen(!isOpen)}></TopBorder>
+                <TopBorder onClick={() => setIsOpen(!isOpen)}>
+                    <IconContainer>
+                        <FontAwesomeIcon icon={faBasketball}></FontAwesomeIcon>
+                    </IconContainer>
+                </TopBorder>
                 <Drafted>
                     <AnimatePresence>
                         {state.round === 0 ? (
                             <StartContainer initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
                                 <StartButton onClick={onClick}>Start Draft</StartButton>
+
+                                <StartInfo>
+                                    <TeamElementForInfo>
+                                        <InfoTitle>number of picks</InfoTitle>
+
+                                        <StartName>12</StartName>
+                                    </TeamElementForInfo>
+                                    <TeamElementForInfo>
+                                        <InfoTitle>you are Drafting at</InfoTitle>
+
+                                        <StartName>
+                                            {getOrdinal(state.teams.findIndex((t) => t.name === 'YOU') + 1)}
+                                        </StartName>
+                                    </TeamElementForInfo>
+                                    <TeamElementForInfo>
+                                        <InfoTitle>SCORING</InfoTitle>
+
+                                        <StartName>3GM 9CAT</StartName>
+                                    </TeamElementForInfo>
+                                </StartInfo>
+                                {/* <StartTitle>draft order</StartTitle> */}
                                 {state.teams.map((t, n) => (
                                     <TeamElementForStart highlight={t.name === 'YOU'} key={t.name}>
-                                        <Number highlight={t.name === 'YOU'}>{n + 1}</Number>
-                                        <DraftElementNameAndPick>
-                                            <DraftName highlight={t.name === 'YOU'}>{t.name}</DraftName>
-                                            {/* <DraftPickString highlight={picked.owner === 'YOU'}>
-                                            {picked.pickedString}
-                                        </DraftPickString> */}
-                                        </DraftElementNameAndPick>
+                                        <StartNumber>{n + 1}</StartNumber>
+
+                                        <StartName>{t.name}</StartName>
                                     </TeamElementForStart>
                                 ))}
                             </StartContainer>
                         ) : (
                             pickedList.map((picked) => (
                                 <DraftedElement
+                                    onAnimationComplete={() => {
+                                        picked.pickedAt === state.currentPick - 1 &&
+                                            setTimeout(() => setIsOpen(false), 800)
+                                    }}
                                     highlight={picked.owner === 'YOU'}
                                     key={picked.pickedAt}
                                     initial={{
@@ -232,7 +275,7 @@ const MockDraft: React.FC = () => {
                                         marginBottom: '10px',
                                     }}
                                     transition={{
-                                        delay: (picked.pickedAt - previousPickedLength) / 2 + 0.1,
+                                        delay: (picked.pickedAt - previousPickedLength) / 1.5 + 0.2,
                                         type: 'ease',
                                     }}
                                 >
@@ -263,11 +306,17 @@ const StartContainer = styled(motion.div)`
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
-    align-items: center;
+    /* align-items: center; */
+    background-color: ${({ theme }) => theme.colors.dark4};
+    padding: 0rem 1rem;
+    padding-top: 1rem;
+    height: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 `
 
 const StartButton = styled(Button)`
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 1.1rem;
     font-weight: 700;
     padding: 0.8rem 1.7rem;
@@ -283,6 +332,33 @@ const PickedByContainer = styled.div`
     flex-grow: 1;
     align-items: center;
     justify-content: center;
+`
+
+const InfoTitle = styled.div`
+    font-weight: 700;
+    text-transform: uppercase;
+
+    padding-left: 0.3rem;
+`
+
+const StartNumber = styled.div`
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    width: 1.8rem;
+    margin-right: 0.5rem;
+    text-align: center;
+`
+
+const StartTitle = styled.div`
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-top: 0.8rem;
+    text-align: center;
+`
+
+const StartInfo = styled.div`
+    margin: 3rem 0rem;
 `
 
 const Number = styled.div<DraftedElementProps>`
@@ -305,6 +381,10 @@ const OwnerName = styled.div<DraftedElementProps>`
     color: ${({ theme, highlight }) => (highlight ? theme.colors.dark2 : theme.colors.light2)};
 `
 
+const StartName = styled.div`
+    font-size: 1rem;
+`
+
 const DraftName = styled.div<DraftedElementProps>`
     margin-bottom: 0.2rem;
     font-size: 1.1rem;
@@ -322,24 +402,36 @@ const DraftPickString = styled.div<DraftedElementProps>`
 
 const DraftedElement = styled(motion.div)<DraftedElementProps>`
     font-size: 1.1rem;
-    background-color: ${({ theme, highlight }) => (highlight ? theme.colors.light2 : theme.colors.dark3)};
+    background-color: ${({ theme, highlight }) => (highlight ? theme.colors.light1 : theme.colors.dark3)};
     border-radius: 4px;
     display: flex;
     align-items: center;
+`
+
+const TeamElementForInfo = styled.div`
+    margin: 0 auto;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    border-bottom: ${({ theme }) => `1px solid ${theme.colors.dark1}`};
+
+    padding: 0.5rem;
 `
 
 const TeamElementForStart = styled.div<DraftedElementProps>`
     width: 100%;
-    height: 4rem;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    background-color: ${({ theme, highlight }) => (highlight ? theme.colors.light2 : theme.colors.dark3)};
-    border-radius: 4px;
+
+    font-size: 1rem;
     display: flex;
     align-items: center;
+    font-weight: ${({ highlight }) => (highlight ? 700 : 400)};
+    border-bottom: ${({ theme }) => `1px solid ${theme.colors.dark1}`};
+    color: ${({ theme, highlight }) => (highlight ? theme.colors.lightblue2 : theme.colors.light1)};
+    padding: 0.4rem 0rem;
 `
 
-const Drafted = styled.div`
+const Drafted = styled(motion.div)`
     flex-grow: 1;
     overflow-y: scroll;
     &::-webkit-scrollbar {
@@ -372,9 +464,18 @@ const DraftedContainer = styled.div`
     width: 100%;
 `
 
+const IconContainer = styled.div`
+    color: ${({ theme }) => theme.colors.orange1};
+    font-size: 2rem;
+`
+
 const TopBorder = styled.div`
-    height: 40px;
-    min-height: 40px;
+    height: 60px;
+    min-height: 60px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `
 
 const DraftButton = styled(Button)`

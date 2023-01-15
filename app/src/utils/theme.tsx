@@ -38,6 +38,7 @@ export const colors = {
     peach: '#f5b16e',
 
     red1: '#fa2f2f',
+    red2: '#540601',
 
     discordcolor: '#e4e5e7',
     discordbackground: '#4a67cf',
@@ -117,6 +118,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     html {
         @media (max-width: 500px)  {
             font-size: 15px;
+        }
+        @media (max-width: 390px)  {
+            font-size: 14px;
         }
     }
     
