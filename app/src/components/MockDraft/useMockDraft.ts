@@ -22,6 +22,12 @@ type FilteredDraftedPlayer = {
     name: string
     score: number
     n: number
+    pickedAt: number
+    pickedString: string
+}
+
+interface FilteredDraftedPlayerWithTeamName extends FilteredDraftedPlayer {
+    owner: string
 }
 
 const t: TeamElement[] = shuffle([
@@ -63,24 +69,28 @@ export default () => {
         refetchOnWindowFocus: false,
     })
 
-    useEffect(() => {
-        if (draftListQuery.data) {
-        }
-    }, [draftListQuery])
+    const [isOpen, setIsOpen] = useState(true)
+
+    const [pickedList, setPickedList] = useState<FilteredDraftedPlayerWithTeamName[]>([])
+    const [previousLengthOfPicked, setPreviousLengthOfPicked] = useState(0)
 
     useEffect(() => {
         if (data && draftListQuery.data) {
+            setIsOpen(true)
             setState({ ...state, ...data })
-
+            setPreviousLengthOfPicked(pickedList.length)
             let allPickedPlayerIDs: number[] = []
             // figure out how to get types from react query
-            data.teams.forEach(({ team }: TeamElement) => {
-                allPickedPlayerIDs = [...allPickedPlayerIDs, ...team.map(({ PlayerID }) => PlayerID)]
+
+            let allPicked: FilteredDraftedPlayerWithTeamName[] = []
+            data.teams.forEach((team: TeamElement) => {
+                allPickedPlayerIDs = [...allPickedPlayerIDs, ...team.team.map(({ PlayerID }) => PlayerID)]
+                allPicked = [...allPicked, ...team.team.map((player) => ({ ...player, owner: team.name }))]
             })
-
             const newDraftList = draftListQuery.data.filter((player) => !allPickedPlayerIDs.includes(player.PlayerID))
-
+            allPicked.sort((a, b) => b.pickedAt - a.pickedAt)
             setDraftList(newDraftList)
+            setPickedList(allPicked)
         } else if (draftListQuery.data) {
             setDraftList(draftListQuery.data)
         }
@@ -102,5 +112,15 @@ export default () => {
     //     }
     // }, [error])
 
-    return [state, onClick, draftListQuery, setPicked, draftList] as const
+    return [
+        state,
+        onClick,
+        draftListQuery,
+        setPicked,
+        draftList,
+        pickedList,
+        previousLengthOfPicked,
+        isOpen,
+        setIsOpen,
+    ] as const
 }

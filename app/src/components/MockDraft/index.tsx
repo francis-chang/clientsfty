@@ -2,19 +2,17 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Button, styled } from 'utils/theme'
 import useMockDraft from './useMockDraft'
 import { FixedSizeList as List } from 'react-window'
-import { useQuery } from 'react-query'
-import { draft } from 'utils/api/redis_stats'
-import { motion } from 'framer-motion'
+
+import { AnimatePresence, motion } from 'framer-motion'
 
 const MockDraft: React.FC = () => {
-    const [state, onClick, draftListQuery, setPicked, draftList] = useMockDraft()
+    const [state, onClick, draftListQuery, setPicked, draftList, pickedList, previousPickedLength, isOpen, setIsOpen] =
+        useMockDraft()
 
     const draftBoardRef = useRef<HTMLDivElement>(null)
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-    const [translateY, setTranslateY] = useState({ isOpen: 0, isNotOpen: 0 })
-
-    const [isOpen, setIsOpen] = useState(false)
+    const [translateY, setTranslateY] = useState({ isOpen: window.innerHeight, isNotOpen: 0 })
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,7 +21,7 @@ const MockDraft: React.FC = () => {
                 height: draftBoardRef.current!.clientHeight,
             })
             setTranslateY({
-                isOpen: window.innerHeight - draftBoardRef.current!.clientHeight + 100,
+                isOpen: window.innerHeight,
                 isNotOpen: window.innerHeight - 40,
             })
         }
@@ -38,11 +36,15 @@ const MockDraft: React.FC = () => {
                 height: draftBoardRef.current.clientHeight,
             })
             setTranslateY({
-                isOpen: window.innerHeight - draftBoardRef.current.clientHeight + 100,
+                isOpen: 0,
                 isNotOpen: window.innerHeight - 40,
             })
         }
     }, [draftBoardRef])
+
+    useEffect(() => {
+        console.log(pickedList)
+    }, [pickedList])
 
     const Row = ({ index, style }: any) => {
         const playerInfo = draftList[index]
@@ -187,51 +189,182 @@ const MockDraft: React.FC = () => {
             </DraftBoard>
 
             <AbsoluteContainer
+                initial={{ transform: `translateY(${0}px)` }}
                 animate={{
                     transform: isOpen ? `translateY(${translateY.isOpen}px)` : `translateY(${translateY.isNotOpen}px)`,
                 }}
-                height={dimensions.height}
             >
                 <TopBorder onClick={() => setIsOpen(!isOpen)}></TopBorder>
-                <DraftedContainer />
+                <Drafted>
+                    <AnimatePresence>
+                        {state.round === 0 ? (
+                            <StartContainer initial={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                                <StartButton onClick={onClick}>Start Draft</StartButton>
+                                {state.teams.map((t, n) => (
+                                    <TeamElementForStart highlight={t.name === 'YOU'} key={t.name}>
+                                        <Number highlight={t.name === 'YOU'}>{n + 1}</Number>
+                                        <DraftElementNameAndPick>
+                                            <DraftName highlight={t.name === 'YOU'}>{t.name}</DraftName>
+                                            {/* <DraftPickString highlight={picked.owner === 'YOU'}>
+                                            {picked.pickedString}
+                                        </DraftPickString> */}
+                                        </DraftElementNameAndPick>
+                                    </TeamElementForStart>
+                                ))}
+                            </StartContainer>
+                        ) : (
+                            pickedList.map((picked) => (
+                                <DraftedElement
+                                    highlight={picked.owner === 'YOU'}
+                                    key={picked.pickedAt}
+                                    initial={{
+                                        transform: 'translateX(-20rem)',
+                                        opacity: 0,
+                                        height: '0px',
+                                        minHeight: '0px',
+                                        marginBottom: '0px',
+                                    }}
+                                    animate={{
+                                        transform: 'translateX(0rem)',
+                                        opacity: 1,
+                                        height: '65px',
+                                        minHeight: '65px',
+                                        marginBottom: '10px',
+                                    }}
+                                    transition={{
+                                        delay: (picked.pickedAt - previousPickedLength) / 2 + 0.1,
+                                        type: 'ease',
+                                    }}
+                                >
+                                    <Number highlight={picked.owner === 'YOU'}>{picked.pickedAt}</Number>
+                                    <DraftElementNameAndPick>
+                                        <DraftName highlight={picked.owner === 'YOU'}>{picked.name}</DraftName>
+                                        <DraftPickString highlight={picked.owner === 'YOU'}>
+                                            {picked.pickedString}
+                                        </DraftPickString>
+                                    </DraftElementNameAndPick>
+                                    <PickedByContainer>
+                                        <DraftPickString highlight={picked.owner === 'YOU'}>PICKED BY</DraftPickString>
+                                        <OwnerName highlight={picked.owner === 'YOU'}>{picked.owner}</OwnerName>
+                                    </PickedByContainer>
+                                </DraftedElement>
+                            ))
+                        )}
+                    </AnimatePresence>
+                </Drafted>
             </AbsoluteContainer>
-
-            {/* <TeamContainer>
-                {state.teams.map((t) => (
-                    <div key={t.name}>
-                        <div>{t.name}</div>
-                        <ul>
-                            {t.team.map((player: any) => (
-                                <li style={{ paddingLeft: '3rem' }} key={player.PlayerID}>
-                                    {player.name}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
-            </TeamContainer>
-            <button onClick={onClick}>draft</button> */}
         </Container>
     )
 }
 
 export default MockDraft
-type AbsoluteContainerProps = {
-    height: number
+
+const StartContainer = styled(motion.div)`
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+`
+
+const StartButton = styled(Button)`
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 0.8rem 1.7rem;
+`
+
+type DraftedElementProps = {
+    highlight: boolean
 }
 
-const AbsoluteContainer = styled(motion.div)<AbsoluteContainerProps>`
+const PickedByContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+`
+
+const Number = styled.div<DraftedElementProps>`
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: ${({ theme, highlight }) => (highlight ? theme.colors.blue1 : theme.colors.orange1)};
+    font-variant-numeric: tabular-nums;
+    width: 4.4rem;
+    text-align: center;
+`
+
+const DraftElementNameAndPick = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
+const OwnerName = styled.div<DraftedElementProps>`
+    font-weight: 500;
+    font-size: 1rem;
+    color: ${({ theme, highlight }) => (highlight ? theme.colors.dark2 : theme.colors.light2)};
+`
+
+const DraftName = styled.div<DraftedElementProps>`
+    margin-bottom: 0.2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    width: 10rem;
+    color: ${({ theme, highlight }) => (highlight ? theme.colors.dark4 : theme.colors.light1)};
+`
+
+const DraftPickString = styled.div<DraftedElementProps>`
+    margin-bottom: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: ${({ theme, highlight }) => (highlight ? theme.colors.dark2 : theme.colors.light4)}; ;
+`
+
+const DraftedElement = styled(motion.div)<DraftedElementProps>`
+    font-size: 1.1rem;
+    background-color: ${({ theme, highlight }) => (highlight ? theme.colors.light2 : theme.colors.dark3)};
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+`
+
+const TeamElementForStart = styled.div<DraftedElementProps>`
+    width: 100%;
+    height: 4rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    background-color: ${({ theme, highlight }) => (highlight ? theme.colors.light2 : theme.colors.dark3)};
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+`
+
+const Drafted = styled.div`
+    flex-grow: 1;
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    display: flex;
+    flex-direction: column;
+`
+
+const AbsoluteContainer = styled(motion.div)`
     position: absolute;
     top: 0;
     left: 0;
-    height: ${({ height }) => `${height}px`};
+    height: 110vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
-    background-color: ${({ theme }) => theme.colors.blue4};
+    background-color: ${({ theme }) => theme.colors.dark1};
     z-index: 2;
+    padding: 0rem 0.5rem;
+    padding-bottom: 10vh;
 `
 
 const DraftedContainer = styled.div`
@@ -241,6 +374,7 @@ const DraftedContainer = styled.div`
 
 const TopBorder = styled.div`
     height: 40px;
+    min-height: 40px;
 `
 
 const DraftButton = styled(Button)`

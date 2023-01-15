@@ -114,12 +114,19 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         padding: 0;
         margin: 0;
     }
+    html {
+        @media (max-width: 500px)  {
+            font-size: 15px;
+        }
+    }
     
     body{
         -webkit-font-smoothing: antialiased;
         letter-spacing: 0px;
         background-color: ${({ theme }) => theme.colors.dark4};
         color:${({ theme }) => theme.colors.light2};
+
+        
     }
 
     @keyframes pulsate {
