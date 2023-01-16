@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { styled } from '../../styles/theme'
+import { styled } from '../styles/theme'
 import { motion } from 'framer-motion'
 import { weekOneData, weekFourData, weekEightData, weekTwelveData, NFLPlayerDataWeek } from './nflData'
 

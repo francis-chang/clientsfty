@@ -9,8 +9,17 @@ const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_
 
 // wrap fetches with a try catch
 
+// const base = axios.create({
+//     baseURL: 'http://localhost:3000/redis_stats',
+//     timeout: 4000,
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     withCredentials: true,
+// })
+
 const base = axios.create({
-    baseURL: 'http://localhost:3000/redis_stats',
+    baseURL: 'https://statsftygg.com/redis_stats',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
@@ -82,7 +91,7 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
 // })
 
 const mockDraftBase = axios.create({
-    baseURL: 'http://statsftygg.com/mockdraft',
+    baseURL: 'https://statsftygg.com/mockdraft',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled } from '../../styles/theme'
+import { styled } from '../styles/theme'
 
 const DraftText: React.FC = () => {
     return (

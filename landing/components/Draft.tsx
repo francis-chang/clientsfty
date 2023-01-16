@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useEffect, useState } from 'react'
-import { styled } from '../../styles/theme'
+import { styled } from '../styles/theme'
 import DraftText from './DraftTest'
 
 import playerData from './playerData'

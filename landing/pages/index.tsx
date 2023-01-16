@@ -1,13 +1,13 @@
 import Head from 'next/head'
 import { Button, styled } from '../styles/theme'
-import Schedule from './components/Schedule'
-import NumGames from './components/NumGames'
+import Schedule from '../components/Schedule'
+import NumGames from '../components/NumGames'
 import { Inter } from '@next/font/google'
-import No from './components/No'
-import Draft from './components/Draft'
-import Try from './components/Try'
-import Signup from './components/Signup'
-import Footer from './components/Footer'
+import No from '../components/No'
+import Draft from '../components/Draft'
+import Try from '../components/Try'
+import Signup from '../components/Signup'
+import Footer from '../components/Footer'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {

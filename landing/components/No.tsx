@@ -1,5 +1,5 @@
 import React from 'react'
-import { styled } from '../../styles/theme'
+import { styled } from '../styles/theme'
 
 // don't want to spend every day setting lineup
 //
