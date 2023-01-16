@@ -1,11 +1,13 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { styled, Button } from '../styles/theme'
 
 const Signup: React.FC = () => {
+    const router = useRouter()
     return (
         <>
             <Container>
-                <Title>
+                <Title onClick={() => router.push(`app.${window.location.host}/register`)}>
                     Or start drafting<Span> for real</Span>.
                 </Title>
                 <ButtonExtended>register</ButtonExtended>

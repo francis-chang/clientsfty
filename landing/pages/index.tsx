@@ -25,10 +25,16 @@ export default function Home() {
                 <Header>
                     <Logo>fty.gg</Logo>
                     <ButtonContainer>
-                        <AuthButton style={inter.style} onClick={() => router.push(`${window.location}/app/login`)}>
+                        <AuthButton
+                            style={inter.style}
+                            onClick={() => router.push(`app.${window.location.host}/login`)}
+                        >
                             Log In
                         </AuthButton>
-                        <AuthButton style={inter.style} onClick={() => router.push(`${window.location}/app/register`)}>
+                        <AuthButton
+                            style={inter.style}
+                            onClick={() => router.push(`app.${window.location.host}/register`)}
+                        >
                             Sign Up
                         </AuthButton>
                     </ButtonContainer>

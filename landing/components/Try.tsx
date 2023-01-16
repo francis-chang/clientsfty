@@ -1,11 +1,13 @@
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { styled, Button } from '../styles/theme'
 
 const Try: React.FC = () => {
+    const router = useRouter()
     return (
         <>
             <Container>
-                <Title>
+                <Title onClick={() => router.push(`app.${window.location.host}/mockdraft`)}>
                     Try an <Span>NBA mock draft</Span>.
                 </Title>
                 <ButtonExtended>Start</ButtonExtended>
