@@ -5,7 +5,7 @@ const Try: React.FC = () => {
     return (
         <>
             <Container>
-                <a href="https://app.fty.gg/mockdraft" target="_blank">
+                <a href="https://app.fty.gg/mockdraft" target="_blank" rel="noreferrer">
                     <Title>
                         Try an <Span>NBA mock draft</Span>.
                     </Title>
