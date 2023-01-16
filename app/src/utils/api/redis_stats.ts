@@ -72,8 +72,17 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
     }
 }
 
+// const mockDraftBase = axios.create({
+//     baseURL: 'http://localhost:3000/mockdraft',
+//     timeout: 4000,
+//     headers: {
+//         'Content-Type': 'application/json',
+//     },
+//     withCredentials: true,
+// })
+
 const mockDraftBase = axios.create({
-    baseURL: 'http://localhost:3000/mockdraft',
+    baseURL: 'http://statsftygg.com/mockdraft',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
@@ -89,6 +98,13 @@ const getMockDraftList = async () => {
     }
 }
 
+const scoreDraft = async (data: any) => {
+    const response = await mockDraftBase.post<TeamElement[]>('scoredraft', data)
+    if (response) {
+        return response.data
+    }
+}
+
 const draft = async (data: any) => {
     const response = await mockDraftBase.post('d', data)
     if (response) {
@@ -96,4 +112,4 @@ const draft = async (data: any) => {
     }
 }
 
-export { getMockDraftList, draft }
+export { getMockDraftList, draft, scoreDraft }

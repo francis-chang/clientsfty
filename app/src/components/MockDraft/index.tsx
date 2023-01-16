@@ -5,7 +5,8 @@ import { FixedSizeList as List } from 'react-window'
 
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBasketball } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import Finished from './Finished'
 
 function getOrdinal(n: number) {
     let ordinal = ''
@@ -23,14 +24,25 @@ function getOrdinal(n: number) {
 }
 
 const MockDraft: React.FC = () => {
-    const controls = useAnimation()
-    const [state, onClick, draftListQuery, setPicked, draftList, pickedList, previousPickedLength, isOpen, setIsOpen] =
-        useMockDraft()
+    const [
+        state,
+        onClick,
+        draftListQuery,
+        setPicked,
+        draftList,
+        pickedList,
+        previousPickedLength,
+        isOpen,
+        setIsOpen,
+        fin,
+        setFin,
+        scoreDraft,
+    ] = useMockDraft()
 
     const draftBoardRef = useRef<HTMLDivElement>(null)
 
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
-    const [translateY, setTranslateY] = useState({ isOpen: window.innerHeight, isNotOpen: 0 })
+    const [translateY, setTranslateY] = useState({ isOpen: 0, isNotOpen: window.innerHeight - 60 })
 
     useEffect(() => {
         const handleResize = () => {
@@ -39,7 +51,7 @@ const MockDraft: React.FC = () => {
                 height: draftBoardRef.current!.clientHeight,
             })
             setTranslateY({
-                isOpen: window.innerHeight,
+                isOpen: 0,
                 isNotOpen: window.innerHeight - 60,
             })
         }
@@ -59,10 +71,6 @@ const MockDraft: React.FC = () => {
             })
         }
     }, [draftBoardRef])
-
-    useEffect(() => {
-        console.log(pickedList)
-    }, [pickedList])
 
     const Row = ({ index, style }: any) => {
         const playerInfo = draftList[index]
@@ -103,7 +111,9 @@ const MockDraft: React.FC = () => {
         )
     }
 
-    return (
+    return fin ? (
+        <Finished data={scoreDraft} />
+    ) : (
         <Container>
             <SelectedPlayer>
                 {state.picked ? (
@@ -214,7 +224,7 @@ const MockDraft: React.FC = () => {
             >
                 <TopBorder onClick={() => setIsOpen(!isOpen)}>
                     <IconContainer>
-                        <FontAwesomeIcon icon={faBasketball}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faBars}></FontAwesomeIcon>
                     </IconContainer>
                 </TopBorder>
                 <Drafted>
@@ -255,8 +265,13 @@ const MockDraft: React.FC = () => {
                             pickedList.map((picked) => (
                                 <DraftedElement
                                     onAnimationComplete={() => {
-                                        picked.pickedAt === state.currentPick - 1 &&
-                                            setTimeout(() => setIsOpen(false), 800)
+                                        if (picked.pickedAt === state.currentPick - 1) {
+                                            if (state.draftFinished) {
+                                                setTimeout(() => setFin(true), 800)
+                                            } else {
+                                                setTimeout(() => setIsOpen(false), 800)
+                                            }
+                                        }
                                     }}
                                     highlight={picked.owner === 'YOU'}
                                     key={picked.pickedAt}
@@ -465,7 +480,7 @@ const DraftedContainer = styled.div`
 `
 
 const IconContainer = styled.div`
-    color: ${({ theme }) => theme.colors.orange1};
+    color: ${({ theme }) => theme.colors.dark4};
     font-size: 2rem;
 `
 

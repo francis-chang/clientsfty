@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
-import { QueryClient, useMutation, useQuery, useQueryClient } from 'react-query'
-import { draft, getMockDraftList } from 'utils/api/redis_stats'
+import { useQuery } from 'react-query'
+import { draft, getMockDraftList, scoreDraft } from 'utils/api/redis_stats'
 import useErrorStore from 'utils/state/useErrorStore'
 
 function shuffle(array: any[]) {
@@ -68,16 +68,22 @@ export default () => {
         enabled: false,
         refetchOnWindowFocus: false,
     })
+    const scoreDraftQuery = useQuery('scoreDraft', () => scoreDraft(state.teams), {
+        enabled: false,
+        refetchOnWindowFocus: false,
+    })
 
     const [isOpen, setIsOpen] = useState(true)
+    const [fin, setFin] = useState(false)
 
     const [pickedList, setPickedList] = useState<FilteredDraftedPlayerWithTeamName[]>([])
     const [previousLengthOfPicked, setPreviousLengthOfPicked] = useState(0)
 
     useEffect(() => {
         if (data && draftListQuery.data) {
-            setIsOpen(true)
             setState({ ...state, ...data })
+
+            setIsOpen(true)
             setPreviousLengthOfPicked(pickedList.length)
             let allPickedPlayerIDs: number[] = []
             // figure out how to get types from react query
@@ -91,6 +97,9 @@ export default () => {
             allPicked.sort((a, b) => b.pickedAt - a.pickedAt)
             setDraftList(newDraftList)
             setPickedList(allPicked)
+            if (data.draftFinished) {
+                scoreDraftQuery.refetch()
+            }
         } else if (draftListQuery.data) {
             setDraftList(draftListQuery.data)
         }
@@ -122,5 +131,8 @@ export default () => {
         previousLengthOfPicked,
         isOpen,
         setIsOpen,
+        fin,
+        setFin,
+        scoreDraftQuery.data,
     ] as const
 }
