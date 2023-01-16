@@ -7,12 +7,12 @@ const Signup: React.FC = () => {
     return (
         <>
             <Container>
+                <Title>
+                    Or start drafting<Span> for real</Span>.
+                </Title>
                 <a href="https://app.fty.gg/register">
-                    <Title>
-                        Or start drafting<Span> for real</Span>.
-                    </Title>
+                    <ButtonExtended>register</ButtonExtended>
                 </a>
-                <ButtonExtended>register</ButtonExtended>
             </Container>
         </>
     )

@@ -5,12 +5,12 @@ const Try: React.FC = () => {
     return (
         <>
             <Container>
-                <a href="https://app.fty.gg/mockdraft" target="_blank" rel="noreferrer">
-                    <Title>
-                        Try an <Span>NBA mock draft</Span>.
-                    </Title>
-                </a>
-                <ButtonExtended>Start</ButtonExtended>
+                <Title>
+                    Try an <Span>NBA mock draft</Span>.
+                </Title>
+                <A href="https://app.fty.gg/mockdraft" target="_blank" rel="noreferrer">
+                    <ButtonExtended>Start</ButtonExtended>
+                </A>
                 <Subtitle>NFL fantasy expected for 2023 season</Subtitle>
             </Container>
         </>
@@ -18,6 +18,16 @@ const Try: React.FC = () => {
 }
 
 export default Try
+
+const A = styled.a`
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+        color: ${({ theme }) => theme.colors.light2};
+        text-decoration: none;
+    }
+`
 
 const ButtonExtended = styled(Button)`
     background-color: ${({ theme }) => theme.colors.orange1};
