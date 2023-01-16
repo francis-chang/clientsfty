@@ -1,15 +1,15 @@
-import { useRouter } from 'next/router'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { styled, Button } from '../styles/theme'
 
 const Try: React.FC = () => {
-    const router = useRouter()
     return (
         <>
             <Container>
-                <Title onClick={() => router.push(`app.${window.location.host}/mockdraft`)}>
-                    Try an <Span>NBA mock draft</Span>.
-                </Title>
+                <a href="https://app.fty.gg/mockdraft" target="_blank">
+                    <Title>
+                        Try an <Span>NBA mock draft</Span>.
+                    </Title>
+                </a>
                 <ButtonExtended>Start</ButtonExtended>
                 <Subtitle>NFL fantasy expected for 2023 season</Subtitle>
             </Container>

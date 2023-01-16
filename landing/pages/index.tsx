@@ -9,10 +9,8 @@ import Try from '../components/Try'
 import Signup from '../components/Signup'
 import Footer from '../components/Footer'
 const inter = Inter({ subsets: ['latin'] })
-import { useRouter } from 'next/router'
 
 export default function Home() {
-    const router = useRouter()
     return (
         <>
             <Head>
@@ -25,18 +23,12 @@ export default function Home() {
                 <Header>
                     <Logo>fty.gg</Logo>
                     <ButtonContainer>
-                        <AuthButton
-                            style={inter.style}
-                            onClick={() => router.push(`app.${window.location.host}/login`)}
-                        >
-                            Log In
-                        </AuthButton>
-                        <AuthButton
-                            style={inter.style}
-                            onClick={() => router.push(`app.${window.location.host}/register`)}
-                        >
-                            Sign Up
-                        </AuthButton>
+                        <a href="https://app.fty.gg/login">
+                            <AuthButton style={inter.style}>Log In</AuthButton>
+                        </a>
+                        <a href="https://app.fty.gg/register">
+                            <AuthButton style={inter.style}>Sign Up</AuthButton>
+                        </a>
                     </ButtonContainer>
                 </Header>
                 <Title>
@@ -60,6 +52,8 @@ export default function Home() {
         </>
     )
 }
+
+const A = styled.a``
 
 const SpanGreen = styled.span`
     color: white;
@@ -104,7 +98,7 @@ const Container = styled.div`
 const ButtonContainer = styled.div`
     display: flex;
 
-    & > button:first-child {
+    & > a:first-child {
         margin-right: 1rem;
     }
 `

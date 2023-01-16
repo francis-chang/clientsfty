@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import { styled, Button } from '../styles/theme'
 
 const Signup: React.FC = () => {
@@ -7,9 +7,11 @@ const Signup: React.FC = () => {
     return (
         <>
             <Container>
-                <Title onClick={() => router.push(`app.${window.location.host}/register`)}>
-                    Or start drafting<Span> for real</Span>.
-                </Title>
+                <a href="https://app.fty.gg/register">
+                    <Title>
+                        Or start drafting<Span> for real</Span>.
+                    </Title>
+                </a>
                 <ButtonExtended>register</ButtonExtended>
             </Container>
         </>
