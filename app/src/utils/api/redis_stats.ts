@@ -19,7 +19,7 @@ const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_
 // })
 
 const base = axios.create({
-    baseURL: 'https://statsftygg.com/redis_stats',
+    baseURL: 'https://yasha.fty.gg/redis_stats',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
 // })
 
 const mockDraftBase = axios.create({
-    baseURL: 'https://statsftygg.com/mockdraft',
+    baseURL: 'https://yasha.fty.gg/mockdraft',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
