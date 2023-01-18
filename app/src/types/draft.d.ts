@@ -71,6 +71,10 @@ type Statline = {
     FreeThrowsAttempted: number
     FreeThrowsMade: number
     ThreePointersMade: number
+    game: {
+        nba_day: string
+        formattedDate: string
+    }
     opponent_team: {
         City: string
         Name: string
