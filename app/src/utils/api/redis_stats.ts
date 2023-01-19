@@ -19,7 +19,7 @@ const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_
 // })
 
 const base = axios.create({
-    baseURL: 'https://yasha.fty.gg/redis_stats',
+    baseURL: 'https://yasha.fty.gg/rdata',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
