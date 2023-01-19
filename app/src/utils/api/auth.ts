@@ -10,7 +10,7 @@ const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_
 // wrap fetches with a try catch
 
 const base = axios.create({
-    baseURL: 'http://localhost:5555/auth',
+    baseURL: 'https://kaya.fty.gg/auth',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',

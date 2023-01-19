@@ -100,7 +100,6 @@ const useRegister = () => {
                 )
                 setUsernameFetching(false)
             } else {
-                console.log('do i get here')
                 setU((user) => ({ ...user, usernameNotTaken: { ...user.usernameNotTaken, value: false } }))
                 setUsernameFetching(false)
             }
