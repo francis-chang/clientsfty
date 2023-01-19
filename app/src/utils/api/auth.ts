@@ -14,6 +14,7 @@ const base = axios.create({
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,
 })
