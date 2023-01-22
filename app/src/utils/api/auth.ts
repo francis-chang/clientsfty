@@ -1,16 +1,13 @@
 import axios from 'axios'
 import useErrorStore from 'utils/state/useErrorStore'
 
-// const DEV_ENVIRONMENT = import.meta.env.NODE_ENV === 'development'
+const DEV_ENVIRONMENT = import.meta.env.MODE === 'development'
+console.log(import.meta.env)
 
-const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_URL : ''
-
-// FIGURE OUT WAY TO SEPARATE PROD AND DEV ENVIRONMENT
-
-// wrap fetches with a try catch
+const authUrl = DEV_ENVIRONMENT ? 'http://localhost:5555/auth' : 'https://kaya.fty.gg/auth'
 
 const base = axios.create({
-    baseURL: 'https://kaya.fty.gg/auth',
+    baseURL: authUrl,
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
@@ -107,4 +104,8 @@ const login = async (username: string, password: string) => {
     return await apiPost<UserCreateResponse>(`/login`, { username, password }, useErrorStore)
 }
 
-export { findUsernameAvailable, findEmailAvailable, createUser, login }
+const auth = async () => {
+    return await apiCall<UserCreateResponse>('/auth')
+}
+
+export { findUsernameAvailable, findEmailAvailable, createUser, login, auth }

@@ -11,6 +11,7 @@ import Error from 'components/Error'
 import { useEffect } from 'react'
 import useErrorStore from 'utils/state/useErrorStore'
 import MockDraft from 'components/MockDraft'
+import { auth } from 'utils/api/auth'
 
 // QueryClient can be configurable, see below
 
@@ -29,14 +30,19 @@ import MockDraft from 'components/MockDraft'
 function App() {
     const queryClient = new QueryClient()
 
-    const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
+    const { user, setUser } = useAuthStore((state) => ({ user: state.user, setUser: state.setUser }), shallow)
     const { error, setError } = useErrorStore((state) => ({ error: state.error, setError: state.setError }), shallow)
 
-    const authLoader = () => {
-        if (user) {
+    const authLoader = async () => {
+        if (!user) {
+            return null
+        }
+        const response = await auth()
+        if (response) {
             return redirect('/')
         }
-        return null
+        setUser(null)
+        return
     }
     return (
         <ThemeProvider theme={theme}>

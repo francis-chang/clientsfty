@@ -9,8 +9,10 @@ const useLogin = () => {
     const submitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const response = await login(username, password)
+        console.log(response)
         if (response) {
             const { user_id, username } = response
+
             useAuthStore.setState({ user: { user_id, username } })
         }
     }
