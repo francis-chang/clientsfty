@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, AuthContainer, ContainerTitle, Label } from '../styles'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useRegister from './useRegister'
 import Checkbox from './Checkbox'
 import InputContainer from 'components/AuthInput'
@@ -20,7 +20,15 @@ const Register: React.FC = () => {
         submitCreate,
         usernameFetching,
         emailFetching,
+        finalLogin,
     ] = useRegister()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (finalLogin) {
+            navigate('/')
+        }
+    }, [finalLogin])
 
     return (
         <Container>
@@ -51,13 +59,19 @@ const Register: React.FC = () => {
                     <div>OR</div>
                     <Border />
                 </OrContainer>
-                <OauthButton isDiscord={true}>
+                <OauthButton type="button" isDiscord={true}>
                     <OauthText>Sign up with Discord</OauthText>
                     <IconWrapper>
                         <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
                     </IconWrapper>
                 </OauthButton>
-                <OauthButton isDiscord={false}>
+                <OauthButton
+                    onClick={() => {
+                        window.open('http://localhost:5555/auth/google')
+                    }}
+                    type="button"
+                    isDiscord={false}
+                >
                     <OauthText>Sign up with Google</OauthText>
                     <IconWrapper>
                         <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>

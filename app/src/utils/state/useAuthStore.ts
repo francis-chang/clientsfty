@@ -1,11 +1,6 @@
 import { create, useStore } from 'zustand'
 import { devtools, persist } from 'zustand/middleware'
 
-interface UserType {
-    user_id: number
-    username: string
-}
-
 interface UserState {
     user: null | UserType
     error: string | null

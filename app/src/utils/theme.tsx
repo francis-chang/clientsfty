@@ -114,8 +114,10 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        
     }
     html {
+
         @media (max-width: 500px)  {
             font-size: 15px;
         }

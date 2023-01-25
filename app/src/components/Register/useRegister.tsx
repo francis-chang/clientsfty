@@ -61,6 +61,8 @@ const defaultEmailState: EmailCreateField = {
 
 const useRegister = () => {
     // REGULAR EXPRESSIONS
+
+    const [finalLogin, setFinalLogin] = useState(false)
     const [username, setU] = useState<UsernameCreateField>(defaultUsernameState)
     const [password, setP] = useState<PasswordCreateField>(defaultPasswordState)
     const [email, setE] = useState(defaultEmailState)
@@ -248,6 +250,7 @@ const useRegister = () => {
         if (response) {
             const { user_id, username } = response
             useAuthStore.setState({ user: { user_id, username } })
+            setFinalLogin(true)
         }
     }
 
@@ -262,6 +265,7 @@ const useRegister = () => {
         submitCreate,
         usernameFetching,
         emailFetching,
+        finalLogin,
     ] as const
 }
 

@@ -5,6 +5,7 @@ const Container = styled.div`
     flex-direction: column;
     padding-top: 5rem;
     width: 21rem;
+    padding-bottom: 10rem;
 `
 
 const AuthContainer = styled.form`

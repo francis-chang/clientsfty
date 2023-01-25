@@ -2,7 +2,6 @@ import axios from 'axios'
 import useErrorStore from 'utils/state/useErrorStore'
 
 const DEV_ENVIRONMENT = import.meta.env.MODE === 'development'
-console.log(import.meta.env)
 
 const authUrl = DEV_ENVIRONMENT ? 'http://localhost:5555/auth' : 'https://kaya.fty.gg/auth'
 
@@ -108,4 +107,12 @@ const auth = async () => {
     return await apiCall<UserCreateResponse>('/auth')
 }
 
-export { findUsernameAvailable, findEmailAvailable, createUser, login, auth }
+const verify = async (confirmation_code: string) => {
+    return await apiPost('/verify', { confirmation_code }, useErrorStore)
+}
+
+const gAuth = async (code: string, scope: string) => {
+    return await apiPost('/gauth', { code, scope }, useErrorStore)
+}
+
+export { findUsernameAvailable, findEmailAvailable, createUser, login, auth, verify, gAuth }

@@ -6,14 +6,16 @@ const useLogin = () => {
     const [username, setU] = useState('')
     const [password, setP] = useState('')
 
+    const [finalLogin, setFinalLogin] = useState(false)
+
     const submitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const response = await login(username, password)
-        console.log(response)
         if (response) {
             const { user_id, username } = response
 
             useAuthStore.setState({ user: { user_id, username } })
+            setFinalLogin(true)
         }
     }
 
@@ -25,7 +27,7 @@ const useLogin = () => {
         setP(e.target.value)
     }
 
-    return [username, password, setUsername, setPassword, submitLogin] as const
+    return [username, password, setUsername, setPassword, submitLogin, finalLogin] as const
 }
 
 export default useLogin

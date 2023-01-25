@@ -8,10 +8,11 @@ import Home from 'components/Home'
 import useAuthStore from 'utils/state/useAuthStore'
 import { shallow } from 'zustand/shallow'
 import Error from 'components/Error'
-import { useEffect } from 'react'
 import useErrorStore from 'utils/state/useErrorStore'
 import MockDraft from 'components/MockDraft'
 import { auth } from 'utils/api/auth'
+import Confirm from 'components/Register/Confirm'
+import GoogleOauth from 'components/Register/GoogleOauth'
 
 // QueryClient can be configurable, see below
 
@@ -30,39 +31,50 @@ import { auth } from 'utils/api/auth'
 function App() {
     const queryClient = new QueryClient()
 
-    const { user, setUser } = useAuthStore((state) => ({ user: state.user, setUser: state.setUser }), shallow)
-    const { error, setError } = useErrorStore((state) => ({ error: state.error, setError: state.setError }), shallow)
+    const { setUser } = useAuthStore((state) => ({ setUser: state.setUser }), shallow)
+    // const { error, setError } = useErrorStore((state) => ({ error: state.error, setError: state.setError }), shallow)
 
     const authLoader = async () => {
-        if (!user) {
-            return null
-        }
         const response = await auth()
         if (response) {
+            setUser(response)
             return redirect('/')
         }
         setUser(null)
-        return
+        return null
     }
+    const authLoaderLoggedIn = async () => {
+        const response = await auth()
+        if (response) {
+            console.log(response)
+            setUser(response)
+            return null
+        } else {
+            setUser(null)
+            return redirect('/login')
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
-            <Error error={error} setError={setError} />
+            {/* <Error error={error} setError={setError} /> */}
             <QueryClientProvider client={queryClient}>
                 <RouterProvider
                     router={createBrowserRouter([
                         {
                             path: '/register',
                             element: <Register />,
-                            loader: authLoader,
+                            // loader: authLoader,
                         },
                         {
                             path: '/login',
                             element: <Login />,
-                            loader: authLoader,
+                            // loader: authLoader,
                         },
+
                         { path: '/mockdraft', element: <MockDraft /> },
-                        { path: '/', element: <Home /> },
+                        { path: '/', element: <Home />, loader: authLoaderLoggedIn },
                     ])}
                 />
             </QueryClientProvider>

@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container, AuthContainer, ContainerTitle, Label } from '../styles'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import InputContainer from 'components/AuthInput'
 import { styled, Button } from 'utils/theme'
@@ -9,7 +9,14 @@ import { faDiscord, faGoogle } from '@fortawesome/free-brands-svg-icons'
 import useLogin from './useLogin'
 
 const Login: React.FC = () => {
-    const [username, password, setUsername, setPassword, submitLogin] = useLogin()
+    const [username, password, setUsername, setPassword, submitLogin, finalLogin] = useLogin()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (finalLogin) {
+            navigate('/')
+        }
+    }, [finalLogin])
 
     return (
         <Container>

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from 'utils/theme'
 
 const Home: React.FC = () => {
+    useEffect(() => {})
     return (
         <Container>
             <div>hi</div>

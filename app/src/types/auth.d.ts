@@ -1,3 +1,8 @@
+interface UserType {
+    user_id: number
+    username: string
+}
+
 type ValueAndDescription = {
     value: boolean
     description: string
