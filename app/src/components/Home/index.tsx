@@ -9,9 +9,6 @@ import { faChartBar, faChessKnight, faUser } from '@fortawesome/free-regular-svg
 const Home: React.FC = () => {
     let location = useLocation()
 
-    useEffect(() => {
-        console.log(location)
-    })
     return (
         <Container>
             <Navigator>
@@ -19,7 +16,7 @@ const Home: React.FC = () => {
                 <NavItems>
                     <NavTitle>NBA</NavTitle>
                     <NavSection>
-                        <NavItem selected={location.pathname === '/nbafantasy'} to="/nbafantasy">
+                        <NavItem selected={location.pathname.indexOf('/nbafantasy') >= 0} to="/nbafantasy">
                             <Icon>
                                 <FontAwesomeIcon icon={faChessKnight} />
                             </Icon>
@@ -122,7 +119,10 @@ const Navigator = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1;
     padding: 0rem 1.8rem;
 `
 

@@ -17,6 +17,7 @@ import NBAFantasy from 'components/Home/NBAFantasy'
 import NBAStats from 'components/Home/NBAStats'
 import NFL from 'components/Home/NFL'
 import Settings from 'components/Home/Settings'
+import CreateNBAGame from 'components/Home/NBAFantasy/CreateNBAGame'
 
 // QueryClient can be configurable, see below
 
@@ -50,7 +51,6 @@ function App() {
     const authLoaderLoggedIn = async () => {
         const response = await auth()
         if (response) {
-            console.log(response)
             setUser(response)
             return null
         } else {
@@ -83,7 +83,11 @@ function App() {
                             element: <Home />,
                             loader: authLoaderLoggedIn,
                             children: [
-                                { path: 'nbafantasy', element: <NBAFantasy /> },
+                                {
+                                    path: 'nbafantasy',
+                                    element: <NBAFantasy />,
+                                    children: [{ path: 'create', element: <CreateNBAGame /> }],
+                                },
                                 { path: 'nbastats', element: <NBAStats /> },
                                 { path: 'nflfantasy', element: <NFL /> },
                                 { path: 'nflstats', element: <NFL /> },
