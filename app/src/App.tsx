@@ -13,6 +13,10 @@ import MockDraft from 'components/MockDraft'
 import { auth } from 'utils/api/auth'
 import Confirm from 'components/Register/Confirm'
 import GoogleOauth from 'components/Register/GoogleOauth'
+import NBAFantasy from 'components/Home/NBAFantasy'
+import NBAStats from 'components/Home/NBAStats'
+import NFL from 'components/Home/NFL'
+import Settings from 'components/Home/Settings'
 
 // QueryClient can be configurable, see below
 
@@ -74,7 +78,18 @@ function App() {
                         },
 
                         { path: '/mockdraft', element: <MockDraft /> },
-                        { path: '/', element: <Home />, loader: authLoaderLoggedIn },
+                        {
+                            path: '/',
+                            element: <Home />,
+                            loader: authLoaderLoggedIn,
+                            children: [
+                                { path: 'nbafantasy', element: <NBAFantasy /> },
+                                { path: 'nbastats', element: <NBAStats /> },
+                                { path: 'nflfantasy', element: <NFL /> },
+                                { path: 'nflstats', element: <NFL /> },
+                                { path: 'settings', element: <Settings /> },
+                            ],
+                        },
                     ])}
                 />
             </QueryClientProvider>
