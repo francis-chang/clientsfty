@@ -37,6 +37,8 @@ const Button = styled.div<ButtonProps>`
     border-radius: 4px;
     margin-right: 0.5rem;
     background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : 'transparent')};
+    transition-duration: 100ms;
+    transition-timing-function: ease-out;
 
     &:hover {
         background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark25)};

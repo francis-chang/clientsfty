@@ -1,23 +1,26 @@
+import { motion } from 'framer-motion'
 import React, { useEffect } from 'react'
 import { Button, styled } from 'utils/theme'
 import DraftFormat from './DraftFormat'
 import NumberOfGames from './NumberOfGames'
+import NumberOfPlayers from './NumberOfPlayers'
+import Simulate from './Simulate'
 import useForm from './useForm'
 
 const CreateGame: React.FC = () => {
-    const [formData, setFormData] = useForm()
+    const [formData, setFormData, submit] = useForm()
 
     return (
         <Container>
-            <Form>
+            <Form onSubmit={submit}>
                 <FormElementSticky>
                     <FormMainTitle>Create a Game</FormMainTitle>
-                    <Submit>Create</Submit>
+                    <Submit type="submit">Create</Submit>
                 </FormElementSticky>
                 <FormElement>
                     <FormDescription>
                         <FormTitle>Name</FormTitle>
-                        <FormSubtitle>Type a name for your fantasy League</FormSubtitle>
+                        <FormSubtitle>Type a name for your fantasy game</FormSubtitle>
                     </FormDescription>
                     <FormElementElement>
                         <Input value={formData.name} onChange={(e) => setFormData({ name: e.target.value })} />
@@ -43,6 +46,34 @@ const CreateGame: React.FC = () => {
                     <DraftFormat
                         onChange={(draftFormat: string) => setFormData({ draftFormat })}
                         selected={formData.draftFormat}
+                    />
+                </FormElement>
+                <FormElement>
+                    <FormDescription>
+                        <FormTitle>Simulate Draft</FormTitle>
+                        <FormSubtitle>
+                            Choose a number of AI bots for each player in your game to draft against.
+                        </FormSubtitle>
+                    </FormDescription>
+
+                    <Simulate
+                        disabled={formData.draftFormat !== 'AI_DRAFT'}
+                        onClick={(numberOfTeamsToSimul: number) => setFormData({ numberOfTeamsToSimul })}
+                        selected={formData.numberOfTeamsToSimul}
+                    />
+                </FormElement>
+
+                <FormElement>
+                    <FormDescription>
+                        <FormTitle>Number of Players</FormTitle>
+                        <FormSubtitle>
+                            Choose Number of Players that can join the game. Vacant spots will be filled with Bots.
+                        </FormSubtitle>
+                    </FormDescription>
+
+                    <NumberOfPlayers
+                        onChange={(number: number) => setFormData({ numGames: number })}
+                        selected={formData.numGames}
                     />
                 </FormElement>
             </Form>
@@ -83,7 +114,7 @@ const Container = styled.div`
     /* Handle on hover */
 `
 
-const Form = styled.div`
+const Form = styled.form`
     display: flex;
     flex-direction: column;
     width: 750px;
@@ -97,6 +128,7 @@ const FormElement = styled.div`
     align-items: center;
     padding: 2rem 1rem;
     border-bottom: ${({ theme }) => `2px solid ${theme.colors.dark25}`};
+    background-color: ${({ theme }) => theme.colors.dark4};
 `
 
 const FormElementSticky = styled.div`

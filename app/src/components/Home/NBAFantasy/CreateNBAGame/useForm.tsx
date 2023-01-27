@@ -1,9 +1,11 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { createGame } from 'utils/api/game'
 
-const defaultForm = {
+export const defaultForm = {
     name: '',
     numGames: 3,
     draftFormat: 'AI_DRAFT',
+    numberOfTeamsToSimul: 12,
 }
 
 const useForm = () => {
@@ -13,7 +15,15 @@ const useForm = () => {
         sFD({ ...formData, ...data })
     }
 
-    return [formData, setFormData] as const
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const response = await createGame(formData)
+        if (response) {
+            console.log(response)
+        }
+    }
+
+    return [formData, setFormData, submit] as const
 }
 
 export default useForm
