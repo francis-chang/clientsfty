@@ -110,8 +110,10 @@ const NavItemTitle = styled.div``
 
 const Container = styled.div`
     display: flex;
-    max-width: 1400px;
+    width: 1200px;
+    max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 `
 
 const Navigator = styled.div`
@@ -119,7 +121,7 @@ const Navigator = styled.div`
     height: 100vh;
     display: flex;
     flex-direction: column;
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     z-index: 1;

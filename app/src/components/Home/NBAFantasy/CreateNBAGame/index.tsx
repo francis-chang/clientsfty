@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import React, { useEffect } from 'react'
+import { redirect, useNavigate } from 'react-router-dom'
 import { Button, styled } from 'utils/theme'
 import DraftFormat from './DraftFormat'
 import NumberOfGames from './NumberOfGames'
@@ -7,7 +8,7 @@ import NumberOfPlayers from './NumberOfPlayers'
 import Simulate from './Simulate'
 import useForm from './useForm'
 
-const CreateGame: React.FC = () => {
+const CreateGame: any = () => {
     const [formData, setFormData, submit] = useForm()
 
     return (

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createGame } from 'utils/api/game'
 
 export const defaultForm = {
@@ -10,6 +11,7 @@ export const defaultForm = {
 
 const useForm = () => {
     const [formData, sFD] = useState(defaultForm)
+    const navigate = useNavigate()
 
     const setFormData = (data: Partial<typeof defaultForm>) => {
         sFD({ ...formData, ...data })
@@ -19,7 +21,7 @@ const useForm = () => {
         e.preventDefault()
         const response = await createGame(formData)
         if (response) {
-            console.log(response)
+            navigate(`/nbafantasy/game/${response.game_id}`)
         }
     }
 

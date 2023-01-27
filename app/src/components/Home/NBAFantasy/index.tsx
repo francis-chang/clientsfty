@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { styled } from 'utils/theme'
+import MyGames from './MyGames'
 
 const NBAFantasy: React.FC = () => {
     const location = useLocation()
     return (
         <Container>
             <Navigation>
-                <NavItem selected={location.pathname === '/nbafantasy'} to="/nbafantasy">
+                <NavItem
+                    selected={location.pathname === '/nbafantasy' || location.pathname.indexOf('/nbafantasy/game') >= 0}
+                    to="/nbafantasy"
+                >
                     My Games
                 </NavItem>
                 <NavItem selected={location.pathname === '/nbafantasy/bar'} to="/nbafantasy">
@@ -17,7 +21,7 @@ const NBAFantasy: React.FC = () => {
                     Create Game
                 </NavItem>
             </Navigation>
-            <Outlet />
+            {location.pathname === '/nbafantasy' ? <MyGames /> : <Outlet />}
         </Container>
     )
 }

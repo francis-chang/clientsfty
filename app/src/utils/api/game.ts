@@ -15,6 +15,29 @@ const base = axios.create({
     withCredentials: true,
 })
 
+const apiCall = async <T>(url: string): Promise<T | null> => {
+    try {
+        const response = await base.get<T, any>(url)
+        return response.data
+    } catch (err: any) {
+        console.error(`error fetching ${url}`)
+        if (err.response) {
+            console.error(err.response.data)
+            console.error(err.response.status)
+            console.error(err.response.headers)
+        } else if (err.request) {
+            // The request was made but no response was received
+            // `err.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.error(err.request)
+        } else {
+            // Something happened in setting up the request that triggered an err
+            console.error(err.message)
+        }
+        return null
+    }
+}
+
 const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null> => {
     try {
         const response = await base.post<T, any>(url, data)
@@ -43,4 +66,15 @@ const createGame = async (data: typeof defaultForm) => {
     return await apiPost<GameInterface>(`/create`, data, null)
 }
 
-export { createGame }
+const findGame = async (gameId: string | undefined) => {
+    if (!gameId) {
+        return null
+    }
+    return await apiCall<GameInterface>(`/find/${gameId}`)
+}
+
+const getAllGames = async () => {
+    return await apiCall<GameInterface[]>('/getallgames')
+}
+
+export { createGame, findGame, getAllGames }

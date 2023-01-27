@@ -18,6 +18,8 @@ import NBAStats from 'components/Home/NBAStats'
 import NFL from 'components/Home/NFL'
 import Settings from 'components/Home/Settings'
 import CreateNBAGame from 'components/Home/NBAFantasy/CreateNBAGame'
+import FantasyGame from 'components/Home/NBAFantasy/FantasyGame'
+import GameSettings from 'components/Home/NBAFantasy/FantasyGame/Settings'
 
 // QueryClient can be configurable, see below
 
@@ -86,7 +88,14 @@ function App() {
                                 {
                                     path: 'nbafantasy',
                                     element: <NBAFantasy />,
-                                    children: [{ path: 'create', element: <CreateNBAGame /> }],
+                                    children: [
+                                        { path: 'create', element: <CreateNBAGame /> },
+                                        {
+                                            path: 'game/:gameId',
+                                            element: <FantasyGame />,
+                                            children: [{ path: 'settings', element: <GameSettings /> }],
+                                        },
+                                    ],
                                 },
                                 { path: 'nbastats', element: <NBAStats /> },
                                 { path: 'nflfantasy', element: <NFL /> },
