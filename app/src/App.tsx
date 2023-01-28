@@ -36,7 +36,6 @@ function App() {
     }
     const authLoaderLoggedIn = async () => {
         const response = await auth()
-        console.log(response)
         if (response) {
             setUser(response)
             return null

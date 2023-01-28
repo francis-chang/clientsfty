@@ -42,7 +42,12 @@ const Simulate: React.FC<Props> = ({ onClick, selected, disabled }) => {
 
 export default Simulate
 
-const Container = styled.div``
+const Container = styled.div`
+    // animated motion div needs a specific numeric value to be animated towards
+    // this is derived by dividing that value by 2 and subtracting half of NumberOfGamesElement height
+    padding-top: 43.4px;
+    padding-left: 1rem;
+`
 
 type NumberOfGamesElement = {
     selected: boolean
@@ -53,7 +58,9 @@ const NumberOfGamesElement = styled.div<NumberOfGamesElement>`
     cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
     display: flex;
     flex-direction: column;
-    margin-right: 10px;
+    &:not(:last-child) {
+        margin-right: 10px;
+    }
     height: 55px;
     width: 60px;
     justify-content: center;

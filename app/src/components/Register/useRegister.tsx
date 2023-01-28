@@ -248,8 +248,7 @@ const useRegister = () => {
         event.preventDefault()
         const response = await createUser(username.str, password.str, email.str)
         if (response) {
-            const { user_id, username } = response
-            useAuthStore.setState({ user: { user_id, username } })
+            useAuthStore.setState({ user: response })
             setFinalLogin(true)
         }
     }

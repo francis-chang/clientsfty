@@ -32,18 +32,34 @@ const Login: React.FC = () => {
                     <div>OR</div>
                     <Border />
                 </OrContainer>
-                <OauthButton isDiscord={true}>
-                    <OauthText>Log in with Discord</OauthText>
-                    <IconWrapper>
-                        <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
-                    </IconWrapper>
-                </OauthButton>
-                <OauthButton isDiscord={false}>
-                    <OauthText>Log in with Google</OauthText>
-                    <IconWrapper>
-                        <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
-                    </IconWrapper>
-                </OauthButton>
+                <A
+                    href={
+                        import.meta.env.MODE === 'development'
+                            ? 'http://localhost:5555/auth/google'
+                            : 'http://kaya.fty.gg/auth/google'
+                    }
+                >
+                    <OauthButton isDiscord={true}>
+                        <OauthText>Log in with Discord</OauthText>
+                        <IconWrapper>
+                            <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
+                        </IconWrapper>
+                    </OauthButton>
+                </A>
+                <A
+                    href={
+                        import.meta.env.MODE === 'development'
+                            ? 'http://localhost:5555/auth/google'
+                            : 'http://kaya.fty.gg/auth/google'
+                    }
+                >
+                    <OauthButton isDiscord={false}>
+                        <OauthText>Log in with Google</OauthText>
+                        <IconWrapper>
+                            <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
+                        </IconWrapper>
+                    </OauthButton>
+                </A>
             </AuthContainer>
 
             <AlreadyContainer to="/register">
@@ -54,6 +70,14 @@ const Login: React.FC = () => {
 }
 
 export default Login
+
+const A = styled.a`
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.light2};
+    &:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+`
 
 const OauthText = styled.div`
     flex-grow: 1;
@@ -121,9 +145,7 @@ const OauthButton = styled(Button)<OauthButtonProps>`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    &:not(:last-child) {
-        margin-bottom: 1rem;
-    }
+
     &:hover {
         background-color: ${({ theme, isDiscord }) =>
             isDiscord ? theme.colors.discordbackground : theme.colors.light1};

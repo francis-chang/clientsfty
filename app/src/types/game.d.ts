@@ -6,3 +6,5 @@ interface GameInterface {
     numGames: number
     numberOfTeamsToSimul: number
 }
+
+type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'

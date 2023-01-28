@@ -28,8 +28,6 @@ const NBAFantasy: React.FC = () => {
 
 export default NBAFantasy
 
-
-
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -45,6 +43,7 @@ const Navigation = styled.div`
     display: flex;
     position: sticky;
     top: 0;
+
     height: 34px;
     min-height: 34px;
     background-color: ${({ theme }) => theme.colors.dark4};

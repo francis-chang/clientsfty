@@ -9,11 +9,11 @@ type Props = {
 const DraftFormat: React.FC<Props> = ({ onChange, selected }) => {
     return (
         <Container>
-            <Button selected={selected === 'AI_DRAFT'} onClick={() => onChange('AI_DRAFT')}>
-                Individual AI Draft
-            </Button>
             <Button selected={selected === 'LIVE_DRAFT'} onClick={() => onChange('LIVE_DRAFT')}>
-                Live Draft
+                LIVE DRAFT
+            </Button>
+            <Button selected={selected === 'AI_DRAFT'} onClick={() => onChange('AI_DRAFT')}>
+                AI DRAFT
             </Button>
         </Container>
     )
@@ -33,6 +33,8 @@ type ButtonProps = {
 
 const Button = styled.div<ButtonProps>`
     padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 700;
     cursor: pointer;
     border-radius: 4px;
     margin-right: 0.5rem;

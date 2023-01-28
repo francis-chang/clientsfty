@@ -1,22 +1,24 @@
-import { motion } from 'framer-motion'
-import React, { useEffect } from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
 import { Button, styled } from 'utils/theme'
 import DraftFormat from './DraftFormat'
 import NumberOfGames from './NumberOfGames'
-import NumberOfPlayers from './NumberOfPlayers'
+
 import Simulate from './Simulate'
 import useForm from './useForm'
+import { motion, AnimatePresence } from 'framer-motion'
+import GameType from './GameType'
+import Categories from './Categories'
 
 const CreateGame: any = () => {
-    const [formData, setFormData, submit] = useForm()
+    const [formData, setFormData, submit, formIsValid] = useForm()
 
     return (
         <Container>
             <Form onSubmit={submit}>
                 <FormElementSticky>
                     <FormMainTitle>Create a Game</FormMainTitle>
-                    <Submit type="submit">Create</Submit>
+                    <Submit disabled={!formIsValid} type="submit">
+                        Create
+                    </Submit>
                 </FormElementSticky>
                 <FormElement>
                     <FormDescription>
@@ -26,6 +28,14 @@ const CreateGame: any = () => {
                     <FormElementElement>
                         <Input value={formData.name} onChange={(e) => setFormData({ name: e.target.value })} />
                     </FormElementElement>
+                </FormElement>
+
+                <FormElement>
+                    <FormDescription>
+                        <FormTitle>Game Type</FormTitle>
+                        <FormSubtitle>Chose from a variety of different game types.</FormSubtitle>
+                    </FormDescription>
+                    <GameType onChange={(gameType: string) => setFormData({ gameType })} selected={formData.gameType} />
                 </FormElement>
                 <FormElement>
                     <FormDescription>
@@ -39,6 +49,14 @@ const CreateGame: any = () => {
                 </FormElement>
                 <FormElement>
                     <FormDescription>
+                        <FormTitle>Categories</FormTitle>
+                        <FormSubtitle>Select categories to score your matchups</FormSubtitle>
+                    </FormDescription>
+                    <Categories onChange={(cats: Cats[]) => setFormData({ cats })} selected={formData.cats} />
+                </FormElement>
+
+                <FormElement>
+                    <FormDescription>
                         <FormTitle>Draft Format</FormTitle>
                         <FormSubtitle>
                             Choose how to draft. These settings can be configured for each Draft Interval later.
@@ -49,34 +67,29 @@ const CreateGame: any = () => {
                         selected={formData.draftFormat}
                     />
                 </FormElement>
-                <FormElement>
-                    <FormDescription>
-                        <FormTitle>Simulate Draft</FormTitle>
-                        <FormSubtitle>
-                            Choose a number of AI bots for each player in your game to draft against.
-                        </FormSubtitle>
-                    </FormDescription>
+                <AnimatePresence>
+                    {formData.draftFormat === 'AI_DRAFT' && (
+                        <FormMotionElement
+                            initial={{ height: '0px', opacity: 0 }}
+                            animate={{ height: '143.8px', opacity: 1 }}
+                            exit={{ height: '0px', opacity: 0 }}
+                            transition={{ ease: 'easeInOut' }}
+                        >
+                            <FormMotionDescription>
+                                <FormTitle>Simulate Draft</FormTitle>
+                                <FormSubtitle>
+                                    Choose a number of AI bots for each player in your game to draft against.
+                                </FormSubtitle>
+                            </FormMotionDescription>
 
-                    <Simulate
-                        disabled={formData.draftFormat !== 'AI_DRAFT'}
-                        onClick={(numberOfTeamsToSimul: number) => setFormData({ numberOfTeamsToSimul })}
-                        selected={formData.numberOfTeamsToSimul}
-                    />
-                </FormElement>
-
-                <FormElement>
-                    <FormDescription>
-                        <FormTitle>Number of Players</FormTitle>
-                        <FormSubtitle>
-                            Choose Number of Players that can join the game. Vacant spots will be filled with Bots.
-                        </FormSubtitle>
-                    </FormDescription>
-
-                    <NumberOfPlayers
-                        onChange={(number: number) => setFormData({ numGames: number })}
-                        selected={formData.numGames}
-                    />
-                </FormElement>
+                            <Simulate
+                                disabled={formData.draftFormat !== 'AI_DRAFT'}
+                                onClick={(numberOfTeamsToSimul: number) => setFormData({ numberOfTeamsToSimul })}
+                                selected={formData.numberOfTeamsToSimul}
+                            />
+                        </FormMotionElement>
+                    )}
+                </AnimatePresence>
             </Form>
         </Container>
     )
@@ -84,8 +97,20 @@ const CreateGame: any = () => {
 
 export default CreateGame
 
-const Submit = styled(Button)`
+type SubmitProps = {
+    disabled: boolean
+}
+
+const Submit = styled(Button)<SubmitProps>`
     font-weight: 700;
+    transition-duration: 100ms;
+    transition-timing-function: ease;
+    background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.blue2)};
+    color: ${({ theme, disabled }) => (disabled ? theme.colors.light4 : theme.colors.light1)};
+    cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
+    &:hover {
+        background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.blue1)};
+    }
 `
 
 const FormMainTitle = styled.div`
@@ -118,10 +143,18 @@ const Container = styled.div`
 const Form = styled.form`
     display: flex;
     flex-direction: column;
-    width: 750px;
+
+    width: 800px;
     flex-grow: 1;
     position: relative;
     margin-right: 1rem;
+`
+
+const FormMotionElement = styled(motion.div)`
+    overflow: hidden;
+    display: flex;
+    border-bottom: ${({ theme }) => `2px solid ${theme.colors.dark25}`};
+    background-color: ${({ theme }) => theme.colors.dark4};
 `
 
 const FormElement = styled.div`
@@ -138,16 +171,27 @@ const FormElementSticky = styled.div`
     padding: 2rem 1rem;
     border-bottom: ${({ theme }) => `2px solid ${theme.colors.dark25}`};
     position: sticky;
+    z-index: 3;
     top: 0;
     overflow: hidden;
     justify-content: space-between;
     background-color: ${({ theme }) => theme.colors.dark4};
 `
 
+const FormMotionDescription = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    width: 275px;
+    margin-right: 1.5rem;
+    align-self: flex-start;
+`
+
 const FormDescription = styled.div`
     display: flex;
     flex-direction: column;
-    width: 250px;
+    width: 275px;
     margin-right: 1.5rem;
     align-self: flex-start;
 `

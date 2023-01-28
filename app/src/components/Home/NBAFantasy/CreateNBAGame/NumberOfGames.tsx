@@ -10,19 +10,10 @@ const NumberOfGames: React.FC<Props> = ({ onChange, selected }) => {
     return (
         <Container>
             <NumGamesRowRow>
-                <NumberOfGamesTitle>HEAD TO HEAD </NumberOfGamesTitle>
                 <NumberOfGamesRow>
-                    <NumberOfGamesElement onClick={() => onChange(1)} selected={selected === 1}>
-                        <NumberOfGamesNumber>1</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAME</NumberOfGamesDesc>
-                    </NumberOfGamesElement>
-                    <NumberOfGamesElement onClick={() => onChange(2)} selected={selected === 2}>
-                        <NumberOfGamesNumber>2</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
-                    </NumberOfGamesElement>
                     <NumberOfGamesElement onClick={() => onChange(3)} selected={selected === 3}>
                         <NumberOfGamesNumber>3</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
+                        <NumberOfGamesDesc>GAME</NumberOfGamesDesc>
                     </NumberOfGamesElement>
                     <NumberOfGamesElement onClick={() => onChange(4)} selected={selected === 4}>
                         <NumberOfGamesNumber>4</NumberOfGamesNumber>
@@ -32,25 +23,16 @@ const NumberOfGames: React.FC<Props> = ({ onChange, selected }) => {
                         <NumberOfGamesNumber>5</NumberOfGamesNumber>
                         <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
                     </NumberOfGamesElement>
-                </NumberOfGamesRow>
-            </NumGamesRowRow>
-            <NumGamesRowRow>
-                <NumberOfGamesTitle>ROTISSERIE</NumberOfGamesTitle>
-                <NumberOfGamesRow>
+                    <NumberOfGamesElement onClick={() => onChange(6)} selected={selected === 6}>
+                        <NumberOfGamesNumber>6</NumberOfGamesNumber>
+                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
+                    </NumberOfGamesElement>
                     <NumberOfGamesElement onClick={() => onChange(7)} selected={selected === 7}>
                         <NumberOfGamesNumber>7</NumberOfGamesNumber>
                         <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
                     </NumberOfGamesElement>
                     <NumberOfGamesElement onClick={() => onChange(10)} selected={selected === 10}>
                         <NumberOfGamesNumber>10</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
-                    </NumberOfGamesElement>
-                    <NumberOfGamesElement onClick={() => onChange(15)} selected={selected === 15}>
-                        <NumberOfGamesNumber>15</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
-                    </NumberOfGamesElement>
-                    <NumberOfGamesElement onClick={() => onChange(20)} selected={selected === 20}>
-                        <NumberOfGamesNumber>20</NumberOfGamesNumber>
                         <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
                     </NumberOfGamesElement>
                 </NumberOfGamesRow>
@@ -64,9 +46,6 @@ export default NumberOfGames
 const NumGamesRowRow = styled.div`
     display: flex;
     flex-direction: column;
-    &:first-child {
-        margin-bottom: 1rem;
-    }
 `
 
 const Container = styled.div`

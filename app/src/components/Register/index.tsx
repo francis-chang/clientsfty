@@ -65,18 +65,20 @@ const Register: React.FC = () => {
                         <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
                     </IconWrapper>
                 </OauthButton>
-                <OauthButton
-                    onClick={() => {
-                        window.open('http://localhost:5555/auth/google')
-                    }}
-                    type="button"
-                    isDiscord={false}
+                <A
+                    href={
+                        import.meta.env.MODE === 'development'
+                            ? 'http://localhost:5555/auth/google'
+                            : 'http://kaya.fty.gg/auth/google'
+                    }
                 >
-                    <OauthText>Sign up with Google</OauthText>
-                    <IconWrapper>
-                        <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
-                    </IconWrapper>
-                </OauthButton>
+                    <OauthButton type="button" isDiscord={false}>
+                        <OauthText>Sign up with Google</OauthText>
+                        <IconWrapper>
+                            <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>
+                        </IconWrapper>
+                    </OauthButton>
+                </A>
             </AuthContainer>
             <AlreadyContainer to="/login">
                 Already signed up? <Span>Log in here</Span>
@@ -86,6 +88,11 @@ const Register: React.FC = () => {
 }
 
 export default Register
+
+const A = styled.a`
+    text-decoration: none;
+    color: ${({ theme }) => theme.colors.light2};
+`
 
 const OauthText = styled.div`
     flex-grow: 1;

@@ -3,11 +3,18 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { styled } from 'utils/theme'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSliders } from '@fortawesome/free-solid-svg-icons'
-import { faChartBar, faChessKnight, faUser, faCircleLeft } from '@fortawesome/free-regular-svg-icons'
 import { shallow } from 'zustand/shallow'
 import useAuthStore from 'utils/state/useAuthStore'
 import { logout } from 'utils/api/auth'
+import {
+    faPegasus,
+    faWand,
+    faHouse,
+    faSword,
+    faChartColumn,
+    faGear,
+    faDoorClosed,
+} from '@fortawesome/pro-light-svg-icons'
 
 const Home: React.FC = () => {
     let location = useLocation()
@@ -31,7 +38,7 @@ const Home: React.FC = () => {
                         <NavItem selected={location.pathname.indexOf('/nbafantasy') >= 0} to="/nbafantasy">
                             <NavTitleContainer>
                                 <Icon>
-                                    <FontAwesomeIcon icon={faChessKnight} />
+                                    <FontAwesomeIcon icon={faSword} />
                                 </Icon>
                                 <NavItemTitle>Fantasy</NavItemTitle>
                             </NavTitleContainer>
@@ -39,7 +46,7 @@ const Home: React.FC = () => {
                         <NavItem selected={location.pathname === '/nbastats'} to="/nbastats">
                             <NavTitleContainer>
                                 <Icon>
-                                    <FontAwesomeIcon icon={faChartBar} />
+                                    <FontAwesomeIcon icon={faChartColumn} />
                                 </Icon>
                                 <NavItemTitle>Stats</NavItemTitle>
                             </NavTitleContainer>
@@ -50,7 +57,7 @@ const Home: React.FC = () => {
                         <NavItem selected={location.pathname === '/nflfantasy'} to="/nflfantasy">
                             <NavTitleContainer>
                                 <Icon>
-                                    <FontAwesomeIcon icon={faChessKnight} />
+                                    <FontAwesomeIcon icon={faSword} />
                                 </Icon>
                                 <NavItemTitle>Fantasy</NavItemTitle>
                             </NavTitleContainer>
@@ -58,7 +65,7 @@ const Home: React.FC = () => {
                         <NavItem selected={location.pathname === '/nflstats'} to="/nflstats">
                             <NavTitleContainer>
                                 <Icon>
-                                    <FontAwesomeIcon icon={faChartBar} />
+                                    <FontAwesomeIcon icon={faChartColumn} />
                                 </Icon>
                                 <NavItemTitle>Stats</NavItemTitle>
                             </NavTitleContainer>
@@ -67,7 +74,7 @@ const Home: React.FC = () => {
                     <NavItem selected={location.pathname === '/'} to="/">
                         <NavTitleContainer>
                             <Icon>
-                                <FontAwesomeIcon icon={faUser} />
+                                <FontAwesomeIcon icon={faHouse} />
                             </Icon>
                             <NavItemTitle>Home</NavItemTitle>
                         </NavTitleContainer>
@@ -75,7 +82,7 @@ const Home: React.FC = () => {
                     <NavItem selected={location.pathname === '/settings'} to="/settings">
                         <NavTitleContainer>
                             <Icon>
-                                <FontAwesomeIcon icon={faSliders} />
+                                <FontAwesomeIcon icon={faGear} />
                             </Icon>
                             <NavItemTitle>Settings</NavItemTitle>
                         </NavTitleContainer>
@@ -84,7 +91,7 @@ const Home: React.FC = () => {
                     <NavItemNonLink onClick={onClickLogout}>
                         <NavTitleContainer>
                             <Icon>
-                                <FontAwesomeIcon icon={faCircleLeft} />
+                                <FontAwesomeIcon icon={faDoorClosed} />
                             </Icon>
                             <NavItemTitle>Log Out</NavItemTitle>
                         </NavTitleContainer>
