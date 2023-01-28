@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import { changeUsername, findUsernameAvailable } from 'utils/api/auth'
 import { Button, styled } from 'utils/theme'
-import { FormTitle, FormDescription, FormElement, FormElementElement, FormSubtitle } from '../FormElements'
+import { FormTitle, FormDescription, FormElement, FormSubtitle } from '../FormElements'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark, faCheck, faPause } from '@fortawesome/free-solid-svg-icons'
 import useAuthStore from 'utils/state/useAuthStore'
 
-const ChangeUsername: React.FC = () => {
-    const setUser = useAuthStore((state) => state.setUser)
+type Props = {
+    username: string
+}
+
+const UsernameDefault: React.FC<Props> = ({ username }) => {
+    const [changeView, setChangeView] = useState(false)
     const regex = /^[a-zA-Z0-9]*$/
     const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null)
     const [usernameValid, setUsernameValid] = useState(false)
     const [waiting, setWaiting] = useState(false)
     const [timeout, setT] = useState<NodeJS.Timeout>()
 
-    const [username, setUsername] = useState('')
+    const [usernameToChange, setUsername] = useState('')
+    const setUser = useAuthStore((state) => state.setUser)
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (timeout) {
@@ -39,45 +44,87 @@ const ChangeUsername: React.FC = () => {
         }
         setUsername(e.target.value)
     }
+
     // make sure to do error handling
     const onClick = async () => {
-        const response = await changeUsername(username)
+        const response = await changeUsername(usernameToChange)
         if (response) {
             setUser(response)
+            setUsername('')
+            setUsernameValid(false)
+            setUsernameAvailable(false)
+            setChangeView(false)
         }
     }
+
     return (
         <FormElement>
             <FormDescription>
-                <FormTitle important={true}>Set a Username</FormTitle>
-                <FormSubtitle>
-                    Username must only contain letters and numbers, and must have at least 6 characters
-                </FormSubtitle>
+                <FormTitle important={false}>Username</FormTitle>
+                {changeView && (
+                    <FormSubtitle>
+                        Username must only contain letters and numbers, and must have at least 6 characters
+                    </FormSubtitle>
+                )}
             </FormDescription>
-            <FormElementElement>
-                <InputWrapper>
-                    <IconContainer
-                        usernameValid={usernameValid}
-                        usernameAvailable={usernameAvailable}
-                        waiting={waiting}
-                    >
-                        <FontAwesomeIcon
-                            icon={waiting ? faPause : usernameAvailable ? faCheck : faXmark}
-                        ></FontAwesomeIcon>
-                    </IconContainer>
-                    <Input spellCheck={false} value={username} onChange={onChange} />
-                </InputWrapper>
-                <Submit onClick={onClick} disabled={waiting || !usernameAvailable === true}>
-                    Set username
-                </Submit>
-            </FormElementElement>
+            {changeView ? (
+                <FormElementElement>
+                    <InputWrapper>
+                        <IconContainer
+                            usernameValid={usernameValid}
+                            usernameAvailable={usernameAvailable}
+                            waiting={waiting}
+                        >
+                            <FontAwesomeIcon
+                                icon={waiting ? faPause : usernameAvailable ? faCheck : faXmark}
+                            ></FontAwesomeIcon>
+                        </IconContainer>
+                        <Input spellCheck={false} value={usernameToChange} onChange={onChange} />
+                    </InputWrapper>
+                    <Submit onClick={onClick} disabled={waiting || !usernameAvailable === true}>
+                        change username
+                    </Submit>
+                    <CancelButton onClick={() => setChangeView(false)}>Cancel</CancelButton>
+                </FormElementElement>
+            ) : (
+                <FormElementElement>
+                    <Title>{username}</Title>
+                    <Submit onClick={() => setChangeView(true)} disabled={false}>
+                        Change Username
+                    </Submit>
+                </FormElementElement>
+            )}
         </FormElement>
     )
 }
 
-export default ChangeUsername
+export default UsernameDefault
+
+const CancelButton = styled.div`
+    height: 2.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1rem;
+    cursor: pointer;
+    color: ${({ theme }) => theme.colors.light4};
+`
+
+const FormElementElement = styled.div`
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    position: relative;
+`
+
 const InputWrapper = styled.div`
     position: relative;
+`
+
+const Title = styled.div`
+    font-size: 2rem;
+    font-weight: 700;
+    margin-right: 2rem;
 `
 
 type IconContainerProps = {
@@ -108,21 +155,31 @@ const Submit = styled(Button)<SubmitProps>`
     &:hover {
         background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.blue1)};
     }
+    height: 2.2rem;
+    padding: 0rem 0.7rem;
     font-weight: 700;
 `
+// const Submit = styled(Button)`
+//     background-color: ${({ theme }) => theme.colors.dark4};
+//     color: ${({ theme }) => theme.colors.light2};
+//     cursor: pointer;
+//     &:hover {
+//         background-color: ${({ theme }) => theme.colors.dark25};
+//     }
+//     font-size: 0.8rem;
+//     border: ${({ theme }) => `1px solid ${theme.colors.dark1}`};
+//     padding: 0rem 0.7rem;
+//     font-weight: 700;
 
-const Title = styled.div`
-    margin-top: 2rem;
-    font-weight: 700;
-    font-size: 2rem;
-`
+// `
 
 const Input = styled.input`
     background-color: ${({ theme }) => theme.colors.dark4};
     outline: ${({ theme }) => `${theme.colors.dark1} solid 1px`};
     color: ${({ theme }) => theme.colors.light1};
     border: none;
-    padding: 0.6rem 1rem;
+    padding: 0rem 1rem;
+    height: 2.2rem;
     border-radius: 4px;
     font-size: 1rem;
     width: 14rem;

@@ -7,12 +7,10 @@ import Login from 'components/Login'
 import Home from 'components/Home'
 import useAuthStore from 'utils/state/useAuthStore'
 import { shallow } from 'zustand/shallow'
-import Error from 'components/Error'
-import useErrorStore from 'utils/state/useErrorStore'
+
 import MockDraft from 'components/MockDraft'
 import { auth } from 'utils/api/auth'
-import Confirm from 'components/Register/Confirm'
-import GoogleOauth from 'components/Register/GoogleOauth'
+
 import NBAFantasy from 'components/Home/NBAFantasy'
 import NBAStats from 'components/Home/NBAStats'
 import NFL from 'components/Home/NFL'
@@ -20,20 +18,6 @@ import Settings from 'components/Home/Settings'
 import CreateNBAGame from 'components/Home/NBAFantasy/CreateNBAGame'
 import FantasyGame from 'components/Home/NBAFantasy/FantasyGame'
 import GameSettings from 'components/Home/NBAFantasy/FantasyGame/Settings'
-
-// QueryClient can be configurable, see below
-
-// const queryClient = new QueryClient({
-//     defaultOptions: {
-//       queries: {
-//         refetchOnWindowFocus: false,
-//         refetchOnmount: false,
-//         refetchOnReconnect: false,
-//         retry: false,
-//         staleTime: 5*60*1000,
-//       },
-//     },
-//   });
 
 function App() {
     const queryClient = new QueryClient()
@@ -52,6 +36,7 @@ function App() {
     }
     const authLoaderLoggedIn = async () => {
         const response = await auth()
+        console.log(response)
         if (response) {
             setUser(response)
             return null

@@ -5,10 +5,12 @@ import { styled } from 'utils/theme'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSliders } from '@fortawesome/free-solid-svg-icons'
 import { faChartBar, faChessKnight, faUser } from '@fortawesome/free-regular-svg-icons'
+import { shallow } from 'zustand/shallow'
+import useAuthStore from 'utils/state/useAuthStore'
 
 const Home: React.FC = () => {
     let location = useLocation()
-
+    const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
     return (
         <Container>
             <Navigator>
@@ -17,44 +19,57 @@ const Home: React.FC = () => {
                     <NavTitle>NBA</NavTitle>
                     <NavSection>
                         <NavItem selected={location.pathname.indexOf('/nbafantasy') >= 0} to="/nbafantasy">
-                            <Icon>
-                                <FontAwesomeIcon icon={faChessKnight} />
-                            </Icon>
-                            <NavItemTitle>Fantasy</NavItemTitle>
+                            <NavTitleContainer>
+                                <Icon>
+                                    <FontAwesomeIcon icon={faChessKnight} />
+                                </Icon>
+                                <NavItemTitle>Fantasy</NavItemTitle>
+                            </NavTitleContainer>
                         </NavItem>
                         <NavItem selected={location.pathname === '/nbastats'} to="/nbastats">
-                            <Icon>
-                                <FontAwesomeIcon icon={faChartBar} />
-                            </Icon>
-                            <NavItemTitle>Stats</NavItemTitle>
+                            <NavTitleContainer>
+                                <Icon>
+                                    <FontAwesomeIcon icon={faChartBar} />
+                                </Icon>
+                                <NavItemTitle>Stats</NavItemTitle>
+                            </NavTitleContainer>
                         </NavItem>
                     </NavSection>
                     <NavTitle>NFL</NavTitle>
                     <NavSection>
                         <NavItem selected={location.pathname === '/nflfantasy'} to="/nflfantasy">
-                            <Icon>
-                                <FontAwesomeIcon icon={faChessKnight} />
-                            </Icon>
-                            <NavItemTitle>Fantasy</NavItemTitle>
+                            <NavTitleContainer>
+                                <Icon>
+                                    <FontAwesomeIcon icon={faChessKnight} />
+                                </Icon>
+                                <NavItemTitle>Fantasy</NavItemTitle>
+                            </NavTitleContainer>
                         </NavItem>
                         <NavItem selected={location.pathname === '/nflstats'} to="/nflstats">
-                            <Icon>
-                                <FontAwesomeIcon icon={faChartBar} />
-                            </Icon>
-                            <NavItemTitle>Stats</NavItemTitle>
+                            <NavTitleContainer>
+                                <Icon>
+                                    <FontAwesomeIcon icon={faChartBar} />
+                                </Icon>
+                                <NavItemTitle>Stats</NavItemTitle>
+                            </NavTitleContainer>
                         </NavItem>
                     </NavSection>
                     <NavItem selected={location.pathname === '/'} to="/">
-                        <Icon>
-                            <FontAwesomeIcon icon={faUser} />
-                        </Icon>
-                        <NavItemTitle>Home</NavItemTitle>
+                        <NavTitleContainer>
+                            <Icon>
+                                <FontAwesomeIcon icon={faUser} />
+                            </Icon>
+                            <NavItemTitle>Home</NavItemTitle>
+                        </NavTitleContainer>
                     </NavItem>
                     <NavItem selected={location.pathname === '/settings'} to="/settings">
-                        <Icon>
-                            <FontAwesomeIcon icon={faSliders} />
-                        </Icon>
-                        <NavItemTitle>Settings</NavItemTitle>
+                        <NavTitleContainer>
+                            <Icon>
+                                <FontAwesomeIcon icon={faSliders} />
+                            </Icon>
+                            <NavItemTitle>Settings</NavItemTitle>
+                        </NavTitleContainer>
+                        {user?.settingsWarnings ? <Warning>{user?.settingsWarnings}</Warning> : null}
                     </NavItem>
                 </NavItems>
             </Navigator>
@@ -64,6 +79,25 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+const NavTitleContainer = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+const Warning = styled.div`
+    border-radius: 20px;
+    margin-left: 1rem;
+    padding: 3px 0px;
+    width: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${({ theme }) => theme.colors.orange1};
+    color: ${({ theme }) => theme.colors.dark4};
+    font-size: 0.8rem;
+    font-weight: 700;
+`
 
 type NavItemProps = {
     selected: boolean
@@ -75,6 +109,7 @@ const NavItem = styled(Link)<NavItemProps>`
     display: flex;
     margin: 0 auto;
     align-items: center;
+    justify-content: space-between;
     width: 100%;
     margin: 0.2rem 0rem;
     padding: 0.5rem;

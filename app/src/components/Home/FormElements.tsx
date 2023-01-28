@@ -32,7 +32,7 @@ const FormTitle = styled.div<ImportantProps>`
     font-size: 1.1rem;
     font-weight: 500;
     margin-bottom: 0.3rem;
-    color: ${({ theme, important }) => (important ? theme.colors.orange1 : theme.colors.light1)};
+    color: ${({ theme, important }) => (important ? theme.colors.orange1 : theme.colors.light3)};
 `
 
 export { FormTitle, FormDescription, FormElement, FormElementElement, FormSubtitle }

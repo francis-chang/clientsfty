@@ -93,6 +93,8 @@ const findEmailAvailable = async (email: string) => {
 type UserCreateResponse = {
     user_id: number
     username: string
+    verified: boolean
+    settingsWarnings: number
 }
 
 const createUser = async (username: string, password: string, email: string) => {
@@ -115,4 +117,8 @@ const gAuth = async (code: string, scope: string) => {
     return await apiPost('/gauth', { code, scope }, useErrorStore)
 }
 
-export { findUsernameAvailable, findEmailAvailable, createUser, login, auth, verify, gAuth }
+const changeUsername = async (username: string) => {
+    return await apiPost<UserCreateResponse>('/changeusername', { username }, useErrorStore)
+}
+
+export { findUsernameAvailable, findEmailAvailable, createUser, login, auth, verify, gAuth, changeUsername }

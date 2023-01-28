@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import useAuthStore from 'utils/state/useAuthStore'
 import { Button, styled } from 'utils/theme'
+import { shallow } from 'zustand/shallow'
 import ChangeUsername from './ChangeUsername'
+import UsernameDefault from './UsernameDefault'
+import Verify from './Verify'
 
 const Settings: React.FC = () => {
+    const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
+
     return (
         <Container>
             <Title>User Settings</Title>
-            <ChangeUsername />
+            {!user?.verified && <Verify />}
+            {!user?.username ? <ChangeUsername /> : <UsernameDefault username={user.username} />}
         </Container>
     )
 }

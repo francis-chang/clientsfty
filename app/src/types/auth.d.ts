@@ -1,6 +1,8 @@
 interface UserType {
     user_id: number
     username: string
+    settingsWarnings: number
+    verified: boolean
 }
 
 type ValueAndDescription = {
