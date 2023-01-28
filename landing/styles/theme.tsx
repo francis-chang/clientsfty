@@ -105,6 +105,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
     }
     
     body{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+               "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         letter-spacing: 0px;
         background-color: ${({ theme }) => theme.colors.dark4};
