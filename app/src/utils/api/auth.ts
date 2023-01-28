@@ -105,12 +105,15 @@ const login = async (username: string, password: string) => {
     return await apiPost<UserCreateResponse>(`/login`, { username, password }, useErrorStore)
 }
 
+const logout = async () => {
+    return await apiCall(`/logout`)
+}
 const auth = async () => {
     return await apiCall<UserCreateResponse>('/auth')
 }
 
 const verify = async (confirmation_code: string) => {
-    return await apiPost('/verify', { confirmation_code }, useErrorStore)
+    return await apiPost<UserCreateResponse>('/verify', { confirmation_code }, useErrorStore)
 }
 
 const gAuth = async (code: string, scope: string) => {
@@ -121,4 +124,4 @@ const changeUsername = async (username: string) => {
     return await apiPost<UserCreateResponse>('/changeusername', { username }, useErrorStore)
 }
 
-export { findUsernameAvailable, findEmailAvailable, createUser, login, auth, verify, gAuth, changeUsername }
+export { findUsernameAvailable, findEmailAvailable, logout, createUser, login, auth, verify, gAuth, changeUsername }

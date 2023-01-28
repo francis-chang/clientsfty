@@ -1,16 +1,26 @@
 import React, { useEffect } from 'react'
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { styled } from 'utils/theme'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSliders } from '@fortawesome/free-solid-svg-icons'
-import { faChartBar, faChessKnight, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faChartBar, faChessKnight, faUser, faCircleLeft } from '@fortawesome/free-regular-svg-icons'
 import { shallow } from 'zustand/shallow'
 import useAuthStore from 'utils/state/useAuthStore'
+import { logout } from 'utils/api/auth'
 
 const Home: React.FC = () => {
     let location = useLocation()
-    const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
+    const { user, setUser } = useAuthStore((state) => ({ user: state.user, setUser: state.setUser }), shallow)
+
+    const navigate = useNavigate()
+
+    const onClickLogout = async () => {
+        await logout()
+        setUser(null)
+        navigate('/login')
+    }
+
     return (
         <Container>
             <Navigator>
@@ -71,6 +81,14 @@ const Home: React.FC = () => {
                         </NavTitleContainer>
                         {user?.settingsWarnings ? <Warning>{user?.settingsWarnings}</Warning> : null}
                     </NavItem>
+                    <NavItemNonLink onClick={onClickLogout}>
+                        <NavTitleContainer>
+                            <Icon>
+                                <FontAwesomeIcon icon={faCircleLeft} />
+                            </Icon>
+                            <NavItemTitle>Log Out</NavItemTitle>
+                        </NavTitleContainer>
+                    </NavItemNonLink>
                 </NavItems>
             </Navigator>
             <Outlet />
@@ -102,6 +120,26 @@ const Warning = styled.div`
 type NavItemProps = {
     selected: boolean
 }
+
+const NavItemNonLink = styled.div`
+    color: ${({ theme }) => theme.colors.light1};
+    text-decoration: none;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0.2rem 0rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+
+    transition-duration: 100ms;
+    transition-timing-function: ease-in;
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.dark25};
+    }
+`
 
 const NavItem = styled(Link)<NavItemProps>`
     color: ${({ theme }) => theme.colors.light1};

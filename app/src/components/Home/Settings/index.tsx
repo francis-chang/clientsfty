@@ -5,6 +5,7 @@ import { shallow } from 'zustand/shallow'
 import ChangeUsername from './ChangeUsername'
 import UsernameDefault from './UsernameDefault'
 import Verify from './Verify'
+import VerifyDefault from './VerifyDefault'
 
 const Settings: React.FC = () => {
     const { user } = useAuthStore((state) => ({ user: state.user }), shallow)
@@ -12,17 +13,13 @@ const Settings: React.FC = () => {
     return (
         <Container>
             <Title>User Settings</Title>
-            {!user?.verified && <Verify />}
+            {!user?.verified ? <Verify /> : <VerifyDefault />}
             {!user?.username ? <ChangeUsername /> : <UsernameDefault username={user.username} />}
         </Container>
     )
 }
 
 export default Settings
-
-const Submit = styled(Button)`
-    font-weight: 700;
-`
 
 const Title = styled.div`
     margin-top: 2rem;

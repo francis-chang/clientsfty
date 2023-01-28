@@ -122,7 +122,7 @@ const InputWrapper = styled.div`
 `
 
 const Title = styled.div`
-    font-size: 2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     margin-right: 2rem;
 `
@@ -149,11 +149,13 @@ type SubmitProps = {
 }
 
 const Submit = styled(Button)<SubmitProps>`
-    background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.blue2)};
+    background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.dark4)};
     color: ${({ theme, disabled }) => (disabled ? theme.colors.light5 : theme.colors.light2)};
     cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
+    border: ${({ theme, disabled }) =>
+        disabled ? `1px solid ${theme.colors.dark25}` : `1px solid ${theme.colors.dark1}`};
     &:hover {
-        background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.blue1)};
+        background-color: ${({ theme, disabled }) => (disabled ? theme.colors.dark25 : theme.colors.dark3)};
     }
     height: 2.2rem;
     padding: 0rem 0.7rem;
