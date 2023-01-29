@@ -13,7 +13,7 @@ const NumberOfGames: React.FC<Props> = ({ onChange, selected }) => {
                 <NumberOfGamesRow>
                     <NumberOfGamesElement onClick={() => onChange(3)} selected={selected === 3}>
                         <NumberOfGamesNumber>3</NumberOfGamesNumber>
-                        <NumberOfGamesDesc>GAME</NumberOfGamesDesc>
+                        <NumberOfGamesDesc>GAMES</NumberOfGamesDesc>
                     </NumberOfGamesElement>
                     <NumberOfGamesElement onClick={() => onChange(4)} selected={selected === 4}>
                         <NumberOfGamesNumber>4</NumberOfGamesNumber>
@@ -75,6 +75,7 @@ const NumberOfGamesElement = styled.div<NumberOfGamesElement>`
     justify-content: center;
     align-items: center;
     background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : 'transparent')};
+    color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light3)};
     user-select: none;
     border-radius: 4px;
     transition-duration: 100ms;
@@ -91,7 +92,6 @@ const NumberOfGamesNumber = styled.div`
 
 const NumberOfGamesDesc = styled.div`
     font-size: 0.7rem;
-    color: ${({ theme }) => theme.colors.light4};
 `
 
 const NumberOfGamesRow = styled.div`

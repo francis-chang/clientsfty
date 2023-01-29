@@ -96,7 +96,9 @@ const TopRowElement = styled.div<TopRowElementProps>`
     }
     font-size: 0.9rem;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.light2};
+    transition-duration: 100ms;
+    transition-timing-function: ease-in;
+    color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light3)};
     background-color: ${({ theme, selected }) => (selected ? theme.colors.dark25 : theme.colors.dark4)};
     cursor: pointer;
     margin-bottom: 0.8rem;
@@ -112,7 +114,7 @@ const BottomRowElement = styled.div<TopRowElementProps>`
     display: flex;
     flex-direction: column;
     margin-right: 0.8rem;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 700;
     border-radius: 4px;
     padding: 1rem 0rem;

@@ -35,7 +35,7 @@ const useForm = () => {
         e.preventDefault()
         const response = await createGame(formData)
         if (response) {
-            navigate(`/nbafantasy/game/${response.game_id}`)
+            navigate(`/nbafantasygame/${response.game_id}`)
         }
     }
 

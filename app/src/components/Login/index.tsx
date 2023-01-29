@@ -53,7 +53,7 @@ const Login: React.FC = () => {
                             : 'http://kaya.fty.gg/auth/google'
                     }
                 >
-                    <OauthButton isDiscord={false}>
+                    <OauthButton type="button" isDiscord={false}>
                         <OauthText>Log in with Google</OauthText>
                         <IconWrapper>
                             <FontAwesomeIcon icon={faGoogle}></FontAwesomeIcon>

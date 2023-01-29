@@ -115,6 +115,19 @@ export const GlobalStyle = createGlobalStyle<{ theme: Theme }>`
         box-sizing: border-box;
         padding: 0;
         margin: 0;
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: ${({ theme }) => theme.colors.dark2};
+            border-radius: 10px;
+        } 
         
     }
     html {

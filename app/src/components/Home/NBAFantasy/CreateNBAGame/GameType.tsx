@@ -17,20 +17,20 @@ const GameType: React.FC<Props> = ({ onChange, selected }) => {
                     <IconContainer selected={selected === 'SINGLE'} ident="SINGLE">
                         <FontAwesomeIcon icon={faSquare1} />
                     </IconContainer>
-                    <Description>SINGLE</Description>
+                    <Description selected={selected === 'SINGLE'}>SINGLE</Description>
                 </Element>
 
                 <Element onClick={() => onChange('KOTH')} selected={selected === 'KOTH'}>
                     <IconContainer selected={selected === 'KOTH'} ident="KOTH">
                         <FontAwesomeIcon icon={faChessKing} />
                     </IconContainer>
-                    <Description>KOTH</Description>
+                    <Description selected={selected === 'KOTH'}>KOTH</Description>
                 </Element>
                 <Element onClick={() => onChange('SEASON')} selected={selected === 'SEASON'}>
                     <IconContainer selected={selected === 'SEASON'} ident="SEASON">
                         <FontAwesomeIcon icon={faTrees} />
                     </IconContainer>
-                    <Description>SEASON</Description>
+                    <Description selected={selected === 'SEASON'}>SEASON</Description>
                 </Element>
             </ContainerRow>
             <GameDescription>
@@ -101,13 +101,15 @@ const IconContainer = styled.div<IconProps>`
                 return theme.colors.green2
             }
         } else {
-            return theme.colors.light2
+            return theme.colors.light3
         }
     }};
 `
 
-const Description = styled.div`
+const Description = styled.div<ElementProps>`
     font-size: 0.9rem;
     font-weight: 700;
-    color: ${({ theme }) => theme.colors.light3};
+    transition-timing-function: ease-in;
+    transition-duration: 100ms;
+    color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light3)};
 `

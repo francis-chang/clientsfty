@@ -12,9 +12,7 @@ const useLogin = () => {
         event.preventDefault()
         const response = await login(username, password)
         if (response) {
-            const { user_id, username } = response
-
-            useAuthStore.setState({ user: { user_id, username } })
+            useAuthStore.setState({ user: response })
             setFinalLogin(true)
         }
     }

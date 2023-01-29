@@ -11,7 +11,7 @@ const MyGames: React.FC = () => {
         <Container>
             {allGames.data?.map((game) => (
                 <Row key={game.game_id}>
-                    <Title to={`/nbafantasy/game/${game.game_id}`}>{game.name}</Title>
+                    <Title to={`/nbafantasygame/${game.game_id}`}>{game.name}</Title>
                 </Row>
             ))}
         </Container>
