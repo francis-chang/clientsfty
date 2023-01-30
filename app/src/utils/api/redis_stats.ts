@@ -3,8 +3,6 @@ import useErrorStore from 'utils/state/useErrorStore'
 
 // const DEV_ENVIRONMENT = import.meta.env.NODE_ENV === 'development'
 
-const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_URL : ''
-
 // FIGURE OUT WAY TO SEPARATE PROD AND DEV ENVIRONMENT
 
 // wrap fetches with a try catch
@@ -19,7 +17,7 @@ const PROD_KAYA_URL = import.meta.env.PROD_KAYA_URL ? import.meta.env.PROD_KAYA_
 // })
 
 const base = axios.create({
-    baseURL: 'https://yasha.fty.gg/rdata',
+    baseURL: import.meta.env.MODE === 'development' ? 'http://localhost:3000/rdata' : 'https://yasha.fty.gg/rdata',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',
@@ -48,6 +46,13 @@ const apiGet = async <T>(url: string): Promise<T | null> => {
             console.error(err.message)
         }
         return null
+    }
+}
+
+const getFourDayScores = async () => {
+    const response = await base.get<GameStatsJustScores[]>('getfourdayscores')
+    if (response) {
+        return response.data
     }
 }
 
@@ -123,4 +128,4 @@ const draft = async (data: any) => {
     }
 }
 
-export { getMockDraftList, draft, scoreDraft }
+export { getMockDraftList, draft, scoreDraft, getFourDayScores }

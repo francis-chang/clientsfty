@@ -1,4 +1,4 @@
-import { faArrowLeft } from '@fortawesome/pro-regular-svg-icons'
+import { faArrowLeft } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { useQuery } from 'react-query'
@@ -20,26 +20,26 @@ const FantasyGame: React.FC = () => {
 
             <Navigation>
                 <NavItem selected={location.pathname.indexOf('setting') < 0} to={`/nbafantasygame/${params.gameId}`}>
-                    General
+                    GENERAL
                 </NavItem>
                 <NavItem
                     selected={location.pathname.indexOf('setting') >= 0}
                     to={`/nbafantasygame/${params.gameId}/settings`}
                 >
-                    Settings
+                    SETTINGS
                 </NavItem>
 
                 <NavItem
                     selected={location.pathname.indexOf('setting') >= 0}
                     to={`/nbafantasygame/${params.gameId}/settings`}
                 >
-                    My Roster
+                    MY ROSTER
                 </NavItem>
                 <NavItem
                     selected={location.pathname.indexOf('setting') >= 0}
                     to={`/nbafantasygame/${params.gameId}/settings`}
                 >
-                    Matchup
+                    MATCHUP
                 </NavItem>
             </Navigation>
 
@@ -60,6 +60,7 @@ const Navigation = styled.div`
     display: flex;
     background-color: ${({ theme }) => theme.colors.dark4};
     padding: 0.5rem 0rem;
+    border-bottom: ${({ theme }) => `1px solid ${theme.colors.dark1}`};
     /* border-bottom: ${({ theme }) => `1px solid ${theme.colors.light4}`}; */
 `
 type NavItemProps = {
@@ -67,19 +68,23 @@ type NavItemProps = {
 }
 
 const NavItem = styled(Link)<NavItemProps>`
-    color: ${({ theme }) => theme.colors.light1};
+    color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light4)};
     text-decoration: none;
     display: flex;
     align-items: center;
     padding: 0.5rem 1.2rem;
     margin-right: 0.3rem;
     font-size: 0.9rem;
+    font-weight: 600;
+
     cursor: pointer;
     border-radius: 4px;
     background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : 'transparent')};
     transition-duration: 100ms;
     transition-timing-function: ease-in;
+    user-select: none;
     &:hover {
+        color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light25)};
         background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark25)};
     }
 `
@@ -107,14 +112,16 @@ const BackButton = styled(Link)`
     text-decoration: none;
     border-radius: 4px;
     color: ${({ theme }) => theme.colors.light3};
-    border: ${({ theme }) => `2px solid ${theme.colors.dark1}`};
+    background-color: ${({ theme }) => theme.colors.dark25};
+    /* border: ${({ theme }) => `2px solid ${theme.colors.dark4}`}; */
     align-items: center;
-    transition-duration: 100ms;
-    transition-timing-function: ease-in;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+
     margin: 1rem 0rem;
 
     &:hover {
         color: ${({ theme }) => theme.colors.light2};
-        border: ${({ theme }) => `2px solid ${theme.colors.light4}`};
+        background-color: ${({ theme }) => theme.colors.dark2};
     }
 `

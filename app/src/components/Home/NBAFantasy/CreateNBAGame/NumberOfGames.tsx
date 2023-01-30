@@ -92,6 +92,7 @@ const NumberOfGamesNumber = styled.div`
 
 const NumberOfGamesDesc = styled.div`
     font-size: 0.7rem;
+    font-weight: 500;
 `
 
 const NumberOfGamesRow = styled.div`

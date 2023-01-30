@@ -71,6 +71,7 @@ const Home: React.FC = () => {
                             </NavTitleContainer>
                         </NavItem>
                     </NavSection>
+                    <NavTitle>GENERAL</NavTitle>
                     <NavItem selected={location.pathname === '/'} to="/">
                         <NavTitleContainer>
                             <Icon>
@@ -149,7 +150,7 @@ const NavItemNonLink = styled.div`
 `
 
 const NavItem = styled(Link)<NavItemProps>`
-    color: ${({ theme }) => theme.colors.light1};
+    color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light3)};
     text-decoration: none;
     display: flex;
     margin: 0 auto;
@@ -164,8 +165,11 @@ const NavItem = styled(Link)<NavItemProps>`
     transition-duration: 100ms;
     transition-timing-function: ease-in;
     &:hover {
+        color: ${({ theme, selected }) => (selected ? theme.colors.light1 : theme.colors.light2)};
         background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark25)};
     }
+    font-weight: 600;
+    text-transform: uppercase;
 `
 
 const Icon = styled.div`
@@ -177,16 +181,19 @@ const Icon = styled.div`
 const NavTitle = styled.div`
     font-size: 0.9rem;
     color: ${({ theme }) => theme.colors.light4};
+    border-bottom: ${({ theme }) => `2px solid ${theme.colors.dark2}`};
+    padding-bottom: 2px;
     user-select: none;
 `
 
 const NavSection = styled.div`
     overflow: hidden;
-    margin-bottom: 0.5rem;
-    margin-left: 0.5rem;
+    margin-bottom: 1rem;
 `
 
-const NavItemTitle = styled.div``
+const NavItemTitle = styled.div`
+    font-size: 0.87rem;
+`
 
 const Container = styled.div`
     display: flex;

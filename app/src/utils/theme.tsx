@@ -5,9 +5,9 @@ import baseStyled, { createGlobalStyle, ThemedStyledInterface } from 'styled-com
 export const colors = {
     dark4: '#16191d',
     dark3: '#1b1f24',
+    dark25: '#21262c',
     dark2: '#2c323a',
     dark1: '#4d5866',
-    dark25: '#21262c',
 
     light1: '#e2e5e9',
     light2: '#c5cbd3',

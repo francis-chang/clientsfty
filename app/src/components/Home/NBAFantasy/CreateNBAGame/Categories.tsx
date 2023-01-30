@@ -13,9 +13,11 @@ const sameElements = (array1: Cats[], array2: Cats[]) => {
 }
 
 const Categories: React.FC<Props> = ({ onChange, selected }) => {
-    const all: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOS', 'TPM', 'FGP', 'FTP', 'TPP', 'FAN']
+    const all: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TPM', 'FGP', 'FTP', 'TOS', 'FGP', 'FAN']
+    const eight: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TPM', 'FGP', 'FTP']
     const nine: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOS', 'TPM', 'FGP', 'FTP']
     const ten: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOS', 'TPM', 'FGP', 'FTP', 'TPP']
+    const [isEight, setIsEight] = useState(false)
     const [isNine, setIsNine] = useState(false)
     const [isTen, setIsTen] = useState(false)
     const [isPoints, setIsPoints] = useState(false)
@@ -24,6 +26,10 @@ const Categories: React.FC<Props> = ({ onChange, selected }) => {
         setIsNine(false)
         setIsTen(false)
         setIsPoints(false)
+        setIsEight(false)
+        if (sameElements(selected, eight)) {
+            setIsEight(true)
+        }
         if (sameElements(selected, nine)) {
             setIsNine(true)
         } else if (sameElements(selected, ten)) {
