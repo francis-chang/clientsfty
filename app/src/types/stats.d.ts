@@ -19,20 +19,22 @@
 
 type GameStatsJustScores = {
     date: string
-    games: {
-        GameID: number
-        Status: string
-        DateTime: string
-        AwayTeamScore: null | string
-        HomeTeamScore: null | string
-        Quarter: null | string
-        TimeRemainingMinutes: null | string
-        TimeRemainingSeconds: null | string
-        away_team: {
-            Key: string
-        }
-        home_team: {
-            Key: string
-        }
-    }[]
+    games: GameStatForBoxScore[]
+}
+
+type GameStatForBoxScore = {
+    GameID: number
+    Status: string
+    DateTime: string
+    AwayTeamScore: null | string
+    HomeTeamScore: null | string
+    Quarter: null | string
+    TimeRemainingMinutes: null | string
+    TimeRemainingSeconds: null | string
+    away_team: {
+        Key: string
+    }
+    home_team: {
+        Key: string
+    }
 }

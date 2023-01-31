@@ -5,6 +5,7 @@ import { useQuery } from 'react-query'
 import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { findGame } from 'utils/api/game'
 import { styled } from 'utils/theme'
+import Players from './Players'
 
 const FantasyGame: React.FC = () => {
     const params = useParams()
@@ -44,6 +45,7 @@ const FantasyGame: React.FC = () => {
             </Navigation>
 
             <Outlet context={gameQuery.data} />
+            <Players />
         </Container>
     ) : (
         <Container />

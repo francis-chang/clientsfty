@@ -60,6 +60,7 @@ export const sizes = {
 export const theme = {
     colors: { ...colors },
     sizes: { ...sizes },
+    list: ['#c5fbfc', '#ffe7b8'],
 }
 
 export type Theme = typeof theme

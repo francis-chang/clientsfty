@@ -13,7 +13,7 @@ const sameElements = (array1: Cats[], array2: Cats[]) => {
 }
 
 const Categories: React.FC<Props> = ({ onChange, selected }) => {
-    const all: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TPM', 'FGP', 'FTP', 'TOS', 'FGP', 'FAN']
+    const all: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TPM', 'FGP', 'FTP', 'TOS', 'TPP', 'FAN']
     const eight: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TPM', 'FGP', 'FTP']
     const nine: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOS', 'TPM', 'FGP', 'FTP']
     const ten: Cats[] = ['PTS', 'REB', 'AST', 'STL', 'BLK', 'TOS', 'TPM', 'FGP', 'FTP', 'TPP']
@@ -64,14 +64,30 @@ const Categories: React.FC<Props> = ({ onChange, selected }) => {
             <BottomRow>
                 {all.slice(0, 6).map((cat) => (
                     <BottomRowElement key={cat} onClick={() => selectCat(cat)} selected={selected.includes(cat)}>
-                        {cat === 'FGP' ? 'FG%' : cat === 'TPP' ? 'TP%' : cat === 'FTP' ? 'FT%' : cat}
+                        {cat === 'TPM'
+                            ? '3PM'
+                            : cat === 'FGP'
+                            ? 'FG%'
+                            : cat === 'TPP'
+                            ? 'TP%'
+                            : cat === 'FTP'
+                            ? 'FT%'
+                            : cat}
                     </BottomRowElement>
                 ))}
             </BottomRow>
             <BottomRow>
                 {all.slice(6, all.length).map((cat) => (
                     <BottomRowElement key={cat} onClick={() => selectCat(cat)} selected={selected.includes(cat)}>
-                        {cat === 'FGP' ? 'FG%' : cat === 'TPP' ? 'TP%' : cat === 'FTP' ? 'FT%' : cat}
+                        {cat === 'TPM'
+                            ? '3PM'
+                            : cat === 'FGP'
+                            ? 'FG%'
+                            : cat === 'TPP'
+                            ? '3P%'
+                            : cat === 'FTP'
+                            ? 'FT%'
+                            : cat}
                     </BottomRowElement>
                 ))}
             </BottomRow>
