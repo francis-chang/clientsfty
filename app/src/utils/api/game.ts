@@ -63,18 +63,26 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
 }
 
 const createGame = async (data: typeof defaultForm) => {
-    return await apiPost<GameInterface>(`/create`, data, null)
+    return await apiPost<GameDetailsWrapper>(`/create`, data, null)
 }
 
 const findGame = async (gameId: string | undefined) => {
     if (!gameId) {
         return null
     }
-    return await apiCall<GameInterface>(`/find/${gameId}`)
+    return await apiCall<GameDetailsWrapper>(`/find/${gameId}`)
 }
 
 const getAllGames = async () => {
-    return await apiCall<GameInterface[]>('/getallgames')
+    return await apiCall<GameDetailsWrapper[]>('/getallgames')
 }
 
-export { createGame, findGame, getAllGames }
+const joinGame = async (game_id: number) => {
+    return await apiPost<any>('/joingame', { game_id }, null)
+}
+
+const leaveGame = async (userforgame_id: number) => {
+    return await apiPost<any>('/leavegame', { userforgame_id }, null)
+}
+
+export { createGame, findGame, getAllGames, joinGame, leaveGame }

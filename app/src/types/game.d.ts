@@ -1,4 +1,9 @@
-interface GameInterface {
+interface GameDetailsWrapper {
+    game: GameDetails
+    userforgame_id: number
+}
+
+interface GameDetails {
     commissioner_id: number
     draftFormat: 'AI_DRAFT' | 'LIVE_DRAFT'
     game_id: number

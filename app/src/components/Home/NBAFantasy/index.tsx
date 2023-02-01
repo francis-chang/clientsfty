@@ -14,7 +14,7 @@ const NBAFantasy: React.FC = () => {
                 >
                     My Games
                 </NavItem>
-                <NavItem selected={location.pathname === '/nbafantasy/bar'} to="/nbafantasy">
+                <NavItem selected={location.pathname === '/nbafantasy/findgames'} to="/nbafantasy/findgames">
                     Find Games
                 </NavItem>
                 <NavItem selected={location.pathname === '/nbafantasy/create'} to="/nbafantasy/create">
