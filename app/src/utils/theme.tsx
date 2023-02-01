@@ -26,6 +26,9 @@ export const colors = {
     blue3: '#133d86',
     blue4: '#103370',
 
+    peach: '#c2a68c',
+
+    orange0: '#f9bd85',
     orange1: '#f7a354',
     orange2: '#f58924',
 
@@ -35,8 +38,6 @@ export const colors = {
     testgreen1: '#47d147',
     testgreen2: '#00cc99',
     testgreen3: '#72f763',
-
-    peach: '#f5b16e',
 
     red1: '#fa2f2f',
     red2: '#540601',

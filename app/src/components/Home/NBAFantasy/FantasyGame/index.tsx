@@ -6,6 +6,7 @@ import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { findGame } from 'utils/api/game'
 import { styled } from 'utils/theme'
 import Players from './Players'
+import PlayersTwo from './PlayersTwo'
 
 const FantasyGame: React.FC = () => {
     const params = useParams()
@@ -45,7 +46,8 @@ const FantasyGame: React.FC = () => {
             </Navigation>
 
             <Outlet context={gameQuery.data} />
-            <Players />
+            {/* <Players /> */}
+            <PlayersTwo />
         </Container>
     ) : (
         <Container />
@@ -61,9 +63,7 @@ export default FantasyGame
 const Navigation = styled.div`
     display: flex;
     background-color: ${({ theme }) => theme.colors.dark4};
-    padding: 0.5rem 0rem;
-    border-bottom: ${({ theme }) => `1px solid ${theme.colors.dark1}`};
-    /* border-bottom: ${({ theme }) => `1px solid ${theme.colors.light4}`}; */
+    padding-top: 0.5rem;
 `
 type NavItemProps = {
     selected: boolean
@@ -94,7 +94,7 @@ const NavItem = styled(Link)<NavItemProps>`
 const Title = styled.div`
     font-weight: 700;
     font-size: 1.8rem;
-    margin: 0rem 0rem 0.5rem 0rem;
+    margin: 1rem 0rem 0rem 0rem;
 `
 
 const Container = styled.div`

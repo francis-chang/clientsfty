@@ -193,6 +193,7 @@ const NavSection = styled.div`
 
 const NavItemTitle = styled.div`
     font-size: 0.87rem;
+    letter-spacing: 0.02rem;
 `
 
 const Container = styled.div`

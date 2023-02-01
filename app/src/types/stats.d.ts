@@ -25,6 +25,7 @@ type GameStatsJustScores = {
 type GameStatForBoxScore = {
     GameID: number
     Status: string
+    stadium: string
     DateTime: string
     AwayTeamScore: null | string
     HomeTeamScore: null | string

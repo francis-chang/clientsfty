@@ -50,7 +50,7 @@ export default Players
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     grid-auto-rows: minmax(100px, auto);
     grid-gap: 10px;
     grid-auto-flow: row dense;
@@ -62,8 +62,8 @@ const UserContainer = styled.div`
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 6rem;
-    width: 7.5rem;
+    height: 5rem;
+    width: 6.5rem;
     border-radius: 4px;
     background-color: ${({ theme }) => theme.colors.dark3};
 `
