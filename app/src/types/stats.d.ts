@@ -39,3 +39,40 @@ type GameStatForBoxScore = {
         Key: string
     }
 }
+
+type StatlineForHome = {
+    StatID: number
+    PlayerID: number
+    team: {
+        City: string
+        Name: string
+        inner_color: string
+        outer_color: string
+    }
+    Name: string
+    player: {
+        Jersey: number
+        s_name: string
+    }
+    opponent_team: {
+        Key: string
+    }
+    game: {
+        nba_day: string
+    }
+    FantasyPoints: string
+    FieldGoalsMade: number
+    FieldGoalsAttempted: number
+    FieldGoalsPercentage: string
+    ThreePointersMade: number
+    ThreePointersAttempted: number
+    ThreePointersPercentage: string
+    FreeThrowsMade: number
+    FreeThrowsAttempted: number
+    FreeThrowsPercentage: string
+    Rebounds: number
+    Assists: number
+    Steals: number
+    BlockedShots: number
+    Points: number
+}

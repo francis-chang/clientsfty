@@ -19,8 +19,8 @@ const FormElementElement = styled.div`
 const FormDescription = styled.div`
     display: flex;
     flex-direction: column;
-    width: 250px;
-    margin-right: 1.5rem;
+    width: 225px;
+    margin-right: 4.1rem;
     align-self: flex-start;
 `
 

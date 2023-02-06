@@ -3,6 +3,8 @@ interface UserType {
     username: string
     settingsWarnings: number
     verified: boolean
+    profile_icon: string
+    profile_icon_color: string
 }
 
 type ValueAndDescription = {

@@ -95,6 +95,8 @@ type UserCreateResponse = {
     username: string
     verified: boolean
     settingsWarnings: number
+    profile_icon: string
+    profile_icon_color: string
 }
 
 const createUser = async (username: string, password: string, email: string) => {
@@ -124,4 +126,19 @@ const changeUsername = async (username: string) => {
     return await apiPost<UserCreateResponse>('/changeusername', { username }, useErrorStore)
 }
 
-export { findUsernameAvailable, findEmailAvailable, logout, createUser, login, auth, verify, gAuth, changeUsername }
+const changeProfileIcon = async (profile_icon: string) => {
+    return await apiPost<{ profile_icon: string }>('/changeprofileicon', { profile_icon }, useErrorStore)
+}
+
+export {
+    findUsernameAvailable,
+    findEmailAvailable,
+    logout,
+    createUser,
+    login,
+    auth,
+    verify,
+    gAuth,
+    changeUsername,
+    changeProfileIcon,
+}

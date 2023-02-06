@@ -1,13 +1,20 @@
 import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
-import { getFourDayScores } from 'utils/api/redis_stats'
+import { getFourDayScores, getTStatlines } from 'utils/api/redis_stats'
 import { styled } from 'utils/theme'
 import BoxScores from './BoxScores'
+import Statlines from './Statlines'
 
 const NbaStats: React.FC = () => {
     const scores = useQuery('fourgameScores', getFourDayScores)
+    const statsQuery = useQuery('gethomestatlines', getTStatlines)
 
-    return <Container>{scores.data && <BoxScores gamestats={scores.data} />}</Container>
+    return (
+        <Container>
+            {scores.data && <BoxScores gamestats={scores.data} />}
+            {statsQuery.data && <Statlines stats={statsQuery.data} />}
+        </Container>
+    )
 }
 
 export default NbaStats

@@ -56,6 +56,13 @@ const getFourDayScores = async () => {
     }
 }
 
+const getTStatlines = async () => {
+    const response = await base.get<StatlineForHome[]>('gethomestatlines')
+    if (response) {
+        return response.data
+    }
+}
+
 const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null> => {
     try {
         const response = await base.post<T, any>(url, data)
@@ -128,4 +135,4 @@ const draft = async (data: any) => {
     }
 }
 
-export { getMockDraftList, draft, scoreDraft, getFourDayScores }
+export { getMockDraftList, draft, scoreDraft, getFourDayScores, getTStatlines }

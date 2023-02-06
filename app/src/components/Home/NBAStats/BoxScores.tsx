@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { styled, theme } from 'utils/theme'
+import { FontRubik, styled, theme } from 'utils/theme'
 import format from 'date-fns/format'
 import { formatInTimeZone } from 'date-fns-tz'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -176,23 +176,24 @@ const TeamNamesAndScores = styled.div`
     justify-content: flex-start;
 `
 
-const TeamScore = styled.div`
-    font-size: 1.4rem;
+const TeamScore = styled(FontRubik)`
+    font-size: 1.23rem;
     letter-spacing: 0.08rem;
     font-weight: 700;
-    font-family: Menlo, Consolas, 'Ubuntu Mono', 'Roboto Mono', 'DejaVu Sans Mono', monospace;
     width: 2.5rem;
 `
 
 const TeamImg = styled.img`
     height: 23px;
+    width: 23px;
     margin-right: 0.5rem;
 `
 
 const TeamKey = styled.div`
     font-weight: 700;
+
     letter-spacing: 0.05rem;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     width: 3.1rem;
 `
 
@@ -212,6 +213,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 300px;
+    margin-right: 1rem;
 `
 
 const Header = styled.div`

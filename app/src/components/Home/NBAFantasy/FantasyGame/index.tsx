@@ -1,6 +1,6 @@
 import { faArrowLeft } from '@fortawesome/pro-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { findGame } from 'utils/api/game'
@@ -55,7 +55,7 @@ const FantasyGame: React.FC = () => {
 }
 
 export function useGame() {
-    return useOutletContext<GameInterface>()
+    return useOutletContext<GameDetails>()
 }
 
 export default FantasyGame

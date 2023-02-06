@@ -3,6 +3,7 @@ import useAuthStore from 'utils/state/useAuthStore'
 import { Button, styled } from 'utils/theme'
 import { shallow } from 'zustand/shallow'
 import ChangeUsername from './ChangeUsername'
+import ProfileIcon from './ProfileIcon'
 import UsernameDefault from './UsernameDefault'
 import Verify from './Verify'
 import VerifyDefault from './VerifyDefault'
@@ -15,6 +16,7 @@ const Settings: React.FC = () => {
             <Title>User Settings</Title>
             {!user?.verified ? <Verify /> : <VerifyDefault />}
             {!user?.username ? <ChangeUsername /> : <UsernameDefault username={user.username} />}
+            {user && <ProfileIcon profile_icon={user.profile_icon} username={user.username}></ProfileIcon>}
         </Container>
     )
 }

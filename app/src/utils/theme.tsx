@@ -87,6 +87,10 @@ export const device = {
     desktop: `(min-width: ${viewportSizes.desktop})`,
     desktopL: `(min-width: ${viewportSizes.desktop})`,
 }
+export const FontRubik = styled.div`
+    font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+        'Helvetica Neue', sans-serif;
+`
 
 export const Button = styled.button`
     padding: ${({ theme }) => theme.sizes.regButtonPadding};

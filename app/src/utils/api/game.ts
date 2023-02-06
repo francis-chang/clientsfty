@@ -63,14 +63,14 @@ const apiPost = async <T>(url: string, data: any, store: any): Promise<T | null>
 }
 
 const createGame = async (data: typeof defaultForm) => {
-    return await apiPost<GameDetailsWrapper>(`/create`, data, null)
+    return await apiPost<GameDetails>(`/create`, data, null)
 }
 
 const findGame = async (gameId: string | undefined) => {
     if (!gameId) {
         return null
     }
-    return await apiCall<GameDetailsWrapper>(`/find/${gameId}`)
+    return await apiCall<GameDetails>(`/find/${gameId}`)
 }
 
 const getAllGames = async () => {
