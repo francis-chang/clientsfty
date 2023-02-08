@@ -7,18 +7,20 @@ import { findGame } from 'utils/api/game'
 import { styled } from 'utils/theme'
 import Players from './Players'
 import PlayersTwo from './PlayersTwo'
+import useFantasyGame from './useFantasyGame'
 
 const FantasyGame: React.FC = () => {
     const params = useParams()
-    const gameQuery = useQuery(`fantasyGame${params.gameId}`, () => findGame(params.gameId))
 
-    return gameQuery.data ? (
+    const [game] = useFantasyGame(params.gameId)
+
+    return game ? (
         <Container>
             <BackButton to="/nbafantasy">
                 <FontAwesomeIcon style={{ fontSize: '1rem' }} icon={faArrowLeft}></FontAwesomeIcon>
                 <div>BACK TO GAMES</div>
             </BackButton>
-            <Title>{gameQuery.data.name}</Title>
+            <Title>{game.name}</Title>
 
             <Navigation>
                 <NavItem selected={location.pathname.indexOf('setting') < 0} to={`/nbafantasygame/${params.gameId}`}>
@@ -45,9 +47,9 @@ const FantasyGame: React.FC = () => {
                 </NavItem>
             </Navigation>
 
-            <Outlet context={gameQuery.data} />
+            <Outlet context={game} />
             {/* <Players /> */}
-            <PlayersTwo />
+            <PlayersTwo players={game.players} />
         </Container>
     ) : (
         <Container />

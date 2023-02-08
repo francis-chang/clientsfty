@@ -1,49 +1,18 @@
 import React from 'react'
 import { styled } from 'utils/theme'
-import * as Icons from '@fortawesome/pro-duotone-svg-icons'
-import * as RegularIcons from '@fortawesome/pro-regular-svg-icons'
+import {
+    faUser,
+    faBasketballHoop,
+    faBird,
+    faSoftServe,
+    faTruckPickup,
+    faVihara,
+    faFire,
+} from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const fonfts = [Icons.faCampfire, Icons.faMoon, Icons.faPlanetMoon, Icons.faVolcano, Icons.faSunHaze]
-
-const asdf = [
-    Icons.faVolcano,
-    Icons.faSkull,
-    Icons.faChess,
-    Icons.faFire,
-    Icons.faBird,
-    Icons.faBasketballHoop,
-    Icons.faSoftServe,
-    Icons.faVihara,
-    Icons.faTurtle,
-    Icons.faTruckPickup,
-    Icons.faTowerObservation,
-    Icons.faRabbitRunning,
-    Icons.faSwords,
-]
-
 const Players: React.FC = () => {
-    return (
-        <Container>
-            {asdf.map((f) => (
-                <UserContainer key={f.iconName}>
-                    <Icon>
-                        <FontAwesomeIcon icon={f} />
-                    </Icon>
-                    <Name>{f.iconName.slice(0, 10)}</Name>
-                </UserContainer>
-            ))}
-
-            {fonfts.map((f) => (
-                <UserContainer key={f.iconName}>
-                    <Icon>
-                        <FontAwesomeIcon icon={f} />
-                    </Icon>
-                    <Name>{f.iconName.slice(0, 10)}</Name>
-                </UserContainer>
-            ))}
-        </Container>
-    )
+    return <Container></Container>
 }
 
 export default Players

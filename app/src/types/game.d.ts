@@ -3,6 +3,14 @@ interface GameDetailsWrapper {
     userforgame_id: number
 }
 
+interface PlayersForGameDetails {
+    draft: {
+        draft_id: number
+        userforgame_id: number
+    }
+    user: { profile_icon: string; profile_icon_color: string; user_id: number; username: string }
+}
+
 interface GameDetails {
     commissioner_id: number
     draftFormat: 'AI_DRAFT' | 'LIVE_DRAFT'
@@ -10,6 +18,7 @@ interface GameDetails {
     name: String
     numGames: number
     numberOfTeamsToSimul: number
+    players: PlayersForGameDetails[]
 }
 
 type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'

@@ -11,7 +11,7 @@ import {
     faFire,
 } from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { changeProfileIcon } from 'utils/api/auth'
+import { changeProfileIcon, changeProfileIconColor } from 'utils/api/auth'
 import useAuthStore from 'utils/state/useAuthStore'
 import { shallow } from 'zustand/shallow'
 
@@ -25,7 +25,11 @@ const Icons = [
     { name: 'vihara', icon: faVihara },
 ]
 
-const Colors = ['#c5fbfc', '#ffe7b8', '#6bbcf2']
+const Colors = [
+    { color: '#ffe7b8', name: 'Off White' },
+    { color: '#c5fbfc', name: 'Frost' },
+    { color: '#6bbcf2', name: 'Baby Blue' },
+]
 
 const findIcon = (icon: string) => {
     const foundIcon = Icons.find((i) => i.name === icon)
@@ -46,6 +50,12 @@ const ProfileIcon: React.FC<Props> = ({ profile_icon, username }) => {
             setUser({ ...user, profile_icon: response.profile_icon })
         }
     }
+    const onClickColor = async (co: string) => {
+        const response = await changeProfileIconColor(co)
+        if (response && user) {
+            setUser({ ...user, profile_icon_color: response.profile_icon_color })
+        }
+    }
 
     return (
         <FormElement>
@@ -60,25 +70,58 @@ const ProfileIcon: React.FC<Props> = ({ profile_icon, username }) => {
                             <FontAwesomeIcon icon={findIcon(profile_icon)} />
                         </SelectedIcon>
                     )}
-                    <ColorContainer>
-                        {Colors.map((c) => (
-                            <Color key={c} color={c} selected={c === user?.profile_icon_color}></Color>
-                        ))}
-                    </ColorContainer>
                 </SelectedIconContainer>
                 <SelectIconContainer>
                     {Icons.map((i) => (
-                        <IconContainer onClick={() => onClick(i.name)} key={i.name}>
+                        <IconContainer selected={profile_icon === i.name} onClick={() => onClick(i.name)} key={i.name}>
                             <FontAwesomeIcon icon={i.icon}></FontAwesomeIcon>
                         </IconContainer>
                     ))}
                 </SelectIconContainer>
+                <ColorContainer>
+                    {Colors.map((c) => (
+                        <ColorButton
+                            onClick={() => onClickColor(c.color)}
+                            key={c.color}
+                            selected={c.color === user?.profile_icon_color}
+                        >
+                            <Color color={c.color}></Color>
+                            <div>{c.name}</div>
+                        </ColorButton>
+                    ))}
+                </ColorContainer>
             </Container>
         </FormElement>
     )
 }
 
 export default ProfileIcon
+
+type ColorButtonProps = {
+    selected: boolean
+}
+
+const ColorButton = styled.div<ColorButtonProps>`
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    &:not(:last-child) {
+        margin-right: 1rem;
+    }
+    transition-duration: 100ms;
+    transition-timing-function: ease-out;
+    color: ${({ theme, selected }) => (selected ? theme.colors.light2 : theme.colors.light4)};
+    background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark3)};
+    &:hover {
+        color: ${({ theme, selected }) => (selected ? theme.colors.light2 : theme.colors.light3)};
+        background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark25)};
+    }
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+`
 
 const Container = styled.div`
     display: flex;
@@ -100,17 +143,15 @@ const ColorContainer = styled.div`
 
 type ColorProps = {
     color: string
-    selected: boolean
 }
 
 const Color = styled.div<ColorProps>`
     background-color: ${({ color }) => color};
-    outline: ${({ selected, theme }) => (selected ? `2px solid ${theme.colors.light2}` : 'none')};
-    width: 33px;
-    height: 33px;
+    width: 20px;
+    height: 20px;
     border-radius: 4px;
     &:not(:last-child) {
-        margin-right: 1.8rem;
+        margin-right: 1rem;
     }
 `
 
@@ -122,7 +163,6 @@ type SelectedIconProps = {
 
 const SelectedIcon = styled.div<SelectedIconProps>`
     font-size: 3rem;
-    margin-right: 4rem;
     color: ${({ color }) => color};
 `
 
@@ -130,9 +170,10 @@ const SelectIconContainer = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    margin-bottom: 1rem;
 `
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<ColorButtonProps>`
     font-size: 1.3rem;
     display: flex;
     justify-content: center;
@@ -140,11 +181,15 @@ const IconContainer = styled.div`
     width: 60px;
     height: 50px;
     border-radius: 4px;
-    background-color: ${({ theme }) => theme.colors.dark3};
+    transition-duration: 100ms;
+    transition-timing-function: ease-out;
+    color: ${({ theme, selected }) => (selected ? theme.colors.light2 : theme.colors.light4)};
+    background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark3)};
+    &:hover {
+        color: ${({ theme, selected }) => (selected ? theme.colors.light2 : theme.colors.light3)};
+        background-color: ${({ theme, selected }) => (selected ? theme.colors.dark2 : theme.colors.dark25)};
+    }
     cursor: pointer;
     transition-timing-function: ease-out;
     transition-duration: 100ms;
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.dark25};
-    }
 `

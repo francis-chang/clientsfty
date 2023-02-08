@@ -1,52 +1,57 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { styled } from 'utils/theme'
-import * as Icons from '@fortawesome/pro-duotone-svg-icons'
-import * as RegularIcons from '@fortawesome/pro-regular-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import {
+    faUser,
+    faBasketballHoop,
+    faBird,
+    faSoftServe,
+    faTruckPickup,
+    faVihara,
+    faFire,
+} from '@fortawesome/pro-duotone-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const fonfts = [Icons.faCampfire, Icons.faMoon, Icons.faPlanetMoon, Icons.faVolcano, Icons.faSunHaze]
+type Props = {
+    players: PlayersForGameDetails[]
+}
 
-const asdf = [
-    Icons.faSoftServe,
-    Icons.faVihara,
-    Icons.faTruckPickup,
-    Icons.faBasketballHoop,
-    Icons.faBird,
-    Icons.faFire,
-    Icons.faUser,
+// got from Settings/ProfileIcon.tsx
+const Icons = [
+    { name: 'user', icon: faUser },
+    { name: 'bird', icon: faBird },
+    { name: 'truck', icon: faTruckPickup },
+    { name: 'basketball', icon: faBasketballHoop },
+    { name: 'icecream', icon: faSoftServe },
+    { name: 'fire', icon: faFire },
+    { name: 'vihara', icon: faVihara },
 ]
 
-const PlayersTwo: React.FC = () => {
+const Colors = [
+    { color: '#ffe7b8', name: 'Off White' },
+    { color: '#c5fbfc', name: 'Frost' },
+    { color: '#6bbcf2', name: 'Baby Blue' },
+]
+
+const findIcon = (icon: string) => {
+    const foundIcon = Icons.find((i) => i.name === icon)
+    return foundIcon ? foundIcon.icon : Icons[0].icon
+}
+
+const PlayersTwo: React.FC<Props> = ({ players }) => {
     return (
         <>
             <Notice>
                 <NoticeTitle>Waiting on Commissioner</NoticeTitle>
             </Notice>
             <Container>
-                {asdf.map((f) => (
-                    <UserContainer key={f.iconName}>
-                        <Icon>
-                            <FontAwesomeIcon icon={f} />
+                {players.map((p) => (
+                    <UserContainer key={p.user.user_id}>
+                        <Icon color={p.user.profile_icon_color}>
+                            <FontAwesomeIcon icon={findIcon(p.user.profile_icon)} />
                         </Icon>
-                        <Name>{f.iconName.slice(0, 17)}</Name>
+                        <Name>{p.user.username}</Name>
                     </UserContainer>
                 ))}
-                <UserContainer>
-                    <Icon>
-                        <FontAwesomeIcon icon={faUser} />
-                    </Icon>
-                    <Name>foobar</Name>
-                </UserContainer>
-
-                {/* {fonfts.map((f) => (
-                    <UserContainer key={f.iconName}>
-                        <Icon>
-                            <FontAwesomeIcon icon={f} />
-                        </Icon>
-                        <Name>{f.iconName.slice(0, 20)}</Name>
-                    </UserContainer>
-                ))} */}
             </Container>
         </>
     )
@@ -102,13 +107,14 @@ const Name = styled.div`
     flex-grow: 1;
 `
 
-const Icon = styled.div`
+type IconProps = {
+    color: string
+}
+
+const Icon = styled.div<IconProps>`
     width: 3rem;
     display: flex;
     justify-content: center;
     font-size: 1.35rem;
-    color: ${({ theme }) => {
-        const randomIndex = Math.floor(Math.random() * theme.list.length)
-        return theme.list[randomIndex]
-    }};
+    color: ${({ color }) => color};
 `

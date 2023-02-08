@@ -5,7 +5,7 @@ import { joinGame } from 'utils/api/game'
 const FindGames: React.FC = () => {
     return (
         <Container>
-            <button onClick={async () => await joinGame(20)}>timetojoin game</button>
+            <button onClick={async () => await joinGame(8)}>timetojoin game</button>
         </Container>
     )
 }

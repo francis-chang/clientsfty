@@ -129,6 +129,9 @@ const changeUsername = async (username: string) => {
 const changeProfileIcon = async (profile_icon: string) => {
     return await apiPost<{ profile_icon: string }>('/changeprofileicon', { profile_icon }, useErrorStore)
 }
+const changeProfileIconColor = async (profile_icon_color: string) => {
+    return await apiPost<{ profile_icon_color: string }>('/changeprofilecolor', { profile_icon_color }, useErrorStore)
+}
 
 export {
     findUsernameAvailable,
@@ -141,4 +144,5 @@ export {
     gAuth,
     changeUsername,
     changeProfileIcon,
+    changeProfileIconColor,
 }

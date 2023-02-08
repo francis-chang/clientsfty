@@ -32,6 +32,7 @@ const parseIntoPCT = (pctString: string) => {
 
 const Statlines: React.FC<Props> = ({ stats }) => {
     statsHelper.map((statHelp) => console.log(stats[0][statHelp.name]))
+    console.log(stats)
     return (
         <Container>
             <HeaderBar>
@@ -127,6 +128,7 @@ const LongStat = styled(FontRubik)`
     display: flex;
     align-items: flex-end;
     color: ${({ theme }) => theme.colors.light25};
+    margin-bottom: 0.1rem;
 `
 
 const Header = styled.div`
