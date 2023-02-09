@@ -39,6 +39,7 @@ export const colors = {
     testgreen2: '#00cc99',
     testgreen3: '#72f763',
 
+    red0: '#fb6a6a',
     red1: '#fa2f2f',
     red2: '#540601',
 

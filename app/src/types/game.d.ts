@@ -7,7 +7,11 @@ interface PlayersForGameDetails {
     draft: {
         draft_id: number
         userforgame_id: number
-    }
+    } | null
+    game_id: number
+    joined_at: string
+    user_id: number
+    userforgame_id: number
     user: { profile_icon: string; profile_icon_color: string; user_id: number; username: string }
 }
 
@@ -19,6 +23,7 @@ interface GameDetails {
     numGames: number
     numberOfTeamsToSimul: number
     players: PlayersForGameDetails[]
+    status: 'INGAME' | 'LOBBY'
 }
 
 type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'

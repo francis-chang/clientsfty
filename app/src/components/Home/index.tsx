@@ -202,6 +202,8 @@ const Container = styled.div`
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
+    height: 100vh;
+    overflow-y: hidden;
 `
 
 const Navigator = styled.div`

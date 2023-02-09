@@ -1,60 +1,72 @@
 import React from 'react'
-import { useOutletContext } from 'react-router-dom'
 import { styled } from 'utils/theme'
-import { useGame } from '.'
 
-const GameSettings: React.FC = () => {
-    const data = useGame()
+type Props = {
+    game: GameDetails
+}
+
+const GameSettings: React.FC<Props> = ({ game }) => {
     return (
         <Container>
-            <DescRow>
-                <DescContainer>
-                    <DescTitle>DRAFT FORMAT</DescTitle>
-                    <Desc>{data.draftFormat}</Desc>
-                </DescContainer>
-                <DescContainer>
-                    <DescTitle># AI TEAMS</DescTitle>
-                    <Desc>{data.numberOfTeamsToSimul}</Desc>
-                </DescContainer>
-                <DescContainer>
-                    <DescTitle>SCORING</DescTitle>
-                    <Desc>9 CAT H2H</Desc>
-                </DescContainer>
-                <DescContainer>
-                    <DescTitle># GM/DRAFT INTERVAL</DescTitle>
-                    <Desc>{data.numGames}</Desc>
-                </DescContainer>
-            </DescRow>
+            <Title>Settings</Title>
+            <DescContainer>
+                <DescTitle>Draft Format</DescTitle>
+
+                <Desc>{game.draftFormat === 'LIVE_DRAFT' ? 'LIVE DRAFT' : 'AI DRAFT'}</Desc>
+            </DescContainer>
+            <DescContainer>
+                <DescTitle>Number of AI Teams for Draft</DescTitle>
+
+                <Desc>{game.numberOfTeamsToSimul}</Desc>
+            </DescContainer>
+            <DescContainer>
+                <DescTitle>Scoring</DescTitle>
+
+                <Desc>9 CAT H2H</Desc>
+            </DescContainer>
+            <DescContainer>
+                <DescTitle>Number of Games per Draft Interval</DescTitle>
+
+                <Desc>{game.numGames}</Desc>
+            </DescContainer>
         </Container>
     )
 }
 
 export default GameSettings
+const Title = styled.div`
+    margin-bottom: 0.6rem;
 
-const Container = styled.div`
-    margin-top: 1.5rem;
+    color: ${({ theme }) => theme.colors.light25};
+    font-weight: 500;
+    font-size: 1.3rem;
 `
 
-const DescRow = styled.div`
-    display: flex;
-    flex-direction: column;
+const Container = styled.div`
+    margin-bottom: 1rem;
+    width: 21rem;
 `
 
 const DescContainer = styled.div`
-    padding: 1rem;
     display: flex;
-
-    &:not(:last-child) {
-        margin-right: 2rem;
-    }
-    align-items: center;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+    justify-content: space-between;
 `
 const DescTitle = styled.div`
-    font-weight: 600;
-    color: ${({ theme }) => theme.colors.light4};
+    font-weight: 400;
+    color: ${({ theme }) => theme.colors.light3};
 `
+
+// const Grow = styled.div`
+//     flex-grow: 1;
+//     border-bottom: ${({ theme }) => `1px solid ${theme.colors.dark2}`};
+//     margin: 0rem 0.2rem;
+//     margin-bottom: 0.1rem;
+// `
 
 const Desc = styled.div`
     font-weight: 600;
-    color: ${({ theme }) => theme.colors.light2};
+
+    color: ${({ theme }) => theme.colors.light25};
 `

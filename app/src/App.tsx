@@ -81,7 +81,6 @@ function App() {
                                 {
                                     path: 'nbafantasygame/:gameId',
                                     element: <FantasyGame />,
-                                    children: [{ path: 'settings', element: <GameSettings /> }],
                                 },
                                 { path: 'nbastats', element: <NBAStats /> },
                                 { path: 'nflfantasy', element: <NFL /> },
