@@ -6,6 +6,7 @@ const FormElement = styled.div`
     padding: 2rem 1rem;
     border-bottom: ${({ theme }) => `2px solid ${theme.colors.dark25}`};
     background-color: ${({ theme }) => theme.colors.dark4};
+    
 `
 
 const FormSubtitle = styled.div`

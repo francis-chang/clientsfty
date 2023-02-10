@@ -31,8 +31,6 @@ const parseIntoPCT = (pctString: string) => {
 }
 
 const Statlines: React.FC<Props> = ({ stats }) => {
-    statsHelper.map((statHelp) => console.log(stats[0][statHelp.name]))
-    console.log(stats)
     return (
         <Container>
             <HeaderBar>

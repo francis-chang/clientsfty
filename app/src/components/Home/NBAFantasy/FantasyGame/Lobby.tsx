@@ -8,14 +8,19 @@ import { Link, Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { Button, styled } from 'utils/theme'
 
 import PlayersTwo from './PlayersTwo'
+import { joinGame, startGame } from 'utils/api/game'
 
 type Props = {
     game: GameDetails
     user: UserType | null
+    startGameHandler: () => Promise<void>
 }
 
-const Lobby: React.FC<Props> = ({ game, user }) => {
-    const params = useParams()
+const Lobby: React.FC<Props> = ({ game, user, startGameHandler }) => {
+    const joinGameHandler = async () => {
+        await joinGame(game.game_id)
+    }
+
     return game ? (
         <Container>
             <BackButton to="/nbafantasy">
@@ -26,11 +31,13 @@ const Lobby: React.FC<Props> = ({ game, user }) => {
                 <Title>{game.name}</Title>
 
                 {game.commissioner_id === user?.user_id && game.players.length > 1 ? (
-                    <StartButton>Start Game</StartButton>
+                    <StartButton onClick={startGameHandler}>Start Game</StartButton>
                 ) : game.commissioner_id === user?.user_id ? (
                     <NoticeTitle>Need at least 2 Players to Start Game</NoticeTitle>
-                ) : (
+                ) : game.players.find((p) => p.user_id === user?.user_id) ? (
                     <NoticeTitle>Waiting on Commissioner to Start Game</NoticeTitle>
+                ) : (
+                    <StartButton onClick={joinGameHandler}>Join Game</StartButton>
                 )}
             </HeaderContainer>
             <InfoContainer>

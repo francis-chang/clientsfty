@@ -24,6 +24,7 @@ interface GameDetails {
     numberOfTeamsToSimul: number
     players: PlayersForGameDetails[]
     status: 'INGAME' | 'LOBBY'
+    draftIntervalInformation: null | { date_started: string; draft_interval_end: string }
 }
 
 type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'

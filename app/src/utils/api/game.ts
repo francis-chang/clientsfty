@@ -89,4 +89,8 @@ const kickPlayer = async (game_id: number, player_to_kick_id: number) => {
     return await apiPost<any>('/kickplayer', { game_id, player_to_kick_id }, null)
 }
 
-export { createGame, findGame, getAllGames, joinGame, leaveGame, kickPlayer }
+const startGame = async (game_id: number) => {
+    return await apiPost<any>('/startgame', { game_id }, null)
+}
+
+export { createGame, findGame, getAllGames, joinGame, leaveGame, kickPlayer, startGame }

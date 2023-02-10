@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { findGame } from 'utils/api/game'
-import Pusher, { Channel } from 'pusher-js'
+import { findGame, startGame } from 'utils/api/game'
+import Pusher from 'pusher-js'
 
 const { VITE_PUSHER_CLIENT_KEY } = import.meta.env
 
@@ -15,15 +15,26 @@ export default (gameId: string | undefined) => {
 
     Pusher.logToConsole = true
 
+    const startGameHandler = async () => {
+        if (gameId) {
+            const response = await startGame(parseInt(gameId))
+            // figure out which data to set into state
+            setGame(response)
+        }
+    }
+
     useEffect(() => {
         const pusher = new Pusher(VITE_PUSHER_CLIENT_KEY, {
             cluster: 'us2',
         })
         const channel = pusher.subscribe(`nbafantasygame_${gameId}`)
         channel.bind('players_adjust', (data: PlayersForGameDetails[]) => {
-            if (game) {
-                setGame({ ...game, players: data })
-            }
+            setGame((g) => {
+                if (g) {
+                    return { ...g, players: data }
+                }
+                return undefined
+            })
         })
 
         return () => channel.unsubscribe()
@@ -35,5 +46,5 @@ export default (gameId: string | undefined) => {
         }
     }, [gameQuery.data])
 
-    return [game] as const
+    return [game, startGameHandler] as const
 }
