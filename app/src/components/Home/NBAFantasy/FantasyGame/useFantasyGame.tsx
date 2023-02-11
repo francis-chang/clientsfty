@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { findGame, startGame } from 'utils/api/game'
+import { findGame, startDraft, startGame } from 'utils/api/game'
 import Pusher from 'pusher-js'
 
 const { VITE_PUSHER_CLIENT_KEY } = import.meta.env
@@ -20,6 +20,23 @@ export default (gameId: string | undefined) => {
             const response = await startGame(parseInt(gameId))
             // figure out which data to set into state
             setGame(response)
+        }
+    }
+
+    const startDraftHandler = async (game_id: number, user_id: number) => {
+        const response = await startDraft(game_id)
+        const players = game?.players.slice()
+
+        if (response && players && game) {
+            const newPlayers = players.map((p) => {
+                if (p.user_id === user_id) {
+                    p.draft = response
+                    return p
+                }
+                return p
+            })
+
+            setGame({ ...game, players: newPlayers })
         }
     }
 
@@ -46,5 +63,5 @@ export default (gameId: string | undefined) => {
         }
     }, [gameQuery.data])
 
-    return [game, startGameHandler] as const
+    return [game, startGameHandler, startDraftHandler] as const
 }

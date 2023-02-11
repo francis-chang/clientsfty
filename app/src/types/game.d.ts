@@ -3,11 +3,13 @@ interface GameDetailsWrapper {
     userforgame_id: number
 }
 
+interface DraftInformationType {
+    draft_id: number
+    userforgame_id: number
+}
+
 interface PlayersForGameDetails {
-    draft: {
-        draft_id: number
-        userforgame_id: number
-    } | null
+    draft: DraftInformationType | null
     game_id: number
     joined_at: string
     user_id: number
@@ -24,7 +26,29 @@ interface GameDetails {
     numberOfTeamsToSimul: number
     players: PlayersForGameDetails[]
     status: 'INGAME' | 'LOBBY'
-    draftIntervalInformation: null | { date_started: string; draft_interval_end: string }
+    draftIntervalInformation: null | DraftIntervalInformation
+}
+
+interface DraftIntervalInformation {
+    date_started: string
+    first_game: DraftIntervalInformationGame
+    last_game: DraftIntervalInformationGame
+    game_start: string
+}
+
+interface DraftIntervalInformationGame {
+    GameID: number
+    DateTime: string
+    away_team: {
+        Key: string
+        City: string
+        Name: string
+    }
+    home_team: {
+        Key: string
+        City: string
+        Name: string
+    }
 }
 
 type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'

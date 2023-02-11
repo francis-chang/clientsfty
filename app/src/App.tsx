@@ -19,6 +19,7 @@ import CreateNBAGame from 'components/Home/NBAFantasy/CreateNBAGame'
 import FantasyGame from 'components/Home/NBAFantasy/FantasyGame'
 import GameSettings from 'components/Home/NBAFantasy/FantasyGame/Settings'
 import FindGames from 'components/Home/NBAFantasy/FindGames'
+import Draft from 'components/Draft'
 
 function App() {
     const queryClient = new QueryClient()
@@ -53,6 +54,10 @@ function App() {
             <QueryClientProvider client={queryClient}>
                 <RouterProvider
                     router={createBrowserRouter([
+                        {
+                            path: '/draft/:draftId',
+                            element: <Draft />,
+                        },
                         {
                             path: '/register',
                             element: <Register />,

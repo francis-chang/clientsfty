@@ -12,7 +12,7 @@ import { joinGame, startGame } from 'utils/api/game'
 
 type Props = {
     game: GameDetails
-    user: UserType | null
+    user: UserType
     startGameHandler: () => Promise<void>
 }
 

@@ -8,7 +8,7 @@ import useFantasyGame from './useFantasyGame'
 
 const FantasyGame: React.FC = () => {
     const params = useParams()
-    const [game, startGameHandler] = useFantasyGame(params.gameId)
+    const [game, startGameHandler, startDraftHandler] = useFantasyGame(params.gameId)
     const user = useAuthStore((state) => state.user)
     const navigate = useNavigate()
 
@@ -18,12 +18,12 @@ const FantasyGame: React.FC = () => {
         }
     }, [])
 
-    return !game ? (
+    return !user ? null : !game ? (
         <Container>game not available</Container>
     ) : game.status === 'LOBBY' ? (
         <Lobby game={game} user={user} startGameHandler={startGameHandler} />
     ) : (
-        <InGame game={game} user={user} />
+        <InGame game={game} user={user} startDraftHandler={startDraftHandler} />
     )
 }
 
