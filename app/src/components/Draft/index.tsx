@@ -7,12 +7,17 @@ import Draft from './Draft'
 
 const DraftIndex: React.FC = () => {
     const { draftId } = useParams()
-    const [draft, loaded] = useDraft(parseInt(draftId ? draftId : '-1'))
+    const [draft, loaded, draftList, selectedPlayer, setSelectedPlayer] = useDraft(parseInt(draftId ? draftId : '-1'))
 
     return (
         <AnimatePresenceDiv>
             {loaded ? (
-                <Draft />
+                <Draft
+                    draft={draft}
+                    selectedPlayer={selectedPlayer}
+                    draftList={draftList}
+                    setSelectedPlayer={setSelectedPlayer}
+                />
             ) : (
                 <Container key="what" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                     <Title>fty.gg</Title>

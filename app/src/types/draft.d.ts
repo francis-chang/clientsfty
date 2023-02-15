@@ -1,100 +1,47 @@
-interface MockDraftPlayer {
+interface PlayerForDraftListAvgs {
     PlayerID: number
-    Points: number
-    Rebounds: number
-    Assists: number
-    Steals: number
-    BlockedShots: number
-    Turnovers: number
-    FantasyPoints: number
-    player: {
-        FirstName: string
-        LastName: string
-        s_name: string
-        Jersey: number
-        team: {
-            City: string
-            Name: string
-            inner_color: string
-            outer_color: string
-            TeamID: number
-        }
-    }
+    FantasyPoints: string
+    Minutes: number
+    FieldGoalsMade: string
+    FieldGoalsAttempted: string
+    FieldGoalsPercentage: string
+    TwoPointersMade: string
+    TwoPointersAttempted: string
+    TwoPointersPercentage: string
+    ThreePointersMade: string
+    ThreePointersAttempted: string
+    ThreePointersPercentage: string
+    FreeThrowsMade: string
+    FreeThrowsAttempted: string
+    FreeThrowsPercentage: string
+    OffensiveRebounds: string
+    DefensiveRebounds: string
+    Rebounds: string
+    Assists: string
+    Steals: string
+    BlockedShots: string
+    Turnovers: string
+    PersonalFouls: string
+    Points: string
+    FantasyPointsFanDuel: string
+    FantasyPointsDraftKings: string
+    FantasyPointsYahoo: string
+    PlusMinus: string
+    pct: string
 }
 
-interface Totals {
-    Points: number
-    Rebounds: number
-    Assists: number
-    Steals: number
-    BlockedShots: number
-    FieldGoalsMade: number
-    FieldGoalsAttempted: number
-    fgp: number
-    FreeThrowsMade: number
-    FreeThrowsAttempted: number
-    ftp: number
-    ThreePointersMade: number
-    Turnovers: number
-}
-
-interface Rankings {
-    Points: number
-    Rebounds: number
-    Assists: number
-    Steals: number
-    BlockedShots: number
-    fgp: number
-    ftp: number
-    ThreePointersMade: number
-    Turnovers: number
-    total: number
-}
-
-type TeamElement = {
-    name: string
-    team: FilteredDraftedPlayer[]
-    totals: Totals
-    rankings: Rankings
-}
-
-type Statline = {
-    StatID: number
-    Points: number
-    Rebounds: number
-    Assists: number
-    Steals: number
-    BlockedShots: number
-    Turnovers: number
-    FieldGoalsMade: number
-    FieldGoalsAttempted: number
-    FreeThrowsAttempted: number
-    FreeThrowsMade: number
-    ThreePointersMade: number
-    game: {
-        nba_day: string
-        formattedDate: string
-    }
-    opponent_team: {
+interface PlayerForDraftList {
+    FirstName: string
+    LastName: string
+    s_name: string
+    Jersey: number
+    team: {
         City: string
         Name: string
-        Key: string
-    }
-    player: {
-        Jersey: number
-    }
-    team: {
         inner_color: string
         outer_color: string
+        TeamID: number
     }
-}
-
-type FilteredDraftedPlayer = {
-    PlayerID: number
-    name: string
-    score: number
-    n: number
-    pickedAt: number
-    pickedString: string
-    statlines: Statline[]
+    season_averages: PlayerForDraftListAvgs
+    last_five_averages: PlayerForDraftListAvgs
 }
