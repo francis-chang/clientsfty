@@ -14,6 +14,7 @@ const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer }) => {
     const Row = ({ index, style }: any) => {
         const player = draftList[index]
         const seasonAvg = draftList[index].season_averages
+        const lf = draftList[index].last_five_averages
 
         return draftList ? (
             <Item style={style} onClick={() => setSelectedPlayer(player)}>
@@ -29,35 +30,35 @@ const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer }) => {
                     </NameContainer>
                     <StatContainer>
                         <Stat>
-                            <StatNumber>{seasonAvg.Points}</StatNumber>
+                            <StatNumber>{lf.Points}</StatNumber>
                             <StatDesc>PTS</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.Rebounds}</StatNumber>
+                            <StatNumber>{lf.Rebounds}</StatNumber>
                             <StatDesc>REB</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.Assists}</StatNumber>
+                            <StatNumber>{lf.Assists}</StatNumber>
                             <StatDesc>AST</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.Steals}</StatNumber>
+                            <StatNumber>{lf.Steals}</StatNumber>
                             <StatDesc>STL</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.BlockedShots}</StatNumber>
+                            <StatNumber>{lf.BlockedShots}</StatNumber>
                             <StatDesc>BLK</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.Turnovers}</StatNumber>
+                            <StatNumber>{lf.Turnovers}</StatNumber>
                             <StatDesc>TOS</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{seasonAvg.ThreePointersMade}</StatNumber>
+                            <StatNumber>{lf.ThreePointersMade}</StatNumber>
                             <StatDesc>3PM</StatDesc>
                         </Stat>
                         <LongStat>
-                            <StatNumber>{seasonAvg.pct}</StatNumber>
+                            <StatNumber>{lf.pct}</StatNumber>
                             <StatDesc>%</StatDesc>
                         </LongStat>
                     </StatContainer>

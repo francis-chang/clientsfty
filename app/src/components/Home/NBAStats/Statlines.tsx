@@ -189,6 +189,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     width: 550px;
+    height: 100vh;
+    overflow-y: scroll;
 `
 
 const Statline = styled.div`
