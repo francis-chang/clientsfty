@@ -77,7 +77,7 @@ const InGame: React.FC<Props> = ({ game, user, startDraftHandler }) => {
                 <Title>{game.name}</Title>
             </HeaderContainer>
             {playerInfo?.draft ? (
-                <CurrentlyDrafting draft_id={playerInfo.draft.draft_id} />
+                <CurrentlyDrafting draft={playerInfo.draft} />
             ) : (
                 <DraftNow>
                     <YouCanNow>DRAFT AVAILABLE</YouCanNow>

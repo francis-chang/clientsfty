@@ -6,11 +6,13 @@ import AutoSizer from 'react-virtualized-auto-sizer'
 type Props = {
     draftList: PlayerForDraftList[]
     setSelectedPlayer: (player: PlayerForDraftList) => void
+    listView: 'SEASON' | 'FIVE'
+    selectedPlayer: PlayerForDraftList | undefined
 }
 
 const ITEM_HEIGHT = 70
 
-const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer }) => {
+const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer, listView, selectedPlayer }) => {
     const Row = ({ index, style }: any) => {
         const player = draftList[index]
         const seasonAvg = draftList[index].season_averages
@@ -18,7 +20,7 @@ const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer }) => {
 
         return draftList ? (
             <Item style={style} onClick={() => setSelectedPlayer(player)}>
-                <InnerItem>
+                <InnerItem selected={selectedPlayer?.season_averages.PlayerID === player.season_averages.PlayerID}>
                     <NameContainer>
                         <Jersey inner_color={player.team.inner_color} outer_color={player.team.outer_color}>
                             {player.Jersey}
@@ -30,35 +32,37 @@ const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer }) => {
                     </NameContainer>
                     <StatContainer>
                         <Stat>
-                            <StatNumber>{lf.Points}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.Points : lf.Points}</StatNumber>
                             <StatDesc>PTS</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.Rebounds}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.Rebounds : lf.Rebounds}</StatNumber>
                             <StatDesc>REB</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.Assists}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.Assists : lf.Assists}</StatNumber>
                             <StatDesc>AST</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.Steals}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.Steals : lf.Steals}</StatNumber>
                             <StatDesc>STL</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.BlockedShots}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.BlockedShots : lf.BlockedShots}</StatNumber>
                             <StatDesc>BLK</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.Turnovers}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.Turnovers : lf.Turnovers}</StatNumber>
                             <StatDesc>TOS</StatDesc>
                         </Stat>
                         <Stat>
-                            <StatNumber>{lf.ThreePointersMade}</StatNumber>
+                            <StatNumber>
+                                {listView === 'SEASON' ? seasonAvg.ThreePointersMade : lf.ThreePointersMade}
+                            </StatNumber>
                             <StatDesc>3PM</StatDesc>
                         </Stat>
                         <LongStat>
-                            <StatNumber>{lf.pct}</StatNumber>
+                            <StatNumber>{listView === 'SEASON' ? seasonAvg.pct : lf.pct}</StatNumber>
                             <StatDesc>%</StatDesc>
                         </LongStat>
                     </StatContainer>
@@ -157,13 +161,24 @@ const DraftListContainer = styled.div`
 
 const Item = styled.div``
 
-const InnerItem = styled.div`
+type InnerItemProps = {
+    selected: boolean
+}
+
+const InnerItem = styled.div<InnerItemProps>`
     border-radius: 4px;
-    background-color: ${({ theme }) => theme.colors.dark3};
+    background-color: ${({ theme, selected }) => (selected ? theme.colors.blue3 : theme.colors.dark3)};
+
     padding: 0.6rem;
     height: ${() => `${ITEM_HEIGHT - 6}px`};
     width: 100%;
     display: flex;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+    cursor: pointer;
+    &:hover {
+        background-color: ${({ theme, selected }) => (selected ? theme.colors.blue3 : theme.colors.dark2)};
+    }
 `
 
 const InnerItemTop = styled.div`

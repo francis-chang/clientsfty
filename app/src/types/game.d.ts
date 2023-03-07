@@ -3,9 +3,59 @@ interface GameDetailsWrapper {
     userforgame_id: number
 }
 
+interface DraftPick {
+    s_name: string
+    TotalFantasyPoints: number
+    PlayerID: number
+    info: string
+}
+
+interface UserForGameType {
+    game_id: number
+    joined_at: string
+    user_id: number
+    userforgame_id: number
+    game: UserForGameGame
+}
+
+interface UserForGameGame {
+    numberOfTeamsToSimul: number
+    draft_interval_time: number
+    game_id: number
+    status: string
+    gameType: string
+}
+
+interface DraftInformationTypeWithoutUserforgame {
+    draft_id: number
+    userforgame_id: number
+
+    all_picks: DraftPick[]
+    picks: DraftPick[]
+    current_pick: number
+    draft_ended: string | null
+    draft_started: string | null
+    is_player_turn: boolean
+    pick_numbers: number[]
+    pick_position: number
+    status: string
+    time_till_next_pick: null | string
+}
+
 interface DraftInformationType {
     draft_id: number
     userforgame_id: number
+    userforgame: UserForGameType
+    all_picks: DraftPick[]
+    picks: DraftPick[]
+    current_pick: number
+    draft_ended: string | null
+    draft_started: string | null
+    is_player_turn: boolean
+    pick_numbers: number[]
+    pick_position: number
+    status: string
+    time_till_next_pick: null | string
 }
 
 interface PlayersForGameDetails {

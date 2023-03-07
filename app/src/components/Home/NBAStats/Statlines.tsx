@@ -60,7 +60,7 @@ const Statlines: React.FC<Props> = ({ stats }) => {
                     <StatsContainer>
                         <StatRow>
                             {statsHelper.map((statHelp) => (
-                                <StatContainer>
+                                <StatContainer key={statHelp.value}>
                                     <Stat>
                                         {/**@ts-ignore */}
                                         {stat[statHelp.name]}

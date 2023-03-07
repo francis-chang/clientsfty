@@ -94,10 +94,7 @@ const startGame = async (game_id: number) => {
 }
 
 const startDraft = async (game_id: number) => {
-    const response = await apiPost<{
-        draft_id: number
-        userforgame_id: number
-    }>('/startdraft', { game_id }, null)
+    const response = await apiPost<DraftInformationType>('/startdraft', { game_id }, null)
 
     return response
 }

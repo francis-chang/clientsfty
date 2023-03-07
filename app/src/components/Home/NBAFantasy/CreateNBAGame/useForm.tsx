@@ -11,6 +11,7 @@ export const defaultForm = {
     numberOfTeamsToSimul: 12,
     gameType: 'SINGLE',
     cats: categories,
+    draft_interval_time: 60,
 }
 
 const useForm = () => {

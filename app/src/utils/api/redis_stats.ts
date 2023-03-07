@@ -17,7 +17,7 @@ import useErrorStore from 'utils/state/useErrorStore'
 // })
 
 const base = axios.create({
-    baseURL: import.meta.env.MODE === 'development' ? 'http://localhost:3000/rdata' : 'https://yasha.fty.gg/rdata',
+    baseURL: 'https://yasha.fty.gg/rdata',
     timeout: 4000,
     headers: {
         'Content-Type': 'application/json',

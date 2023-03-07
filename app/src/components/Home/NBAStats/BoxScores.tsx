@@ -12,6 +12,7 @@ type Props = {
 const IANA = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const BoxScores: React.FC<Props> = ({ gamestats }) => {
+    console.log(gamestats)
     const today = format(new Date(), 'MMM-dd')
 
     const [selectedDay, setSelected] = useState<GameStatsJustScores | undefined>(

@@ -7,6 +7,7 @@ import useForm from './useForm'
 import { motion, AnimatePresence } from 'framer-motion'
 import GameType from './GameType'
 import Categories from './Categories'
+import DraftDuration from './DraftDuration'
 
 const CreateGame: any = () => {
     const [formData, setFormData, submit, formIsValid] = useForm()
@@ -45,6 +46,16 @@ const CreateGame: any = () => {
                     <NumberOfGames
                         onChange={(number: number) => setFormData({ numGames: number })}
                         selected={formData.numGames}
+                    />
+                </FormElement>
+                <FormElement>
+                    <FormDescription>
+                        <FormTitle>Draft Duration</FormTitle>
+                        <FormSubtitle>Select the allotted amount of time a player has to draft</FormSubtitle>
+                    </FormDescription>
+                    <DraftDuration
+                        onChange={(draft_interval_time: number) => setFormData({ draft_interval_time })}
+                        selected={formData.draft_interval_time}
                     />
                 </FormElement>
                 <FormElement>
