@@ -44,4 +44,28 @@ interface PlayerForDraftList {
     }
     season_averages: PlayerForDraftListAvgs
     last_five_averages: PlayerForDraftListAvgs
+    statlines: Statline[]
+}
+
+interface Statline {
+    Assists: number
+    BlockedShots: number
+    FieldGoalsAttempted: number
+    FieldGoalsMade: number
+    FieldGoalsPercentage: string
+    FreeThrowsAttempted: number
+    FreeThrowsMade: number
+    FreeThrowsPercentage: string
+    InjuryStatus: null | 'Out' | 'Probable'
+    Minutes: number
+    Points: number
+    Rebounds: number
+    Seconds: number
+    Steals: number
+    ThreePointersAttempted: number
+    ThreePointersMade: number
+    Turnovers: number
+    FantasyPoints: number
+    opponent_team: { Key: string }
+    game: { nba_day: string }
 }

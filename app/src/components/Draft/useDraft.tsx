@@ -17,7 +17,15 @@ export default (draft_id: number) => {
     const [listView, setListView] = useState<'SEASON' | 'FIVE'>('SEASON')
     const [catView, setCatView] = useState<keyof PlayerForDraftListAvgs>('FantasyPoints')
 
-    const [draft, setDraft] = useState<DraftInformationTypeWithoutUserforgame>({
+    interface UserForGameGame {
+        numberOfTeamsToSimul: number
+        draft_interval_time: number
+        game_id: number
+        status: string
+        gameType: string
+    }
+
+    const [draft, setDraft] = useState<DraftInformationType>({
         draft_id: 0,
         userforgame_id: 0,
         all_picks: [],
@@ -30,6 +38,19 @@ export default (draft_id: number) => {
         pick_position: 0,
         status: 'NO_GAME',
         time_till_next_pick: null,
+        userforgame: {
+            game_id: 0,
+            joined_at: '',
+            user_id: 0,
+            userforgame_id: 0,
+            game: {
+                numberOfTeamsToSimul: 0,
+                draft_interval_time: 0,
+                game_id: 0,
+                status: '',
+                gameType: '',
+            },
+        },
     })
     const [loaded, setLoaded] = useState(false)
     const [filteredDraftList, setFilteredDraftList] = useState<PlayerForDraftList[]>([])
@@ -62,7 +83,7 @@ export default (draft_id: number) => {
         }
 
         setFilteredDraftList(slicedView)
-    }, [catView])
+    }, [catView, listView])
 
     useEffect(() => {
         Pusher.logToConsole = true
@@ -118,8 +139,6 @@ export default (draft_id: number) => {
             }
         )
 
-        console.log(pusher.allChannels())
-
         return () => {
             channel.unsubscribe()
             pusher.unsubscribe(`draft_${draft_id}`)
@@ -128,7 +147,6 @@ export default (draft_id: number) => {
 
     useEffect(() => {
         if (draftQuery.data) {
-            console.log(draftQuery.data)
             setDraft(draftQuery.data)
             setLoaded(true)
         }
@@ -136,6 +154,7 @@ export default (draft_id: number) => {
 
     useEffect(() => {
         if (draftListQuery.data) {
+            console.log(draftListQuery.data)
             const mappedIds = draft.all_picks.map((p) => p.PlayerID)
 
             const list = draftListQuery.data.filter((element) => {

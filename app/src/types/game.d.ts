@@ -8,6 +8,7 @@ interface DraftPick {
     TotalFantasyPoints: number
     PlayerID: number
     info: string
+    picked_at: number
 }
 
 interface UserForGameType {

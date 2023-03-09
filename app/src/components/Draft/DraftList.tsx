@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { styled } from 'utils/theme'
+import { FontRubik, styled } from 'utils/theme'
 import { FixedSizeList as List } from 'react-window'
 import AutoSizer from 'react-virtualized-auto-sizer'
 
@@ -130,7 +130,7 @@ const LongStat = styled.div`
     /* justify-self: flex-end; */
 `
 
-const StatNumber = styled.div`
+const StatNumber = styled(FontRubik)`
     font-size: 1.2rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.light2};

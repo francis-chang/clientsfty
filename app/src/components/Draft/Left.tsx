@@ -1,7 +1,7 @@
 import { differenceInSeconds } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { startDraft } from 'utils/api/draft'
-import { styled } from 'utils/theme'
+import { FontRubik, styled } from 'utils/theme'
 
 type Props = {
     draft: DraftInformationType
@@ -45,8 +45,11 @@ const Left: React.FC<Props> = ({ draft }) => {
             <div style={{ fontSize: '2rem' }}>{timer}</div>
             {draft.all_picks.map((pick) => (
                 <PlayerContainer key={pick.PlayerID}>
-                    <div>{pick.s_name}</div>
-                    <div>{pick.info}</div>
+                    <DraftedNumber>{pick.picked_at}</DraftedNumber>
+                    <PlayerElementLeft>
+                        <Name>{pick.s_name}</Name>
+                        <InfoText>{pick.info}</InfoText>
+                    </PlayerElementLeft>
                 </PlayerContainer>
             ))}
         </Container>
@@ -55,13 +58,39 @@ const Left: React.FC<Props> = ({ draft }) => {
 
 export default Left
 
+const Name = styled.div`
+    font-weight: 700;
+`
+
+const InfoText = styled.div`
+    font-size: 0.9rem;
+    color: ${({ theme }) => theme.colors.light4};
+`
+
+const PlayerElementLeft = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    padding-right: 0.8rem;
 `
 const PlayerContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    align-items: center;
     margin-bottom: 0.3rem;
+
+    background-color: ${({ theme }) => theme.colors.dark25};
+    border-radius: 4px;
+    padding: 0.5rem;
+`
+const DraftedNumber = styled(FontRubik)`
+    font-size: 1.3rem;
+    font-weight: bold;
+    width: 2.2rem;
+    text-align: center;
+    color: ${({ theme }) => theme.colors.orange1};
 `

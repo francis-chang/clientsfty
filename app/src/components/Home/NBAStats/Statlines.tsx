@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FontRubik, styled } from 'utils/theme'
 import format from 'date-fns/format'
 
@@ -31,6 +31,9 @@ const parseIntoPCT = (pctString: string) => {
 }
 
 const Statlines: React.FC<Props> = ({ stats }) => {
+    useEffect(() => {
+        stats.map((player) => console.log(player.game.nba_day, player.Points, player.Name, player.opponent_team.Key))
+    }, [])
     return (
         <Container>
             <HeaderBar>

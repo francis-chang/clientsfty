@@ -27,7 +27,7 @@ const DraftDuration: React.FC<Props> = ({ onChange, selected }) => {
                         <NumberOfGamesNumber>2</NumberOfGamesNumber>
                         <NumberOfGamesDesc>MIN</NumberOfGamesDesc>
                     </NumberOfGamesElement>
-                    <NumberOfGamesElement onClick={() => onChange(300)} selected={selected === 5}>
+                    <NumberOfGamesElement onClick={() => onChange(300)} selected={selected === 300}>
                         <NumberOfGamesNumber>5</NumberOfGamesNumber>
                         <NumberOfGamesDesc>MIN</NumberOfGamesDesc>
                     </NumberOfGamesElement>
