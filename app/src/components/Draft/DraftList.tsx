@@ -10,7 +10,7 @@ type Props = {
     selectedPlayer: PlayerForDraftList | undefined
 }
 
-const ITEM_HEIGHT = 70
+const ITEM_HEIGHT = 58
 
 const DraftList: React.FC<Props> = ({ draftList, setSelectedPlayer, listView, selectedPlayer }) => {
     const Row = ({ index, style }: any) => {
@@ -131,13 +131,14 @@ const LongStat = styled.div`
 `
 
 const StatNumber = styled(FontRubik)`
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.light2};
 `
 
 const StatDesc = styled.div`
-    font-size: 0.8rem;
+    font-size: 0.7rem;
+    color: ${({ theme }) => theme.colors.light3};
 `
 
 const NameContainer = styled.div`
@@ -169,7 +170,7 @@ const InnerItem = styled.div<InnerItemProps>`
     border-radius: 4px;
     background-color: ${({ theme, selected }) => (selected ? theme.colors.blue3 : theme.colors.dark3)};
 
-    padding: 0.6rem;
+    padding: 0rem 0.5rem;
     height: ${() => `${ITEM_HEIGHT - 6}px`};
     width: 100%;
     display: flex;

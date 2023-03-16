@@ -3,7 +3,7 @@ import useErrorStore from 'utils/state/useErrorStore'
 
 const base = axios.create({
     baseURL: 'https://yasha.fty.gg/draft',
-    timeout: 4000,
+    timeout: 20000,
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
@@ -13,7 +13,7 @@ const base = axios.create({
 
 const baseKayaDraft = axios.create({
     baseURL: import.meta.env.MODE === 'development' ? 'http://localhost:5555/draft' : 'https://kaya.fty.gg/draft',
-    timeout: 4000,
+    timeout: 20000,
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',

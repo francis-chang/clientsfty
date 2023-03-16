@@ -14,6 +14,7 @@ type Props = {
     setListView: (viewType: 'SEASON' | 'FIVE') => void
     catView: keyof PlayerForDraftListAvgs
     setCatView: (viewType: keyof PlayerForDraftListAvgs) => void
+    setSelectedDraftedPlayer: (PlayerID: number) => void
 }
 
 const Draft: React.FC<Props> = ({
@@ -25,15 +26,21 @@ const Draft: React.FC<Props> = ({
     setListView,
     catView,
     setCatView,
+    setSelectedDraftedPlayer,
 }) => {
     return (
         <Container>
             {draft ? (
                 <>
-                    <Left draft={draft} />
+                    <Left draft={draft} setSelectedDraftedPlayer={setSelectedDraftedPlayer} />
 
                     <Center>
-                        <CenterConsole selectedPlayer={selectedPlayer} draft_id={draft.draft_id} />
+                        <CenterConsole
+                            selectedPlayer={selectedPlayer}
+                            draft_id={draft.draft_id}
+                            all_picks={draft.all_picks}
+                            is_player_turn={draft.is_player_turn}
+                        />
                         <PickView>
                             <PickViewInner>
                                 <PickViewButton selected={listView === 'SEASON'} onClick={() => setListView('SEASON')}>
@@ -161,13 +168,14 @@ const Right = styled.div`
 const Center = styled.div`
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
 `
 
 const Container = styled.div`
-    overflow: hidden;
     display: flex;
     margin: 0 auto;
-    width: 1400px;
+    width: 1110px;
+    height: 100vh;
     padding-top: 1rem;
+    padding-bottom: 1.5rem;
 `

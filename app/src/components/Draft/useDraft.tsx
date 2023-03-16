@@ -1,7 +1,7 @@
 import Pusher from 'pusher-js'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { getDraftList } from 'utils/api/draft'
+import { getDraftList, startDraft } from 'utils/api/draft'
 import { findDraft } from 'utils/api/game'
 
 const { VITE_PUSHER_CLIENT_KEY } = import.meta.env
@@ -56,6 +56,20 @@ export default (draft_id: number) => {
     const [filteredDraftList, setFilteredDraftList] = useState<PlayerForDraftList[]>([])
     const [selectedPlayer, setSelectedPlayer] = useState<PlayerForDraftList>()
 
+    const setSelectedDraftedPlayer = (PlayerID: number) => {
+        const player = draftListQuery.data?.find((element) => element.last_five_averages.PlayerID === PlayerID)
+        if (player) {
+            setSelectedPlayer(player)
+        }
+    }
+
+    const startDraftHelper = async (draft_id: number) => {
+        const response = await startDraft(draft_id)
+        // if (response) {
+        //     setDraft({ ...draft, draft_started: true })
+        // }
+    }
+
     useEffect(() => {
         const mappedIds = draft.all_picks.map((p) => p.PlayerID)
         const list = filteredDraftList.filter((element) => {
@@ -97,12 +111,14 @@ export default (draft_id: number) => {
                 is_player_turn,
                 time_till_next_pick,
                 current_pick,
+                draft_started,
             }: {
                 is_player_turn: boolean
                 time_till_next_pick: null | string
                 current_pick: number
+                draft_started: string
             }) => {
-                setDraft((d) => ({ ...d, time_till_next_pick, current_pick, is_player_turn }))
+                setDraft((d) => ({ ...d, time_till_next_pick, current_pick, is_player_turn, draft_started }))
             }
         )
 
@@ -138,6 +154,14 @@ export default (draft_id: number) => {
                 }))
             }
         )
+
+        channel.bind('draft_ended', ({ status, draft_ended }: { status: string; draft_ended: string }) => {
+            setDraft((d) => ({
+                ...d,
+                status,
+                draft_ended,
+            }))
+        })
 
         return () => {
             channel.unsubscribe()
@@ -183,5 +207,7 @@ export default (draft_id: number) => {
         setListView,
         catView,
         setCatView,
+        setSelectedDraftedPlayer,
+        startDraftHelper,
     ] as const
 }

@@ -7,8 +7,18 @@ import Draft from './Draft'
 
 const DraftIndex: React.FC = () => {
     const { draftId } = useParams()
-    const [draft, loaded, draftList, selectedPlayer, setSelectedPlayer, listView, setListView, catView, setCatView] =
-        useDraft(parseInt(draftId ? draftId : '-1'))
+    const [
+        draft,
+        loaded,
+        draftList,
+        selectedPlayer,
+        setSelectedPlayer,
+        listView,
+        setListView,
+        catView,
+        setCatView,
+        setSelectedDraftedPlayer,
+    ] = useDraft(parseInt(draftId ? draftId : '-1'))
 
     return (
         <AnimatePresenceDiv>
@@ -22,6 +32,7 @@ const DraftIndex: React.FC = () => {
                     setListView={setListView}
                     catView={catView}
                     setCatView={setCatView}
+                    setSelectedDraftedPlayer={setSelectedDraftedPlayer}
                 />
             ) : (
                 <Container initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -45,7 +56,7 @@ const Container = styled(motion.div)`
     justify-content: center;
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+
     position: absolute;
     top: 0;
     left: 0;

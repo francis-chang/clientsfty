@@ -103,4 +103,19 @@ const findDraft = async (draft_id: number) => {
     return await apiPost<DraftInformationType>('/finddraft', { draft_id }, null)
 }
 
-export { createGame, findGame, getAllGames, joinGame, leaveGame, kickPlayer, startGame, startDraft, findDraft }
+const searchGames = async () => {
+    return await apiCall<SearchGamesList[]>('/searchgames')
+}
+
+export {
+    createGame,
+    findGame,
+    getAllGames,
+    joinGame,
+    leaveGame,
+    kickPlayer,
+    startGame,
+    startDraft,
+    findDraft,
+    searchGames,
+}

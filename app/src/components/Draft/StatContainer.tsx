@@ -6,14 +6,38 @@ type Props = {
     selectedPlayer: PlayerForDraftList
 }
 
+const SmallSpanLeft = styled.span`
+    width: 1.4rem;
+    font-weight: 300;
+
+    text-align: left;
+`
+const SmallSpanRight = styled.span`
+    width: 1.5rem;
+    font-weight: 300;
+
+    text-align: right;
+`
+
+const TeamSpan = styled.span`
+    font-weight: 600;
+    width: 2.6rem;
+
+    text-align: center;
+`
+
+const DateSpan = styled.span`
+    flex-grow: 1;
+`
+
 const PlayerStatsCenterConsole: React.FC<Props> = ({ selectedPlayer }) => {
     const parseVsAndDate = (date: string, vs: string) => {
         return (
             <>
-                <Span>vs</Span>
-                <div>{vs}</div>
-                <Span>on</Span>
-                <div>{format(new Date(date), 'MMM d').toUpperCase()}</div>
+                <SmallSpanRight>vs</SmallSpanRight>
+                <TeamSpan>{vs}</TeamSpan>
+                <SmallSpanLeft>on</SmallSpanLeft>
+                <DateSpan>{format(new Date(date), 'MMM d').toUpperCase()}</DateSpan>
             </>
         )
     }
@@ -41,7 +65,10 @@ const PlayerStatsCenterConsole: React.FC<Props> = ({ selectedPlayer }) => {
             </thead>
             <tbody>
                 <Tr>
-                    <BoldTd>SEASON AVG</BoldTd>
+                    <BoldTd>
+                        <Spacer />
+                        SEASON AVG
+                    </BoldTd>
                     <Td>{selectedPlayer.season_averages.Points}</Td>
                     <Td>{selectedPlayer.season_averages.Rebounds}</Td>
                     <Td>{selectedPlayer.season_averages.Assists}</Td>
@@ -55,7 +82,10 @@ const PlayerStatsCenterConsole: React.FC<Props> = ({ selectedPlayer }) => {
                     <Td>{selectedPlayer.season_averages.FantasyPoints}</Td>
                 </Tr>
                 <Tr>
-                    <BoldTd>LAST 5 AVG</BoldTd>
+                    <BoldTd>
+                        <Spacer />
+                        LAST 5 AVG
+                    </BoldTd>
                     <Td>{selectedPlayer.last_five_averages.Points}</Td>
                     <Td>{selectedPlayer.last_five_averages.Rebounds}</Td>
                     <Td>{selectedPlayer.last_five_averages.Assists}</Td>
@@ -119,16 +149,13 @@ const PlayerStatsCenterConsole: React.FC<Props> = ({ selectedPlayer }) => {
 
 export default PlayerStatsCenterConsole
 
-const Span = styled.div`
-    font-weight: 400;
-    width: 1.5rem;
-    text-align: center;
+const Spacer = styled.span`
+    width: 0.5rem;
 `
-
 const DNP = styled.td`
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
+    border: ${({ theme }) => `0.5px solid ${theme.colors.dark25}`};
     border-collapse: collapse;
-    background-color: ${({ theme }) => theme.colors.dark25};
+    background-color: ${({ theme }) => theme.colors.dark3};
     padding: 0.5rem 0.3rem;
     text-align: center;
     font-weight: 600;
@@ -143,9 +170,7 @@ const DNP = styled.td`
  */
 
 const StatsTitle = styled.td`
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
     border-collapse: collapse;
-
     color: ${({ theme }) => theme.colors.orange0};
     padding: 0.47rem 0rem;
     text-align: center;
@@ -154,32 +179,31 @@ const StatsTitle = styled.td`
 `
 
 const StatsTable = styled.table`
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
+    border: ${({ theme }) => `0.5px solid ${theme.colors.dark25}`};
     border-collapse: collapse;
     font-size: 0.9rem;
-    margin: 1rem auto;
-
+    margin: 0.5rem auto 0.5rem;
     width: 100%;
 `
 const Th = styled.th`
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
+    border: ${({ theme }) => `0.5px solid ${theme.colors.dark25}`};
     border-collapse: collapse;
     padding: 0.5rem 0.3rem;
 `
 
 const BoldTd = styled.td`
     font-weight: 700;
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
+    border: ${({ theme }) => `0.5px solid ${theme.colors.dark25}`};
     border-collapse: collapse;
     display: flex;
-    padding: 0.5rem 0.3rem;
+    padding: 0.5rem 0rem;
 `
 
 const Tr = styled.tr``
 
 const Td = styled.td`
     padding: 0.5rem 0.3rem;
-    border: ${({ theme }) => `0.5px solid ${theme.colors.dark1}`};
+    border: ${({ theme }) => `0.5px solid ${theme.colors.dark25}`};
     border-collapse: collapse;
     font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
         'Helvetica Neue', sans-serif;

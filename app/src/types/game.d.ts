@@ -9,6 +9,7 @@ interface DraftPick {
     PlayerID: number
     info: string
     picked_at: number
+    type: string
 }
 
 interface UserForGameType {
@@ -103,3 +104,17 @@ interface DraftIntervalInformationGame {
 }
 
 type Cats = 'PTS' | 'REB' | 'AST' | 'STL' | 'BLK' | 'TOS' | 'FGP' | 'FTP' | 'TPP' | 'FAN' | 'TPM'
+
+interface SearchGamesList {
+    cats: string[]
+    commissioner_id: number
+    draftFormat: string
+    draftIntervalInformation: any
+    gameType: string
+    game_id: number
+    name: string
+    numGames: number
+    numberOfTeamsToSimul: number
+    status: string
+}
+;[]
