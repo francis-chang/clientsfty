@@ -113,10 +113,12 @@ const Finished: React.FC<Props> = ({ data }) => {
                             <PlayerName>{player.name}</PlayerName>
                             <PlayerStatlineContainer>
                                 {player.statlines.map((statline) => (
+                                    // @ts-ignore
                                     <PlayerStatAndVs key={statline.StatID}>
                                         <Vs>
                                             <VsText
                                                 style={{ marginRight: '5px' }}
+                                                // @ts-ignore
                                             >{`${statline.game.formattedDate} vs ${statline.opponent_team.Key}`}</VsText>
                                             <Img src={`./images/${statline.opponent_team.Key}.png`}></Img>
                                         </Vs>
