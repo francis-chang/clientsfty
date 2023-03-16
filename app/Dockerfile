@@ -3,8 +3,8 @@ WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
 COPY ./package.json /app/
 COPY ./package-lock.json /app/
-RUN --mount=type=secret,id=npmrc,target=/root/.npmrc npm ci
-
+COPY .npmrc /app/
+RUN npm ci
 COPY . /app
 RUN npm run build
 
